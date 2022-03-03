@@ -3,8 +3,8 @@ module GenI.Pokemon where
 class PokemonSYM p where
   pokemonNr :: Int -> p Int
   name :: p Int -> String -> p String
-  type1 :: p String -> p Type Type -> p (Type,())
-  type2 :: p (Type,()) -> p Type Type -> p (Type,Type)
+  type1 :: p String -> p Type -> p (Type,())
+  type2 :: p (Type,()) -> p Type -> p (Type,Type)
   hp :: p (Type,a) -> Int -> p HPStat
   attack :: p HPStat -> Int -> p AttackStat
   defence :: p AttackStat -> Int -> p DefenceStat
