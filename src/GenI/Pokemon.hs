@@ -28,6 +28,9 @@ infixl 5 `spDefence`
 infixl 5 `speed`
 infixl 5 `weight`
 infixl 5 `height`
+infixl 5 `captureRate`
+infixl 5 `legendarity`
+infixl 5 `baseExperience`
 
 class TypeSYM p where
   normal :: p Type Type
