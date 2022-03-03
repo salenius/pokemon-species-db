@@ -7,11 +7,11 @@ class PokemonSYM p where
   type2 :: p () (Type,()) -> p Type Type -> p () (Type,Type)
   hp :: p () (Type,a) -> Int -> p () HPStat
   attack :: p () HPStat -> Int -> p () AttackStat
-  defence :: p () Attack -> Int -> p () DefenceStat
+  defence :: p () AttackStat -> Int -> p () DefenceStat
   spAttack :: p () DefenceStat -> Int -> p () SpAttackStat
   spDefence :: p () SpAttackStat -> Int -> p () SpDefenceStat
   speed :: p () SpDefenceStat -> Int -> p () SpeedStat
-  weight :: p () SpeedStat -> (Double,WeightMeasure) -> p () SpeedStat
+  weight :: p () SpeedStat -> (Double,WeightMeasure) -> p () Weight
   height :: p () Weight -> (Double,HeightMeasure) -> p () Height
   
 infixl 5 `name`
@@ -22,7 +22,6 @@ infixl 5 `attack`
 infixl 5 `defence`
 infixl 5 `spAttack`
 infixl 5 `spDefence`
-infixl 5 `speed`
 infixl 5 `speed`
 infixl 5 `weight`
 infixl 5 `height`
@@ -43,7 +42,8 @@ class TypeSYM p where
   psychic :: p Type Type
   ghost :: p Type Type
   dragon :: p Type Type
-  
+
+newtype HPStat = HPStat Int
 newtype AttackStat = AttackStat Int
 newtype DefenceStat = DefenceStat Int
 newtype SpAttackStat = SpAttackStat Int
@@ -52,6 +52,11 @@ newtype SpeedStat = SpeedStat Int
 
 data WeightMeasure = Kilograms
 data HeightMeasure = Meters
+
+data Height = Height Double
+data Weight = Weight Double
+
+data Type = Type String
 
 kg = Kilograms
 m = Meters
