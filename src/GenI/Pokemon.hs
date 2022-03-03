@@ -1,18 +1,21 @@
 module GenI.Pokemon where
 
 class PokemonSYM p where
-  pokemonNr :: Int -> p () Int
-  name :: p () Int -> String -> p () String
-  type1 :: p () String -> p Type Type -> p () (Type,())
-  type2 :: p () (Type,()) -> p Type Type -> p () (Type,Type)
-  hp :: p () (Type,a) -> Int -> p () HPStat
-  attack :: p () HPStat -> Int -> p () AttackStat
-  defence :: p () AttackStat -> Int -> p () DefenceStat
-  spAttack :: p () DefenceStat -> Int -> p () SpAttackStat
-  spDefence :: p () SpAttackStat -> Int -> p () SpDefenceStat
-  speed :: p () SpDefenceStat -> Int -> p () SpeedStat
-  weight :: p () SpeedStat -> (Double,WeightMeasure) -> p () Weight
-  height :: p () Weight -> (Double,HeightMeasure) -> p () Height
+  pokemonNr :: Int -> p Int
+  name :: p Int -> String -> p String
+  type1 :: p String -> p Type Type -> p (Type,())
+  type2 :: p (Type,()) -> p Type Type -> p (Type,Type)
+  hp :: p (Type,a) -> Int -> p HPStat
+  attack :: p HPStat -> Int -> p AttackStat
+  defence :: p AttackStat -> Int -> p DefenceStat
+  spAttack :: p DefenceStat -> Int -> p SpAttackStat
+  spDefence :: p SpAttackStat -> Int -> p SpDefenceStat
+  speed :: p SpDefenceStat -> Int -> p SpeedStat
+  weight :: p SpeedStat -> (Double,WeightMeasure) -> p Weight
+  height :: p Weight -> (Double,HeightMeasure) -> p Height
+  captureRate :: p Height -> Int -> p (Rarity Int)
+  legendarity :: p (Rarity Int) -> p Legendary -> p (Rarity Legendary)
+  baseExperience :: p (Rarity a) -> Int -> p Experience
   
 infixl 5 `name`
 infixl 5 `type1`
@@ -42,6 +45,10 @@ class TypeSYM p where
   psychic :: p Type Type
   ghost :: p Type Type
   dragon :: p Type Type
+  
+class LegendarySYM p where
+  legendaryPokemon :: p Legendary
+  mythicalPokemon :: p Legendary
 
 newtype HPStat = HPStat Int
 newtype AttackStat = AttackStat Int
@@ -58,12 +65,16 @@ data Weight = Weight Double
 
 data Type = Type String
 
+data Legendary = Legendary
+data Rarity a = Rarity a
+data Experience = Experience Int
+
 kg = Kilograms
 m = Meters
 
 -----
 
-bulbasaur :: (PokemonSYM p, TypeSYM p) => p () Height
+bulbasaur :: (PokemonSYM p,TypeSYM p) => p Experience
 bulbasaur =
   pokemonNr 1 
   `name` "Bulbasaur"
@@ -77,8 +88,10 @@ bulbasaur =
   `speed` 45
   `weight` (6.9, kg)
   `height` (0.7, m)
+  `captureRate` 45
+  `baseExperience` 64
 
-ivysaur :: (PokemonSYM p, TypeSYM p) => p () Height
+ivysaur :: (PokemonSYM p,TypeSYM p) => p Experience
 ivysaur =
   pokemonNr 2 
   `name` "Ivysaur"
@@ -92,8 +105,10 @@ ivysaur =
   `speed` 60
   `weight` (13.0, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 142
 
-venusaur :: (PokemonSYM p, TypeSYM p) => p () Height
+venusaur :: (PokemonSYM p,TypeSYM p) => p Experience
 venusaur =
   pokemonNr 3 
   `name` "Venusaur"
@@ -107,8 +122,10 @@ venusaur =
   `speed` 80
   `weight` (100.0, kg)
   `height` (2.0, m)
+  `captureRate` 45
+  `baseExperience` 263
 
-charmander :: (PokemonSYM p, TypeSYM p) => p () Height
+charmander :: (PokemonSYM p,TypeSYM p) => p Experience
 charmander =
   pokemonNr 4 
   `name` "Charmander"
@@ -121,8 +138,10 @@ charmander =
   `speed` 65
   `weight` (8.5, kg)
   `height` (0.6, m)
+  `captureRate` 45
+  `baseExperience` 62
 
-charmeleon :: (PokemonSYM p, TypeSYM p) => p () Height
+charmeleon :: (PokemonSYM p,TypeSYM p) => p Experience
 charmeleon =
   pokemonNr 5 
   `name` "Charmeleon"
@@ -135,8 +154,10 @@ charmeleon =
   `speed` 80
   `weight` (19.0, kg)
   `height` (1.1, m)
+  `captureRate` 45
+  `baseExperience` 142
 
-charizard :: (PokemonSYM p, TypeSYM p) => p () Height
+charizard :: (PokemonSYM p,TypeSYM p) => p Experience
 charizard =
   pokemonNr 6 
   `name` "Charizard"
@@ -150,8 +171,10 @@ charizard =
   `speed` 100
   `weight` (90.5, kg)
   `height` (1.7, m)
+  `captureRate` 45
+  `baseExperience` 267
 
-squirtle :: (PokemonSYM p, TypeSYM p) => p () Height
+squirtle :: (PokemonSYM p,TypeSYM p) => p Experience
 squirtle =
   pokemonNr 7 
   `name` "Squirtle"
@@ -164,8 +187,10 @@ squirtle =
   `speed` 43
   `weight` (9.0, kg)
   `height` (0.5, m)
+  `captureRate` 45
+  `baseExperience` 63
 
-wartortle :: (PokemonSYM p, TypeSYM p) => p () Height
+wartortle :: (PokemonSYM p,TypeSYM p) => p Experience
 wartortle =
   pokemonNr 8 
   `name` "Wartortle"
@@ -178,8 +203,10 @@ wartortle =
   `speed` 58
   `weight` (22.5, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 142
 
-blastoise :: (PokemonSYM p, TypeSYM p) => p () Height
+blastoise :: (PokemonSYM p,TypeSYM p) => p Experience
 blastoise =
   pokemonNr 9 
   `name` "Blastoise"
@@ -192,8 +219,10 @@ blastoise =
   `speed` 78
   `weight` (85.5, kg)
   `height` (1.6, m)
+  `captureRate` 45
+  `baseExperience` 265
 
-caterpie :: (PokemonSYM p, TypeSYM p) => p () Height
+caterpie :: (PokemonSYM p,TypeSYM p) => p Experience
 caterpie =
   pokemonNr 10 
   `name` "Caterpie"
@@ -206,8 +235,10 @@ caterpie =
   `speed` 45
   `weight` (2.9, kg)
   `height` (0.3, m)
+  `captureRate` 255
+  `baseExperience` 39
 
-metapod :: (PokemonSYM p, TypeSYM p) => p () Height
+metapod :: (PokemonSYM p,TypeSYM p) => p Experience
 metapod =
   pokemonNr 11 
   `name` "Metapod"
@@ -220,8 +251,10 @@ metapod =
   `speed` 30
   `weight` (9.9, kg)
   `height` (0.7, m)
+  `captureRate` 120
+  `baseExperience` 72
 
-butterfree :: (PokemonSYM p, TypeSYM p) => p () Height
+butterfree :: (PokemonSYM p,TypeSYM p) => p Experience
 butterfree =
   pokemonNr 12 
   `name` "Butterfree"
@@ -235,8 +268,10 @@ butterfree =
   `speed` 70
   `weight` (32.0, kg)
   `height` (1.1, m)
+  `captureRate` 45
+  `baseExperience` 198
 
-weedle :: (PokemonSYM p, TypeSYM p) => p () Height
+weedle :: (PokemonSYM p,TypeSYM p) => p Experience
 weedle =
   pokemonNr 13 
   `name` "Weedle"
@@ -250,8 +285,10 @@ weedle =
   `speed` 50
   `weight` (3.2, kg)
   `height` (0.3, m)
+  `captureRate` 255
+  `baseExperience` 39
 
-kakuna :: (PokemonSYM p, TypeSYM p) => p () Height
+kakuna :: (PokemonSYM p,TypeSYM p) => p Experience
 kakuna =
   pokemonNr 14 
   `name` "Kakuna"
@@ -265,8 +302,10 @@ kakuna =
   `speed` 35
   `weight` (10.0, kg)
   `height` (0.6, m)
+  `captureRate` 120
+  `baseExperience` 72
 
-beedrill :: (PokemonSYM p, TypeSYM p) => p () Height
+beedrill :: (PokemonSYM p,TypeSYM p) => p Experience
 beedrill =
   pokemonNr 15 
   `name` "Beedrill"
@@ -280,8 +319,10 @@ beedrill =
   `speed` 75
   `weight` (29.5, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 178
 
-pidgey :: (PokemonSYM p, TypeSYM p) => p () Height
+pidgey :: (PokemonSYM p,TypeSYM p) => p Experience
 pidgey =
   pokemonNr 16 
   `name` "Pidgey"
@@ -295,8 +336,10 @@ pidgey =
   `speed` 56
   `weight` (1.8, kg)
   `height` (0.3, m)
+  `captureRate` 255
+  `baseExperience` 50
 
-pidgeotto :: (PokemonSYM p, TypeSYM p) => p () Height
+pidgeotto :: (PokemonSYM p,TypeSYM p) => p Experience
 pidgeotto =
   pokemonNr 17 
   `name` "Pidgeotto"
@@ -310,8 +353,10 @@ pidgeotto =
   `speed` 71
   `weight` (30.0, kg)
   `height` (1.1, m)
+  `captureRate` 120
+  `baseExperience` 122
 
-pidgeot :: (PokemonSYM p, TypeSYM p) => p () Height
+pidgeot :: (PokemonSYM p,TypeSYM p) => p Experience
 pidgeot =
   pokemonNr 18 
   `name` "Pidgeot"
@@ -325,8 +370,10 @@ pidgeot =
   `speed` 101
   `weight` (39.5, kg)
   `height` (1.5, m)
+  `captureRate` 45
+  `baseExperience` 216
 
-rattata :: (PokemonSYM p, TypeSYM p) => p () Height
+rattata :: (PokemonSYM p,TypeSYM p) => p Experience
 rattata =
   pokemonNr 19 
   `name` "Rattata"
@@ -339,8 +386,10 @@ rattata =
   `speed` 72
   `weight` (3.5, kg)
   `height` (0.3, m)
+  `captureRate` 255
+  `baseExperience` 51
 
-raticate :: (PokemonSYM p, TypeSYM p) => p () Height
+raticate :: (PokemonSYM p,TypeSYM p) => p Experience
 raticate =
   pokemonNr 20 
   `name` "Raticate"
@@ -353,8 +402,10 @@ raticate =
   `speed` 97
   `weight` (18.5, kg)
   `height` (0.7, m)
+  `captureRate` 127
+  `baseExperience` 145
 
-spearow :: (PokemonSYM p, TypeSYM p) => p () Height
+spearow :: (PokemonSYM p,TypeSYM p) => p Experience
 spearow =
   pokemonNr 21 
   `name` "Spearow"
@@ -368,8 +419,10 @@ spearow =
   `speed` 70
   `weight` (2.0, kg)
   `height` (0.3, m)
+  `captureRate` 255
+  `baseExperience` 52
 
-fearow :: (PokemonSYM p, TypeSYM p) => p () Height
+fearow :: (PokemonSYM p,TypeSYM p) => p Experience
 fearow =
   pokemonNr 22 
   `name` "Fearow"
@@ -383,8 +436,10 @@ fearow =
   `speed` 100
   `weight` (38.0, kg)
   `height` (1.2, m)
+  `captureRate` 90
+  `baseExperience` 155
 
-ekans :: (PokemonSYM p, TypeSYM p) => p () Height
+ekans :: (PokemonSYM p,TypeSYM p) => p Experience
 ekans =
   pokemonNr 23 
   `name` "Ekans"
@@ -397,8 +452,10 @@ ekans =
   `speed` 55
   `weight` (6.9, kg)
   `height` (2.0, m)
+  `captureRate` 255
+  `baseExperience` 58
 
-arbok :: (PokemonSYM p, TypeSYM p) => p () Height
+arbok :: (PokemonSYM p,TypeSYM p) => p Experience
 arbok =
   pokemonNr 24 
   `name` "Arbok"
@@ -411,8 +468,10 @@ arbok =
   `speed` 80
   `weight` (65.0, kg)
   `height` (3.5, m)
+  `captureRate` 90
+  `baseExperience` 157
 
-pikachu :: (PokemonSYM p, TypeSYM p) => p () Height
+pikachu :: (PokemonSYM p,TypeSYM p) => p Experience
 pikachu =
   pokemonNr 25 
   `name` "Pikachu"
@@ -425,8 +484,10 @@ pikachu =
   `speed` 90
   `weight` (6.0, kg)
   `height` (0.4, m)
+  `captureRate` 190
+  `baseExperience` 112
 
-raichu :: (PokemonSYM p, TypeSYM p) => p () Height
+raichu :: (PokemonSYM p,TypeSYM p) => p Experience
 raichu =
   pokemonNr 26 
   `name` "Raichu"
@@ -439,8 +500,10 @@ raichu =
   `speed` 110
   `weight` (30.0, kg)
   `height` (0.8, m)
+  `captureRate` 75
+  `baseExperience` 243
 
-sandshrew :: (PokemonSYM p, TypeSYM p) => p () Height
+sandshrew :: (PokemonSYM p,TypeSYM p) => p Experience
 sandshrew =
   pokemonNr 27 
   `name` "Sandshrew"
@@ -453,8 +516,10 @@ sandshrew =
   `speed` 40
   `weight` (12.0, kg)
   `height` (0.6, m)
+  `captureRate` 255
+  `baseExperience` 60
 
-sandslash :: (PokemonSYM p, TypeSYM p) => p () Height
+sandslash :: (PokemonSYM p,TypeSYM p) => p Experience
 sandslash =
   pokemonNr 28 
   `name` "Sandslash"
@@ -467,11 +532,13 @@ sandslash =
   `speed` 65
   `weight` (29.5, kg)
   `height` (1.0, m)
+  `captureRate` 90
+  `baseExperience` 158
 
-nidoran_f :: (PokemonSYM p, TypeSYM p) => p () Height
-nidoran_f =
+nidoran-f :: (PokemonSYM p,TypeSYM p) => p Experience
+nidoran-f =
   pokemonNr 29 
-  `name` "Nidoran (female)"
+  `name` "Nidoran-f"
   `type1` poison
   `hp` 55
   `attack` 47
@@ -481,8 +548,10 @@ nidoran_f =
   `speed` 41
   `weight` (7.0, kg)
   `height` (0.4, m)
+  `captureRate` 235
+  `baseExperience` 55
 
-nidorina :: (PokemonSYM p, TypeSYM p) => p () Height
+nidorina :: (PokemonSYM p,TypeSYM p) => p Experience
 nidorina =
   pokemonNr 30 
   `name` "Nidorina"
@@ -495,8 +564,10 @@ nidorina =
   `speed` 56
   `weight` (20.0, kg)
   `height` (0.8, m)
+  `captureRate` 120
+  `baseExperience` 128
 
-nidoqueen :: (PokemonSYM p, TypeSYM p) => p () Height
+nidoqueen :: (PokemonSYM p,TypeSYM p) => p Experience
 nidoqueen =
   pokemonNr 31 
   `name` "Nidoqueen"
@@ -510,11 +581,13 @@ nidoqueen =
   `speed` 76
   `weight` (60.0, kg)
   `height` (1.3, m)
+  `captureRate` 45
+  `baseExperience` 253
 
-nidoran_m :: (PokemonSYM p, TypeSYM p) => p () Height
-nidoran_m =
+nidoran-m :: (PokemonSYM p,TypeSYM p) => p Experience
+nidoran-m =
   pokemonNr 32 
-  `name` "Nidoran (male)"
+  `name` "Nidoran-m"
   `type1` poison
   `hp` 46
   `attack` 57
@@ -524,8 +597,10 @@ nidoran_m =
   `speed` 50
   `weight` (9.0, kg)
   `height` (0.5, m)
+  `captureRate` 235
+  `baseExperience` 55
 
-nidorino :: (PokemonSYM p, TypeSYM p) => p () Height
+nidorino :: (PokemonSYM p,TypeSYM p) => p Experience
 nidorino =
   pokemonNr 33 
   `name` "Nidorino"
@@ -538,8 +613,10 @@ nidorino =
   `speed` 65
   `weight` (19.5, kg)
   `height` (0.9, m)
+  `captureRate` 120
+  `baseExperience` 128
 
-nidoking :: (PokemonSYM p, TypeSYM p) => p () Height
+nidoking :: (PokemonSYM p,TypeSYM p) => p Experience
 nidoking =
   pokemonNr 34 
   `name` "Nidoking"
@@ -553,12 +630,14 @@ nidoking =
   `speed` 85
   `weight` (62.0, kg)
   `height` (1.4, m)
+  `captureRate` 45
+  `baseExperience` 253
 
-clefairy :: (PokemonSYM p, TypeSYM p) => p () Height
+clefairy :: (PokemonSYM p,TypeSYM p) => p Experience
 clefairy =
   pokemonNr 35 
   `name` "Clefairy"
-  `type1` normal
+  `type1` fairy
   `hp` 70
   `attack` 45
   `defence` 48
@@ -567,12 +646,14 @@ clefairy =
   `speed` 35
   `weight` (7.5, kg)
   `height` (0.6, m)
+  `captureRate` 150
+  `baseExperience` 113
 
-clefable :: (PokemonSYM p, TypeSYM p) => p () Height
+clefable :: (PokemonSYM p,TypeSYM p) => p Experience
 clefable =
   pokemonNr 36 
   `name` "Clefable"
-  `type1` normal
+  `type1` fairy
   `hp` 95
   `attack` 70
   `defence` 73
@@ -581,8 +662,10 @@ clefable =
   `speed` 60
   `weight` (40.0, kg)
   `height` (1.3, m)
+  `captureRate` 25
+  `baseExperience` 242
 
-vulpix :: (PokemonSYM p, TypeSYM p) => p () Height
+vulpix :: (PokemonSYM p,TypeSYM p) => p Experience
 vulpix =
   pokemonNr 37 
   `name` "Vulpix"
@@ -595,8 +678,10 @@ vulpix =
   `speed` 65
   `weight` (9.9, kg)
   `height` (0.6, m)
+  `captureRate` 190
+  `baseExperience` 60
 
-ninetales :: (PokemonSYM p, TypeSYM p) => p () Height
+ninetales :: (PokemonSYM p,TypeSYM p) => p Experience
 ninetales =
   pokemonNr 38 
   `name` "Ninetales"
@@ -609,12 +694,15 @@ ninetales =
   `speed` 100
   `weight` (19.9, kg)
   `height` (1.1, m)
+  `captureRate` 75
+  `baseExperience` 177
 
-jigglypuff :: (PokemonSYM p, TypeSYM p) => p () Height
+jigglypuff :: (PokemonSYM p,TypeSYM p) => p Experience
 jigglypuff =
   pokemonNr 39 
   `name` "Jigglypuff"
   `type1` normal
+  `type2` fairy
   `hp` 115
   `attack` 45
   `defence` 20
@@ -623,12 +711,15 @@ jigglypuff =
   `speed` 20
   `weight` (5.5, kg)
   `height` (0.5, m)
+  `captureRate` 170
+  `baseExperience` 95
 
-wigglytuff :: (PokemonSYM p, TypeSYM p) => p () Height
+wigglytuff :: (PokemonSYM p,TypeSYM p) => p Experience
 wigglytuff =
   pokemonNr 40 
   `name` "Wigglytuff"
   `type1` normal
+  `type2` fairy
   `hp` 140
   `attack` 70
   `defence` 45
@@ -637,8 +728,10 @@ wigglytuff =
   `speed` 45
   `weight` (12.0, kg)
   `height` (1.0, m)
+  `captureRate` 50
+  `baseExperience` 218
 
-zubat :: (PokemonSYM p, TypeSYM p) => p () Height
+zubat :: (PokemonSYM p,TypeSYM p) => p Experience
 zubat =
   pokemonNr 41 
   `name` "Zubat"
@@ -652,8 +745,10 @@ zubat =
   `speed` 55
   `weight` (7.5, kg)
   `height` (0.8, m)
+  `captureRate` 255
+  `baseExperience` 49
 
-golbat :: (PokemonSYM p, TypeSYM p) => p () Height
+golbat :: (PokemonSYM p,TypeSYM p) => p Experience
 golbat =
   pokemonNr 42 
   `name` "Golbat"
@@ -667,8 +762,10 @@ golbat =
   `speed` 90
   `weight` (55.0, kg)
   `height` (1.6, m)
+  `captureRate` 90
+  `baseExperience` 159
 
-oddish :: (PokemonSYM p, TypeSYM p) => p () Height
+oddish :: (PokemonSYM p,TypeSYM p) => p Experience
 oddish =
   pokemonNr 43 
   `name` "Oddish"
@@ -682,8 +779,10 @@ oddish =
   `speed` 30
   `weight` (5.4, kg)
   `height` (0.5, m)
+  `captureRate` 255
+  `baseExperience` 64
 
-gloom :: (PokemonSYM p, TypeSYM p) => p () Height
+gloom :: (PokemonSYM p,TypeSYM p) => p Experience
 gloom =
   pokemonNr 44 
   `name` "Gloom"
@@ -697,8 +796,10 @@ gloom =
   `speed` 40
   `weight` (8.6, kg)
   `height` (0.8, m)
+  `captureRate` 120
+  `baseExperience` 138
 
-vileplume :: (PokemonSYM p, TypeSYM p) => p () Height
+vileplume :: (PokemonSYM p,TypeSYM p) => p Experience
 vileplume =
   pokemonNr 45 
   `name` "Vileplume"
@@ -712,8 +813,10 @@ vileplume =
   `speed` 50
   `weight` (18.6, kg)
   `height` (1.2, m)
+  `captureRate` 45
+  `baseExperience` 245
 
-paras :: (PokemonSYM p, TypeSYM p) => p () Height
+paras :: (PokemonSYM p,TypeSYM p) => p Experience
 paras =
   pokemonNr 46 
   `name` "Paras"
@@ -727,8 +830,10 @@ paras =
   `speed` 25
   `weight` (5.4, kg)
   `height` (0.3, m)
+  `captureRate` 190
+  `baseExperience` 57
 
-parasect :: (PokemonSYM p, TypeSYM p) => p () Height
+parasect :: (PokemonSYM p,TypeSYM p) => p Experience
 parasect =
   pokemonNr 47 
   `name` "Parasect"
@@ -742,8 +847,10 @@ parasect =
   `speed` 30
   `weight` (29.5, kg)
   `height` (1.0, m)
+  `captureRate` 75
+  `baseExperience` 142
 
-venonat :: (PokemonSYM p, TypeSYM p) => p () Height
+venonat :: (PokemonSYM p,TypeSYM p) => p Experience
 venonat =
   pokemonNr 48 
   `name` "Venonat"
@@ -757,8 +864,10 @@ venonat =
   `speed` 45
   `weight` (30.0, kg)
   `height` (1.0, m)
+  `captureRate` 190
+  `baseExperience` 61
 
-venomoth :: (PokemonSYM p, TypeSYM p) => p () Height
+venomoth :: (PokemonSYM p,TypeSYM p) => p Experience
 venomoth =
   pokemonNr 49 
   `name` "Venomoth"
@@ -772,8 +881,10 @@ venomoth =
   `speed` 90
   `weight` (12.5, kg)
   `height` (1.5, m)
+  `captureRate` 75
+  `baseExperience` 158
 
-diglett :: (PokemonSYM p, TypeSYM p) => p () Height
+diglett :: (PokemonSYM p,TypeSYM p) => p Experience
 diglett =
   pokemonNr 50 
   `name` "Diglett"
@@ -786,8 +897,10 @@ diglett =
   `speed` 95
   `weight` (0.8, kg)
   `height` (0.2, m)
+  `captureRate` 255
+  `baseExperience` 53
 
-dugtrio :: (PokemonSYM p, TypeSYM p) => p () Height
+dugtrio :: (PokemonSYM p,TypeSYM p) => p Experience
 dugtrio =
   pokemonNr 51 
   `name` "Dugtrio"
@@ -800,8 +913,10 @@ dugtrio =
   `speed` 120
   `weight` (33.3, kg)
   `height` (0.7, m)
+  `captureRate` 50
+  `baseExperience` 149
 
-meowth :: (PokemonSYM p, TypeSYM p) => p () Height
+meowth :: (PokemonSYM p,TypeSYM p) => p Experience
 meowth =
   pokemonNr 52 
   `name` "Meowth"
@@ -814,8 +929,10 @@ meowth =
   `speed` 90
   `weight` (4.2, kg)
   `height` (0.4, m)
+  `captureRate` 255
+  `baseExperience` 58
 
-persian :: (PokemonSYM p, TypeSYM p) => p () Height
+persian :: (PokemonSYM p,TypeSYM p) => p Experience
 persian =
   pokemonNr 53 
   `name` "Persian"
@@ -828,8 +945,10 @@ persian =
   `speed` 115
   `weight` (32.0, kg)
   `height` (1.0, m)
+  `captureRate` 90
+  `baseExperience` 154
 
-psyduck :: (PokemonSYM p, TypeSYM p) => p () Height
+psyduck :: (PokemonSYM p,TypeSYM p) => p Experience
 psyduck =
   pokemonNr 54 
   `name` "Psyduck"
@@ -842,8 +961,10 @@ psyduck =
   `speed` 55
   `weight` (19.6, kg)
   `height` (0.8, m)
+  `captureRate` 190
+  `baseExperience` 64
 
-golduck :: (PokemonSYM p, TypeSYM p) => p () Height
+golduck :: (PokemonSYM p,TypeSYM p) => p Experience
 golduck =
   pokemonNr 55 
   `name` "Golduck"
@@ -856,8 +977,10 @@ golduck =
   `speed` 85
   `weight` (76.6, kg)
   `height` (1.7, m)
+  `captureRate` 75
+  `baseExperience` 175
 
-mankey :: (PokemonSYM p, TypeSYM p) => p () Height
+mankey :: (PokemonSYM p,TypeSYM p) => p Experience
 mankey =
   pokemonNr 56 
   `name` "Mankey"
@@ -870,8 +993,10 @@ mankey =
   `speed` 70
   `weight` (28.0, kg)
   `height` (0.5, m)
+  `captureRate` 190
+  `baseExperience` 61
 
-primeape :: (PokemonSYM p, TypeSYM p) => p () Height
+primeape :: (PokemonSYM p,TypeSYM p) => p Experience
 primeape =
   pokemonNr 57 
   `name` "Primeape"
@@ -884,8 +1009,10 @@ primeape =
   `speed` 95
   `weight` (32.0, kg)
   `height` (1.0, m)
+  `captureRate` 75
+  `baseExperience` 159
 
-growlithe :: (PokemonSYM p, TypeSYM p) => p () Height
+growlithe :: (PokemonSYM p,TypeSYM p) => p Experience
 growlithe =
   pokemonNr 58 
   `name` "Growlithe"
@@ -898,8 +1025,10 @@ growlithe =
   `speed` 60
   `weight` (19.0, kg)
   `height` (0.7, m)
+  `captureRate` 190
+  `baseExperience` 70
 
-arcanine :: (PokemonSYM p, TypeSYM p) => p () Height
+arcanine :: (PokemonSYM p,TypeSYM p) => p Experience
 arcanine =
   pokemonNr 59 
   `name` "Arcanine"
@@ -912,8 +1041,10 @@ arcanine =
   `speed` 95
   `weight` (155.0, kg)
   `height` (1.9, m)
+  `captureRate` 75
+  `baseExperience` 194
 
-poliwag :: (PokemonSYM p, TypeSYM p) => p () Height
+poliwag :: (PokemonSYM p,TypeSYM p) => p Experience
 poliwag =
   pokemonNr 60 
   `name` "Poliwag"
@@ -926,8 +1057,10 @@ poliwag =
   `speed` 90
   `weight` (12.4, kg)
   `height` (0.6, m)
+  `captureRate` 255
+  `baseExperience` 60
 
-poliwhirl :: (PokemonSYM p, TypeSYM p) => p () Height
+poliwhirl :: (PokemonSYM p,TypeSYM p) => p Experience
 poliwhirl =
   pokemonNr 61 
   `name` "Poliwhirl"
@@ -940,8 +1073,10 @@ poliwhirl =
   `speed` 90
   `weight` (20.0, kg)
   `height` (1.0, m)
+  `captureRate` 120
+  `baseExperience` 135
 
-poliwrath :: (PokemonSYM p, TypeSYM p) => p () Height
+poliwrath :: (PokemonSYM p,TypeSYM p) => p Experience
 poliwrath =
   pokemonNr 62 
   `name` "Poliwrath"
@@ -955,8 +1090,10 @@ poliwrath =
   `speed` 70
   `weight` (54.0, kg)
   `height` (1.3, m)
+  `captureRate` 45
+  `baseExperience` 255
 
-abra :: (PokemonSYM p, TypeSYM p) => p () Height
+abra :: (PokemonSYM p,TypeSYM p) => p Experience
 abra =
   pokemonNr 63 
   `name` "Abra"
@@ -969,8 +1106,10 @@ abra =
   `speed` 90
   `weight` (19.5, kg)
   `height` (0.9, m)
+  `captureRate` 200
+  `baseExperience` 62
 
-kadabra :: (PokemonSYM p, TypeSYM p) => p () Height
+kadabra :: (PokemonSYM p,TypeSYM p) => p Experience
 kadabra =
   pokemonNr 64 
   `name` "Kadabra"
@@ -983,8 +1122,10 @@ kadabra =
   `speed` 105
   `weight` (56.5, kg)
   `height` (1.3, m)
+  `captureRate` 100
+  `baseExperience` 140
 
-alakazam :: (PokemonSYM p, TypeSYM p) => p () Height
+alakazam :: (PokemonSYM p,TypeSYM p) => p Experience
 alakazam =
   pokemonNr 65 
   `name` "Alakazam"
@@ -997,8 +1138,10 @@ alakazam =
   `speed` 120
   `weight` (48.0, kg)
   `height` (1.5, m)
+  `captureRate` 50
+  `baseExperience` 250
 
-machop :: (PokemonSYM p, TypeSYM p) => p () Height
+machop :: (PokemonSYM p,TypeSYM p) => p Experience
 machop =
   pokemonNr 66 
   `name` "Machop"
@@ -1011,8 +1154,10 @@ machop =
   `speed` 35
   `weight` (19.5, kg)
   `height` (0.8, m)
+  `captureRate` 180
+  `baseExperience` 61
 
-machoke :: (PokemonSYM p, TypeSYM p) => p () Height
+machoke :: (PokemonSYM p,TypeSYM p) => p Experience
 machoke =
   pokemonNr 67 
   `name` "Machoke"
@@ -1025,8 +1170,10 @@ machoke =
   `speed` 45
   `weight` (70.5, kg)
   `height` (1.5, m)
+  `captureRate` 90
+  `baseExperience` 142
 
-machamp :: (PokemonSYM p, TypeSYM p) => p () Height
+machamp :: (PokemonSYM p,TypeSYM p) => p Experience
 machamp =
   pokemonNr 68 
   `name` "Machamp"
@@ -1039,8 +1186,10 @@ machamp =
   `speed` 55
   `weight` (130.0, kg)
   `height` (1.6, m)
+  `captureRate` 45
+  `baseExperience` 253
 
-bellsprout :: (PokemonSYM p, TypeSYM p) => p () Height
+bellsprout :: (PokemonSYM p,TypeSYM p) => p Experience
 bellsprout =
   pokemonNr 69 
   `name` "Bellsprout"
@@ -1054,8 +1203,10 @@ bellsprout =
   `speed` 40
   `weight` (4.0, kg)
   `height` (0.7, m)
+  `captureRate` 255
+  `baseExperience` 60
 
-weepinbell :: (PokemonSYM p, TypeSYM p) => p () Height
+weepinbell :: (PokemonSYM p,TypeSYM p) => p Experience
 weepinbell =
   pokemonNr 70 
   `name` "Weepinbell"
@@ -1069,8 +1220,10 @@ weepinbell =
   `speed` 55
   `weight` (6.4, kg)
   `height` (1.0, m)
+  `captureRate` 120
+  `baseExperience` 137
 
-victreebel :: (PokemonSYM p, TypeSYM p) => p () Height
+victreebel :: (PokemonSYM p,TypeSYM p) => p Experience
 victreebel =
   pokemonNr 71 
   `name` "Victreebel"
@@ -1084,8 +1237,10 @@ victreebel =
   `speed` 70
   `weight` (15.5, kg)
   `height` (1.7, m)
+  `captureRate` 45
+  `baseExperience` 221
 
-tentacool :: (PokemonSYM p, TypeSYM p) => p () Height
+tentacool :: (PokemonSYM p,TypeSYM p) => p Experience
 tentacool =
   pokemonNr 72 
   `name` "Tentacool"
@@ -1099,8 +1254,10 @@ tentacool =
   `speed` 70
   `weight` (45.5, kg)
   `height` (0.9, m)
+  `captureRate` 190
+  `baseExperience` 67
 
-tentacruel :: (PokemonSYM p, TypeSYM p) => p () Height
+tentacruel :: (PokemonSYM p,TypeSYM p) => p Experience
 tentacruel =
   pokemonNr 73 
   `name` "Tentacruel"
@@ -1114,8 +1271,10 @@ tentacruel =
   `speed` 100
   `weight` (55.0, kg)
   `height` (1.6, m)
+  `captureRate` 60
+  `baseExperience` 180
 
-geodude :: (PokemonSYM p, TypeSYM p) => p () Height
+geodude :: (PokemonSYM p,TypeSYM p) => p Experience
 geodude =
   pokemonNr 74 
   `name` "Geodude"
@@ -1129,8 +1288,10 @@ geodude =
   `speed` 20
   `weight` (20.0, kg)
   `height` (0.4, m)
+  `captureRate` 255
+  `baseExperience` 60
 
-graveler :: (PokemonSYM p, TypeSYM p) => p () Height
+graveler :: (PokemonSYM p,TypeSYM p) => p Experience
 graveler =
   pokemonNr 75 
   `name` "Graveler"
@@ -1144,8 +1305,10 @@ graveler =
   `speed` 35
   `weight` (105.0, kg)
   `height` (1.0, m)
+  `captureRate` 120
+  `baseExperience` 137
 
-golem :: (PokemonSYM p, TypeSYM p) => p () Height
+golem :: (PokemonSYM p,TypeSYM p) => p Experience
 golem =
   pokemonNr 76 
   `name` "Golem"
@@ -1159,8 +1322,10 @@ golem =
   `speed` 45
   `weight` (300.0, kg)
   `height` (1.4, m)
+  `captureRate` 45
+  `baseExperience` 223
 
-ponyta :: (PokemonSYM p, TypeSYM p) => p () Height
+ponyta :: (PokemonSYM p,TypeSYM p) => p Experience
 ponyta =
   pokemonNr 77 
   `name` "Ponyta"
@@ -1173,8 +1338,10 @@ ponyta =
   `speed` 90
   `weight` (30.0, kg)
   `height` (1.0, m)
+  `captureRate` 190
+  `baseExperience` 82
 
-rapidash :: (PokemonSYM p, TypeSYM p) => p () Height
+rapidash :: (PokemonSYM p,TypeSYM p) => p Experience
 rapidash =
   pokemonNr 78 
   `name` "Rapidash"
@@ -1187,8 +1354,10 @@ rapidash =
   `speed` 105
   `weight` (95.0, kg)
   `height` (1.7, m)
+  `captureRate` 60
+  `baseExperience` 175
 
-slowpoke :: (PokemonSYM p, TypeSYM p) => p () Height
+slowpoke :: (PokemonSYM p,TypeSYM p) => p Experience
 slowpoke =
   pokemonNr 79 
   `name` "Slowpoke"
@@ -1202,8 +1371,10 @@ slowpoke =
   `speed` 15
   `weight` (36.0, kg)
   `height` (1.2, m)
+  `captureRate` 190
+  `baseExperience` 63
 
-slowbro :: (PokemonSYM p, TypeSYM p) => p () Height
+slowbro :: (PokemonSYM p,TypeSYM p) => p Experience
 slowbro =
   pokemonNr 80 
   `name` "Slowbro"
@@ -1217,12 +1388,15 @@ slowbro =
   `speed` 30
   `weight` (78.5, kg)
   `height` (1.6, m)
+  `captureRate` 75
+  `baseExperience` 172
 
-magnemite :: (PokemonSYM p, TypeSYM p) => p () Height
+magnemite :: (PokemonSYM p,TypeSYM p) => p Experience
 magnemite =
   pokemonNr 81 
   `name` "Magnemite"
   `type1` electric
+  `type2` steel
   `hp` 25
   `attack` 35
   `defence` 70
@@ -1231,12 +1405,15 @@ magnemite =
   `speed` 45
   `weight` (6.0, kg)
   `height` (0.3, m)
+  `captureRate` 190
+  `baseExperience` 65
 
-magneton :: (PokemonSYM p, TypeSYM p) => p () Height
+magneton :: (PokemonSYM p,TypeSYM p) => p Experience
 magneton =
   pokemonNr 82 
   `name` "Magneton"
   `type1` electric
+  `type2` steel
   `hp` 50
   `attack` 60
   `defence` 95
@@ -1245,8 +1422,10 @@ magneton =
   `speed` 70
   `weight` (60.0, kg)
   `height` (1.0, m)
+  `captureRate` 60
+  `baseExperience` 163
 
-farfetchd :: (PokemonSYM p, TypeSYM p) => p () Height
+farfetchd :: (PokemonSYM p,TypeSYM p) => p Experience
 farfetchd =
   pokemonNr 83 
   `name` "Farfetchd"
@@ -1260,8 +1439,10 @@ farfetchd =
   `speed` 60
   `weight` (15.0, kg)
   `height` (0.8, m)
+  `captureRate` 45
+  `baseExperience` 132
 
-doduo :: (PokemonSYM p, TypeSYM p) => p () Height
+doduo :: (PokemonSYM p,TypeSYM p) => p Experience
 doduo =
   pokemonNr 84 
   `name` "Doduo"
@@ -1275,8 +1456,10 @@ doduo =
   `speed` 75
   `weight` (39.2, kg)
   `height` (1.4, m)
+  `captureRate` 190
+  `baseExperience` 62
 
-dodrio :: (PokemonSYM p, TypeSYM p) => p () Height
+dodrio :: (PokemonSYM p,TypeSYM p) => p Experience
 dodrio =
   pokemonNr 85 
   `name` "Dodrio"
@@ -1290,8 +1473,10 @@ dodrio =
   `speed` 110
   `weight` (85.2, kg)
   `height` (1.8, m)
+  `captureRate` 45
+  `baseExperience` 165
 
-seel :: (PokemonSYM p, TypeSYM p) => p () Height
+seel :: (PokemonSYM p,TypeSYM p) => p Experience
 seel =
   pokemonNr 86 
   `name` "Seel"
@@ -1304,8 +1489,10 @@ seel =
   `speed` 45
   `weight` (90.0, kg)
   `height` (1.1, m)
+  `captureRate` 190
+  `baseExperience` 65
 
-dewgong :: (PokemonSYM p, TypeSYM p) => p () Height
+dewgong :: (PokemonSYM p,TypeSYM p) => p Experience
 dewgong =
   pokemonNr 87 
   `name` "Dewgong"
@@ -1319,8 +1506,10 @@ dewgong =
   `speed` 70
   `weight` (120.0, kg)
   `height` (1.7, m)
+  `captureRate` 75
+  `baseExperience` 166
 
-grimer :: (PokemonSYM p, TypeSYM p) => p () Height
+grimer :: (PokemonSYM p,TypeSYM p) => p Experience
 grimer =
   pokemonNr 88 
   `name` "Grimer"
@@ -1333,8 +1522,10 @@ grimer =
   `speed` 25
   `weight` (30.0, kg)
   `height` (0.9, m)
+  `captureRate` 190
+  `baseExperience` 65
 
-muk :: (PokemonSYM p, TypeSYM p) => p () Height
+muk :: (PokemonSYM p,TypeSYM p) => p Experience
 muk =
   pokemonNr 89 
   `name` "Muk"
@@ -1347,8 +1538,10 @@ muk =
   `speed` 50
   `weight` (30.0, kg)
   `height` (1.2, m)
+  `captureRate` 75
+  `baseExperience` 175
 
-shellder :: (PokemonSYM p, TypeSYM p) => p () Height
+shellder :: (PokemonSYM p,TypeSYM p) => p Experience
 shellder =
   pokemonNr 90 
   `name` "Shellder"
@@ -1361,8 +1554,10 @@ shellder =
   `speed` 40
   `weight` (4.0, kg)
   `height` (0.3, m)
+  `captureRate` 190
+  `baseExperience` 61
 
-cloyster :: (PokemonSYM p, TypeSYM p) => p () Height
+cloyster :: (PokemonSYM p,TypeSYM p) => p Experience
 cloyster =
   pokemonNr 91 
   `name` "Cloyster"
@@ -1376,8 +1571,10 @@ cloyster =
   `speed` 70
   `weight` (132.5, kg)
   `height` (1.5, m)
+  `captureRate` 60
+  `baseExperience` 184
 
-gastly :: (PokemonSYM p, TypeSYM p) => p () Height
+gastly :: (PokemonSYM p,TypeSYM p) => p Experience
 gastly =
   pokemonNr 92 
   `name` "Gastly"
@@ -1391,8 +1588,10 @@ gastly =
   `speed` 80
   `weight` (0.1, kg)
   `height` (1.3, m)
+  `captureRate` 190
+  `baseExperience` 62
 
-haunter :: (PokemonSYM p, TypeSYM p) => p () Height
+haunter :: (PokemonSYM p,TypeSYM p) => p Experience
 haunter =
   pokemonNr 93 
   `name` "Haunter"
@@ -1406,8 +1605,10 @@ haunter =
   `speed` 95
   `weight` (0.1, kg)
   `height` (1.6, m)
+  `captureRate` 90
+  `baseExperience` 142
 
-gengar :: (PokemonSYM p, TypeSYM p) => p () Height
+gengar :: (PokemonSYM p,TypeSYM p) => p Experience
 gengar =
   pokemonNr 94 
   `name` "Gengar"
@@ -1421,8 +1622,10 @@ gengar =
   `speed` 110
   `weight` (40.5, kg)
   `height` (1.5, m)
+  `captureRate` 45
+  `baseExperience` 250
 
-onix :: (PokemonSYM p, TypeSYM p) => p () Height
+onix :: (PokemonSYM p,TypeSYM p) => p Experience
 onix =
   pokemonNr 95 
   `name` "Onix"
@@ -1436,8 +1639,10 @@ onix =
   `speed` 70
   `weight` (210.0, kg)
   `height` (8.8, m)
+  `captureRate` 45
+  `baseExperience` 77
 
-drowzee :: (PokemonSYM p, TypeSYM p) => p () Height
+drowzee :: (PokemonSYM p,TypeSYM p) => p Experience
 drowzee =
   pokemonNr 96 
   `name` "Drowzee"
@@ -1450,8 +1655,10 @@ drowzee =
   `speed` 42
   `weight` (32.4, kg)
   `height` (1.0, m)
+  `captureRate` 190
+  `baseExperience` 66
 
-hypno :: (PokemonSYM p, TypeSYM p) => p () Height
+hypno :: (PokemonSYM p,TypeSYM p) => p Experience
 hypno =
   pokemonNr 97 
   `name` "Hypno"
@@ -1464,8 +1671,10 @@ hypno =
   `speed` 67
   `weight` (75.6, kg)
   `height` (1.6, m)
+  `captureRate` 75
+  `baseExperience` 169
 
-krabby :: (PokemonSYM p, TypeSYM p) => p () Height
+krabby :: (PokemonSYM p,TypeSYM p) => p Experience
 krabby =
   pokemonNr 98 
   `name` "Krabby"
@@ -1478,8 +1687,10 @@ krabby =
   `speed` 50
   `weight` (6.5, kg)
   `height` (0.4, m)
+  `captureRate` 225
+  `baseExperience` 65
 
-kingler :: (PokemonSYM p, TypeSYM p) => p () Height
+kingler :: (PokemonSYM p,TypeSYM p) => p Experience
 kingler =
   pokemonNr 99 
   `name` "Kingler"
@@ -1492,8 +1703,10 @@ kingler =
   `speed` 75
   `weight` (60.0, kg)
   `height` (1.3, m)
+  `captureRate` 60
+  `baseExperience` 166
 
-voltorb :: (PokemonSYM p, TypeSYM p) => p () Height
+voltorb :: (PokemonSYM p,TypeSYM p) => p Experience
 voltorb =
   pokemonNr 100 
   `name` "Voltorb"
@@ -1506,8 +1719,10 @@ voltorb =
   `speed` 100
   `weight` (10.4, kg)
   `height` (0.5, m)
+  `captureRate` 190
+  `baseExperience` 66
 
-electrode :: (PokemonSYM p, TypeSYM p) => p () Height
+electrode :: (PokemonSYM p,TypeSYM p) => p Experience
 electrode =
   pokemonNr 101 
   `name` "Electrode"
@@ -1520,8 +1735,10 @@ electrode =
   `speed` 150
   `weight` (66.6, kg)
   `height` (1.2, m)
+  `captureRate` 60
+  `baseExperience` 172
 
-exeggcute :: (PokemonSYM p, TypeSYM p) => p () Height
+exeggcute :: (PokemonSYM p,TypeSYM p) => p Experience
 exeggcute =
   pokemonNr 102 
   `name` "Exeggcute"
@@ -1535,8 +1752,10 @@ exeggcute =
   `speed` 40
   `weight` (2.5, kg)
   `height` (0.4, m)
+  `captureRate` 90
+  `baseExperience` 65
 
-exeggutor :: (PokemonSYM p, TypeSYM p) => p () Height
+exeggutor :: (PokemonSYM p,TypeSYM p) => p Experience
 exeggutor =
   pokemonNr 103 
   `name` "Exeggutor"
@@ -1550,8 +1769,10 @@ exeggutor =
   `speed` 55
   `weight` (120.0, kg)
   `height` (2.0, m)
+  `captureRate` 45
+  `baseExperience` 186
 
-cubone :: (PokemonSYM p, TypeSYM p) => p () Height
+cubone :: (PokemonSYM p,TypeSYM p) => p Experience
 cubone =
   pokemonNr 104 
   `name` "Cubone"
@@ -1564,8 +1785,10 @@ cubone =
   `speed` 35
   `weight` (6.5, kg)
   `height` (0.4, m)
+  `captureRate` 190
+  `baseExperience` 64
 
-marowak :: (PokemonSYM p, TypeSYM p) => p () Height
+marowak :: (PokemonSYM p,TypeSYM p) => p Experience
 marowak =
   pokemonNr 105 
   `name` "Marowak"
@@ -1578,8 +1801,10 @@ marowak =
   `speed` 45
   `weight` (45.0, kg)
   `height` (1.0, m)
+  `captureRate` 75
+  `baseExperience` 149
 
-hitmonlee :: (PokemonSYM p, TypeSYM p) => p () Height
+hitmonlee :: (PokemonSYM p,TypeSYM p) => p Experience
 hitmonlee =
   pokemonNr 106 
   `name` "Hitmonlee"
@@ -1592,8 +1817,10 @@ hitmonlee =
   `speed` 87
   `weight` (49.8, kg)
   `height` (1.5, m)
+  `captureRate` 45
+  `baseExperience` 159
 
-hitmonchan :: (PokemonSYM p, TypeSYM p) => p () Height
+hitmonchan :: (PokemonSYM p,TypeSYM p) => p Experience
 hitmonchan =
   pokemonNr 107 
   `name` "Hitmonchan"
@@ -1606,8 +1833,10 @@ hitmonchan =
   `speed` 76
   `weight` (50.2, kg)
   `height` (1.4, m)
+  `captureRate` 45
+  `baseExperience` 159
 
-lickitung :: (PokemonSYM p, TypeSYM p) => p () Height
+lickitung :: (PokemonSYM p,TypeSYM p) => p Experience
 lickitung =
   pokemonNr 108 
   `name` "Lickitung"
@@ -1620,8 +1849,10 @@ lickitung =
   `speed` 30
   `weight` (65.5, kg)
   `height` (1.2, m)
+  `captureRate` 45
+  `baseExperience` 77
 
-koffing :: (PokemonSYM p, TypeSYM p) => p () Height
+koffing :: (PokemonSYM p,TypeSYM p) => p Experience
 koffing =
   pokemonNr 109 
   `name` "Koffing"
@@ -1634,8 +1865,10 @@ koffing =
   `speed` 35
   `weight` (1.0, kg)
   `height` (0.6, m)
+  `captureRate` 190
+  `baseExperience` 68
 
-weezing :: (PokemonSYM p, TypeSYM p) => p () Height
+weezing :: (PokemonSYM p,TypeSYM p) => p Experience
 weezing =
   pokemonNr 110 
   `name` "Weezing"
@@ -1648,8 +1881,10 @@ weezing =
   `speed` 60
   `weight` (9.5, kg)
   `height` (1.2, m)
+  `captureRate` 60
+  `baseExperience` 172
 
-rhyhorn :: (PokemonSYM p, TypeSYM p) => p () Height
+rhyhorn :: (PokemonSYM p,TypeSYM p) => p Experience
 rhyhorn =
   pokemonNr 111 
   `name` "Rhyhorn"
@@ -1663,8 +1898,10 @@ rhyhorn =
   `speed` 25
   `weight` (115.0, kg)
   `height` (1.0, m)
+  `captureRate` 120
+  `baseExperience` 69
 
-rhydon :: (PokemonSYM p, TypeSYM p) => p () Height
+rhydon :: (PokemonSYM p,TypeSYM p) => p Experience
 rhydon =
   pokemonNr 112 
   `name` "Rhydon"
@@ -1678,8 +1915,10 @@ rhydon =
   `speed` 40
   `weight` (120.0, kg)
   `height` (1.9, m)
+  `captureRate` 60
+  `baseExperience` 170
 
-chansey :: (PokemonSYM p, TypeSYM p) => p () Height
+chansey :: (PokemonSYM p,TypeSYM p) => p Experience
 chansey =
   pokemonNr 113 
   `name` "Chansey"
@@ -1692,8 +1931,10 @@ chansey =
   `speed` 50
   `weight` (34.6, kg)
   `height` (1.1, m)
+  `captureRate` 30
+  `baseExperience` 395
 
-tangela :: (PokemonSYM p, TypeSYM p) => p () Height
+tangela :: (PokemonSYM p,TypeSYM p) => p Experience
 tangela =
   pokemonNr 114 
   `name` "Tangela"
@@ -1706,8 +1947,10 @@ tangela =
   `speed` 60
   `weight` (35.0, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 87
 
-kangaskhan :: (PokemonSYM p, TypeSYM p) => p () Height
+kangaskhan :: (PokemonSYM p,TypeSYM p) => p Experience
 kangaskhan =
   pokemonNr 115 
   `name` "Kangaskhan"
@@ -1720,8 +1963,10 @@ kangaskhan =
   `speed` 90
   `weight` (80.0, kg)
   `height` (2.2, m)
+  `captureRate` 45
+  `baseExperience` 172
 
-horsea :: (PokemonSYM p, TypeSYM p) => p () Height
+horsea :: (PokemonSYM p,TypeSYM p) => p Experience
 horsea =
   pokemonNr 116 
   `name` "Horsea"
@@ -1734,8 +1979,10 @@ horsea =
   `speed` 60
   `weight` (8.0, kg)
   `height` (0.4, m)
+  `captureRate` 225
+  `baseExperience` 59
 
-seadra :: (PokemonSYM p, TypeSYM p) => p () Height
+seadra :: (PokemonSYM p,TypeSYM p) => p Experience
 seadra =
   pokemonNr 117 
   `name` "Seadra"
@@ -1748,8 +1995,10 @@ seadra =
   `speed` 85
   `weight` (25.0, kg)
   `height` (1.2, m)
+  `captureRate` 75
+  `baseExperience` 154
 
-goldeen :: (PokemonSYM p, TypeSYM p) => p () Height
+goldeen :: (PokemonSYM p,TypeSYM p) => p Experience
 goldeen =
   pokemonNr 118 
   `name` "Goldeen"
@@ -1762,8 +2011,10 @@ goldeen =
   `speed` 63
   `weight` (15.0, kg)
   `height` (0.6, m)
+  `captureRate` 225
+  `baseExperience` 64
 
-seaking :: (PokemonSYM p, TypeSYM p) => p () Height
+seaking :: (PokemonSYM p,TypeSYM p) => p Experience
 seaking =
   pokemonNr 119 
   `name` "Seaking"
@@ -1776,8 +2027,10 @@ seaking =
   `speed` 68
   `weight` (39.0, kg)
   `height` (1.3, m)
+  `captureRate` 60
+  `baseExperience` 158
 
-staryu :: (PokemonSYM p, TypeSYM p) => p () Height
+staryu :: (PokemonSYM p,TypeSYM p) => p Experience
 staryu =
   pokemonNr 120 
   `name` "Staryu"
@@ -1790,8 +2043,10 @@ staryu =
   `speed` 85
   `weight` (34.5, kg)
   `height` (0.8, m)
+  `captureRate` 225
+  `baseExperience` 68
 
-starmie :: (PokemonSYM p, TypeSYM p) => p () Height
+starmie :: (PokemonSYM p,TypeSYM p) => p Experience
 starmie =
   pokemonNr 121 
   `name` "Starmie"
@@ -1805,12 +2060,15 @@ starmie =
   `speed` 115
   `weight` (80.0, kg)
   `height` (1.1, m)
+  `captureRate` 60
+  `baseExperience` 182
 
-mrMime :: (PokemonSYM p, TypeSYM p) => p () Height
-mrMime =
+mr-mime :: (PokemonSYM p,TypeSYM p) => p Experience
+mr-mime =
   pokemonNr 122 
-  `name` "Mr. Mime"
+  `name` "Mr-mime"
   `type1` psychic
+  `type2` fairy
   `hp` 40
   `attack` 45
   `defence` 65
@@ -1819,8 +2077,10 @@ mrMime =
   `speed` 90
   `weight` (54.5, kg)
   `height` (1.3, m)
+  `captureRate` 45
+  `baseExperience` 161
 
-scyther :: (PokemonSYM p, TypeSYM p) => p () Height
+scyther :: (PokemonSYM p,TypeSYM p) => p Experience
 scyther =
   pokemonNr 123 
   `name` "Scyther"
@@ -1834,8 +2094,10 @@ scyther =
   `speed` 105
   `weight` (56.0, kg)
   `height` (1.5, m)
+  `captureRate` 45
+  `baseExperience` 100
 
-jynx :: (PokemonSYM p, TypeSYM p) => p () Height
+jynx :: (PokemonSYM p,TypeSYM p) => p Experience
 jynx =
   pokemonNr 124 
   `name` "Jynx"
@@ -1849,8 +2111,10 @@ jynx =
   `speed` 95
   `weight` (40.6, kg)
   `height` (1.4, m)
+  `captureRate` 45
+  `baseExperience` 159
 
-electabuzz :: (PokemonSYM p, TypeSYM p) => p () Height
+electabuzz :: (PokemonSYM p,TypeSYM p) => p Experience
 electabuzz =
   pokemonNr 125 
   `name` "Electabuzz"
@@ -1863,8 +2127,10 @@ electabuzz =
   `speed` 105
   `weight` (30.0, kg)
   `height` (1.1, m)
+  `captureRate` 45
+  `baseExperience` 172
 
-magmar :: (PokemonSYM p, TypeSYM p) => p () Height
+magmar :: (PokemonSYM p,TypeSYM p) => p Experience
 magmar =
   pokemonNr 126 
   `name` "Magmar"
@@ -1877,8 +2143,10 @@ magmar =
   `speed` 93
   `weight` (44.5, kg)
   `height` (1.3, m)
+  `captureRate` 45
+  `baseExperience` 173
 
-pinsir :: (PokemonSYM p, TypeSYM p) => p () Height
+pinsir :: (PokemonSYM p,TypeSYM p) => p Experience
 pinsir =
   pokemonNr 127 
   `name` "Pinsir"
@@ -1891,8 +2159,10 @@ pinsir =
   `speed` 85
   `weight` (55.0, kg)
   `height` (1.5, m)
+  `captureRate` 45
+  `baseExperience` 175
 
-tauros :: (PokemonSYM p, TypeSYM p) => p () Height
+tauros :: (PokemonSYM p,TypeSYM p) => p Experience
 tauros =
   pokemonNr 128 
   `name` "Tauros"
@@ -1905,8 +2175,10 @@ tauros =
   `speed` 110
   `weight` (88.4, kg)
   `height` (1.4, m)
+  `captureRate` 45
+  `baseExperience` 172
 
-magikarp :: (PokemonSYM p, TypeSYM p) => p () Height
+magikarp :: (PokemonSYM p,TypeSYM p) => p Experience
 magikarp =
   pokemonNr 129 
   `name` "Magikarp"
@@ -1919,8 +2191,10 @@ magikarp =
   `speed` 80
   `weight` (10.0, kg)
   `height` (0.9, m)
+  `captureRate` 255
+  `baseExperience` 40
 
-gyarados :: (PokemonSYM p, TypeSYM p) => p () Height
+gyarados :: (PokemonSYM p,TypeSYM p) => p Experience
 gyarados =
   pokemonNr 130 
   `name` "Gyarados"
@@ -1934,8 +2208,10 @@ gyarados =
   `speed` 81
   `weight` (235.0, kg)
   `height` (6.5, m)
+  `captureRate` 45
+  `baseExperience` 189
 
-lapras :: (PokemonSYM p, TypeSYM p) => p () Height
+lapras :: (PokemonSYM p,TypeSYM p) => p Experience
 lapras =
   pokemonNr 131 
   `name` "Lapras"
@@ -1949,8 +2225,10 @@ lapras =
   `speed` 60
   `weight` (220.0, kg)
   `height` (2.5, m)
+  `captureRate` 45
+  `baseExperience` 187
 
-ditto :: (PokemonSYM p, TypeSYM p) => p () Height
+ditto :: (PokemonSYM p,TypeSYM p) => p Experience
 ditto =
   pokemonNr 132 
   `name` "Ditto"
@@ -1963,8 +2241,10 @@ ditto =
   `speed` 48
   `weight` (4.0, kg)
   `height` (0.3, m)
+  `captureRate` 35
+  `baseExperience` 101
 
-eevee :: (PokemonSYM p, TypeSYM p) => p () Height
+eevee :: (PokemonSYM p,TypeSYM p) => p Experience
 eevee =
   pokemonNr 133 
   `name` "Eevee"
@@ -1977,8 +2257,10 @@ eevee =
   `speed` 55
   `weight` (6.5, kg)
   `height` (0.3, m)
+  `captureRate` 45
+  `baseExperience` 65
 
-vaporeon :: (PokemonSYM p, TypeSYM p) => p () Height
+vaporeon :: (PokemonSYM p,TypeSYM p) => p Experience
 vaporeon =
   pokemonNr 134 
   `name` "Vaporeon"
@@ -1991,8 +2273,10 @@ vaporeon =
   `speed` 65
   `weight` (29.0, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 184
 
-jolteon :: (PokemonSYM p, TypeSYM p) => p () Height
+jolteon :: (PokemonSYM p,TypeSYM p) => p Experience
 jolteon =
   pokemonNr 135 
   `name` "Jolteon"
@@ -2005,8 +2289,10 @@ jolteon =
   `speed` 130
   `weight` (24.5, kg)
   `height` (0.8, m)
+  `captureRate` 45
+  `baseExperience` 184
 
-flareon :: (PokemonSYM p, TypeSYM p) => p () Height
+flareon :: (PokemonSYM p,TypeSYM p) => p Experience
 flareon =
   pokemonNr 136 
   `name` "Flareon"
@@ -2019,8 +2305,10 @@ flareon =
   `speed` 65
   `weight` (25.0, kg)
   `height` (0.9, m)
+  `captureRate` 45
+  `baseExperience` 184
 
-porygon :: (PokemonSYM p, TypeSYM p) => p () Height
+porygon :: (PokemonSYM p,TypeSYM p) => p Experience
 porygon =
   pokemonNr 137 
   `name` "Porygon"
@@ -2033,8 +2321,10 @@ porygon =
   `speed` 40
   `weight` (36.5, kg)
   `height` (0.8, m)
+  `captureRate` 45
+  `baseExperience` 79
 
-omanyte :: (PokemonSYM p, TypeSYM p) => p () Height
+omanyte :: (PokemonSYM p,TypeSYM p) => p Experience
 omanyte =
   pokemonNr 138 
   `name` "Omanyte"
@@ -2048,8 +2338,10 @@ omanyte =
   `speed` 35
   `weight` (7.5, kg)
   `height` (0.4, m)
+  `captureRate` 45
+  `baseExperience` 71
 
-omastar :: (PokemonSYM p, TypeSYM p) => p () Height
+omastar :: (PokemonSYM p,TypeSYM p) => p Experience
 omastar =
   pokemonNr 139 
   `name` "Omastar"
@@ -2063,8 +2355,10 @@ omastar =
   `speed` 55
   `weight` (35.0, kg)
   `height` (1.0, m)
+  `captureRate` 45
+  `baseExperience` 173
 
-kabuto :: (PokemonSYM p, TypeSYM p) => p () Height
+kabuto :: (PokemonSYM p,TypeSYM p) => p Experience
 kabuto =
   pokemonNr 140 
   `name` "Kabuto"
@@ -2078,8 +2372,10 @@ kabuto =
   `speed` 55
   `weight` (11.5, kg)
   `height` (0.5, m)
+  `captureRate` 45
+  `baseExperience` 71
 
-kabutops :: (PokemonSYM p, TypeSYM p) => p () Height
+kabutops :: (PokemonSYM p,TypeSYM p) => p Experience
 kabutops =
   pokemonNr 141 
   `name` "Kabutops"
@@ -2093,8 +2389,10 @@ kabutops =
   `speed` 80
   `weight` (40.5, kg)
   `height` (1.3, m)
+  `captureRate` 45
+  `baseExperience` 173
 
-aerodactyl :: (PokemonSYM p, TypeSYM p) => p () Height
+aerodactyl :: (PokemonSYM p,TypeSYM p) => p Experience
 aerodactyl =
   pokemonNr 142 
   `name` "Aerodactyl"
@@ -2108,8 +2406,10 @@ aerodactyl =
   `speed` 130
   `weight` (59.0, kg)
   `height` (1.8, m)
+  `captureRate` 45
+  `baseExperience` 180
 
-snorlax :: (PokemonSYM p, TypeSYM p) => p () Height
+snorlax :: (PokemonSYM p,TypeSYM p) => p Experience
 snorlax =
   pokemonNr 143 
   `name` "Snorlax"
@@ -2122,8 +2422,10 @@ snorlax =
   `speed` 30
   `weight` (460.0, kg)
   `height` (2.1, m)
+  `captureRate` 25
+  `baseExperience` 189
 
-articuno :: (PokemonSYM p, TypeSYM p) => p () Height
+articuno :: (PokemonSYM p,TypeSYM p,LegendarySYM p) => p Experience
 articuno =
   pokemonNr 144 
   `name` "Articuno"
@@ -2137,8 +2439,11 @@ articuno =
   `speed` 85
   `weight` (55.4, kg)
   `height` (1.7, m)
+  `captureRate` 3
+  `legendarity` legendaryPokemon
+  `baseExperience` 290
 
-zapdos :: (PokemonSYM p, TypeSYM p) => p () Height
+zapdos :: (PokemonSYM p,TypeSYM p,LegendarySYM p) => p Experience
 zapdos =
   pokemonNr 145 
   `name` "Zapdos"
@@ -2152,8 +2457,11 @@ zapdos =
   `speed` 100
   `weight` (52.6, kg)
   `height` (1.6, m)
+  `captureRate` 3
+  `legendarity` legendaryPokemon
+  `baseExperience` 290
 
-moltres :: (PokemonSYM p, TypeSYM p) => p () Height
+moltres :: (PokemonSYM p,TypeSYM p,LegendarySYM p) => p Experience
 moltres =
   pokemonNr 146 
   `name` "Moltres"
@@ -2167,8 +2475,11 @@ moltres =
   `speed` 90
   `weight` (60.0, kg)
   `height` (2.0, m)
+  `captureRate` 3
+  `legendarity` legendaryPokemon
+  `baseExperience` 290
 
-dratini :: (PokemonSYM p, TypeSYM p) => p () Height
+dratini :: (PokemonSYM p,TypeSYM p) => p Experience
 dratini =
   pokemonNr 147 
   `name` "Dratini"
@@ -2181,8 +2492,10 @@ dratini =
   `speed` 50
   `weight` (3.3, kg)
   `height` (1.8, m)
+  `captureRate` 45
+  `baseExperience` 60
 
-dragonair :: (PokemonSYM p, TypeSYM p) => p () Height
+dragonair :: (PokemonSYM p,TypeSYM p) => p Experience
 dragonair =
   pokemonNr 148 
   `name` "Dragonair"
@@ -2195,8 +2508,10 @@ dragonair =
   `speed` 70
   `weight` (16.5, kg)
   `height` (4.0, m)
+  `captureRate` 45
+  `baseExperience` 147
 
-dragonite :: (PokemonSYM p, TypeSYM p) => p () Height
+dragonite :: (PokemonSYM p,TypeSYM p) => p Experience
 dragonite =
   pokemonNr 149 
   `name` "Dragonite"
@@ -2210,8 +2525,10 @@ dragonite =
   `speed` 80
   `weight` (210.0, kg)
   `height` (2.2, m)
+  `captureRate` 45
+  `baseExperience` 300
 
-mewtwo :: (PokemonSYM p, TypeSYM p) => p () Height
+mewtwo :: (PokemonSYM p,TypeSYM p,LegendarySYM p) => p Experience
 mewtwo =
   pokemonNr 150 
   `name` "Mewtwo"
@@ -2224,8 +2541,11 @@ mewtwo =
   `speed` 130
   `weight` (122.0, kg)
   `height` (2.0, m)
+  `captureRate` 3
+  `legendarity` legendaryPokemon
+  `baseExperience` 340
 
-mew :: (PokemonSYM p, TypeSYM p) => p () Height
+mew :: (PokemonSYM p,TypeSYM p,Legendary p) => p Experience
 mew =
   pokemonNr 151 
   `name` "Mew"
@@ -2238,3 +2558,6 @@ mew =
   `speed` 100
   `weight` (4.0, kg)
   `height` (0.4, m)
+  `captureRate` 45
+  `legendarity` mythicalPokemon
+  `baseExperience` 300
