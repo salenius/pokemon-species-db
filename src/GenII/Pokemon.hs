@@ -1816,10 +1816,10 @@ lugia =
   `baseHappiness` 0
   `genderRatio` genderless
 
-ho-oh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
-ho-oh =
+hoOh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+hoOh =
   pokemonNr 250 
-  `name` "Ho-oh"
+  `name` "Ho-Oh"
   `type1` fire
   `type2` flying
   `hp` 106
