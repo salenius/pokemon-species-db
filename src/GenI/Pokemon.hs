@@ -33,21 +33,21 @@ infixl 5 `legendarity`
 infixl 5 `baseExperience`
 
 class TypeSYM p where
-  normal :: p Type Type
-  fighting :: p Type Type
-  flying :: p Type Type
-  water :: p Type Type
-  fire :: p Type Type
-  grass :: p Type Type
-  electric :: p Type Type
-  ground :: p Type Type
-  rock :: p Type Type
-  poison :: p Type Type
-  bug :: p Type Type
-  ice :: p Type Type
-  psychic :: p Type Type
-  ghost :: p Type Type
-  dragon :: p Type Type
+  normal :: p Type
+  fighting :: p Type
+  flying :: p Type
+  water :: p Type
+  fire :: p Type
+  grass :: p Type
+  electric :: p Type
+  ground :: p Type
+  rock :: p Type
+  poison :: p Type
+  bug :: p Type
+  ice :: p Type
+  psychic :: p Type
+  ghost :: p Type
+  dragon :: p Type
   
 class LegendarySYM p where
   legendaryPokemon :: p Legendary
