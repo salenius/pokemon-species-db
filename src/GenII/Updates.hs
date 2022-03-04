@@ -746,17 +746,17 @@ snorlax = Prev.snorlax
   `baseHappiness` 50
   `genderRatio` male88pct
 
-articuno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+articuno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 articuno = Prev.articuno
   `baseHappiness` 35
   `genderRatio` genderless
 
-zapdos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+zapdos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 zapdos = Prev.zapdos
   `baseHappiness` 35
   `genderRatio` genderless
 
-moltres :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+moltres :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 moltres = Prev.moltres
   `baseHappiness` 35
   `genderRatio` genderless
@@ -776,12 +776,12 @@ dragonite = Prev.dragonite
   `baseHappiness` 35
   `genderRatio` male50pct
 
-mewtwo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+mewtwo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 mewtwo = Prev.mewtwo
   `baseHappiness` 0
   `genderRatio` genderless
 
-mew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+mew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 mew = Prev.mew
   `baseHappiness` 100
   `genderRatio` genderless

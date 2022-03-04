@@ -1,6 +1,7 @@
 module GenII.Attribute (module GenII.Attribute, module GenI.Attribute) where
 
 import GenI.Attribute hiding (PokemonSYM(), TypeSYM())
+import qualified GenI.Attribute as Prev
 
 class Prev.PokemonSYM p => PokemonSYM p where
   baseHappiness :: p Experience -> Int -> p Happiness
