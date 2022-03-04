@@ -1,8 +1,9 @@
-module GenIII.Pokemon where
+module GenIII.Pokemon (module GenIII.Pokemon, module GenIII.Updates) where
 
 import GenIII.Attribute
 import GenIII.Ability
 import Prelude hiding ((||))
+import GenIII.Updates
 
 treecko :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 treecko =
