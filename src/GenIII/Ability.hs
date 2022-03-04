@@ -1,9 +1,9 @@
 module GenIII.Ability where
 
-import Prelude hiding (||)
+import Prelude hiding ((||))
 
 class AbilitySYM r where
-  ability :: r Ability
+  ability :: String -> r Ability
   (||) :: r Ability -> r Ability -> r Ability
   
 infixl 7 ||
