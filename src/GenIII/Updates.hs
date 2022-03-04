@@ -3,6 +3,7 @@ module GenIII.Updates where
 import qualified GenII.Pokemon as Prev
 import GenIII.Attribute
 import GenIII.Ability
+import Prelude hiding ((||))
 
 bulbasaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 bulbasaur = Prev.bulbasaur
@@ -66,15 +67,15 @@ beedrill = Prev.beedrill
 
 pidgey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 pidgey = Prev.pidgey
-  `possibleAbility` keenEye || tangledFeet
+  `possibleAbility` keenEye
 
 pidgeotto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 pidgeotto = Prev.pidgeotto
-  `possibleAbility` keenEye || tangledFeet
+  `possibleAbility` keenEye
 
 pidgeot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 pidgeot = Prev.pidgeot
-  `possibleAbility` keenEye || tangledFeet
+  `possibleAbility` keenEye
 
 rattata :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 rattata = Prev.rattata
@@ -118,35 +119,35 @@ sandslash = Prev.sandslash
 
 nidoran_f :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidoran_f = Prev.nidoran_f
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 nidorina :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidorina = Prev.nidorina
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 nidoqueen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidoqueen = Prev.nidoqueen
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 nidoran_m :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidoran_m = Prev.nidoran_m
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 nidorino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidorino = Prev.nidorino
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 nidoking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 nidoking = Prev.nidoking
-  `possibleAbility` poisonPoint || rivalry
+  `possibleAbility` poisonPoint
 
 clefairy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 clefairy = Prev.clefairy
-  `possibleAbility` cuteCharm || magicGuard
+  `possibleAbility` cuteCharm
 
 clefable :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 clefable = Prev.clefable
-  `possibleAbility` cuteCharm || magicGuard
+  `possibleAbility` cuteCharm
 
 vulpix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 vulpix = Prev.vulpix
@@ -158,11 +159,11 @@ ninetales = Prev.ninetales
 
 jigglypuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 jigglypuff = Prev.jigglypuff
-  `possibleAbility` cuteCharm || competitive
+  `possibleAbility` cuteCharm
 
 wigglytuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 wigglytuff = Prev.wigglytuff
-  `possibleAbility` cuteCharm || competitive
+  `possibleAbility` cuteCharm
 
 zubat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 zubat = Prev.zubat
@@ -186,19 +187,19 @@ vileplume = Prev.vileplume
 
 paras :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 paras = Prev.paras
-  `possibleAbility` effectSpore || drySkin
+  `possibleAbility` effectSpore
 
 parasect :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 parasect = Prev.parasect
-  `possibleAbility` effectSpore || drySkin
+  `possibleAbility` effectSpore
 
 venonat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 venonat = Prev.venonat
-  `possibleAbility` compoundEyes || tintedLens
+  `possibleAbility` compoundEyes
 
 venomoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 venomoth = Prev.venomoth
-  `possibleAbility` shieldDust || tintedLens
+  `possibleAbility` shieldDust
 
 diglett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 diglett = Prev.diglett
@@ -210,11 +211,11 @@ dugtrio = Prev.dugtrio
 
 meowth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 meowth = Prev.meowth
-  `possibleAbility` pickup || technician
+  `possibleAbility` pickup
 
 persian :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 persian = Prev.persian
-  `possibleAbility` limber || technician
+  `possibleAbility` limber
 
 psyduck :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 psyduck = Prev.psyduck
@@ -226,11 +227,11 @@ golduck = Prev.golduck
 
 mankey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 mankey = Prev.mankey
-  `possibleAbility` vitalSpirit || angerPoint
+  `possibleAbility` vitalSpirit
 
 primeape :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 primeape = Prev.primeape
-  `possibleAbility` vitalSpirit || angerPoint
+  `possibleAbility` vitalSpirit
 
 growlithe :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 growlithe = Prev.growlithe
@@ -266,15 +267,15 @@ alakazam = Prev.alakazam
 
 machop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 machop = Prev.machop
-  `possibleAbility` guts || noGuard
+  `possibleAbility` guts
 
 machoke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 machoke = Prev.machoke
-  `possibleAbility` guts || noGuard
+  `possibleAbility` guts
 
 machamp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 machamp = Prev.machamp
-  `possibleAbility` guts || noGuard
+  `possibleAbility` guts
 
 bellsprout :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 bellsprout = Prev.bellsprout
@@ -346,11 +347,11 @@ dodrio = Prev.dodrio
 
 seel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 seel = Prev.seel
-  `possibleAbility` thickFat || hydration
+  `possibleAbility` thickFat
 
 dewgong :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 dewgong = Prev.dewgong
-  `possibleAbility` thickFat || hydration
+  `possibleAbility` thickFat
 
 grimer :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 grimer = Prev.grimer
@@ -362,11 +363,11 @@ muk = Prev.muk
 
 shellder :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 shellder = Prev.shellder
-  `possibleAbility` shellArmor || skillLink
+  `possibleAbility` shellArmor
 
 cloyster :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 cloyster = Prev.cloyster
-  `possibleAbility` shellArmor || skillLink
+  `possibleAbility` shellArmor
 
 gastly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 gastly = Prev.gastly
@@ -378,7 +379,7 @@ haunter = Prev.haunter
 
 gengar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 gengar = Prev.gengar
-  `possibleAbility` cursedBody
+  `possibleAbility` levitate
 
 onix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 onix = Prev.onix
@@ -386,11 +387,11 @@ onix = Prev.onix
 
 drowzee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 drowzee = Prev.drowzee
-  `possibleAbility` insomnia || forewarn
+  `possibleAbility` insomnia
 
 hypno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 hypno = Prev.hypno
-  `possibleAbility` insomnia || forewarn
+  `possibleAbility` insomnia
 
 krabby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 krabby = Prev.krabby
@@ -426,11 +427,11 @@ marowak = Prev.marowak
 
 hitmonlee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 hitmonlee = Prev.hitmonlee
-  `possibleAbility` limber || reckless
+  `possibleAbility` limber
 
 hitmonchan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 hitmonchan = Prev.hitmonchan
-  `possibleAbility` keenEye || ironFist
+  `possibleAbility` keenEye
 
 lickitung :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 lickitung = Prev.lickitung
@@ -438,11 +439,11 @@ lickitung = Prev.lickitung
 
 koffing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 koffing = Prev.koffing
-  `possibleAbility` levitate || neutralizingGas
+  `possibleAbility` levitate
 
 weezing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 weezing = Prev.weezing
-  `possibleAbility` levitate || neutralizingGas
+  `possibleAbility` levitate
 
 rhyhorn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 rhyhorn = Prev.rhyhorn
@@ -458,19 +459,19 @@ chansey = Prev.chansey
 
 tangela :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 tangela = Prev.tangela
-  `possibleAbility` chlorophyll || leafGuard
+  `possibleAbility` chlorophyll
 
 kangaskhan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 kangaskhan = Prev.kangaskhan
-  `possibleAbility` earlyBird || scrappy
+  `possibleAbility` earlyBird
 
 horsea :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 horsea = Prev.horsea
-  `possibleAbility` swiftSwim || sniper
+  `possibleAbility` swiftSwim
 
 seadra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 seadra = Prev.seadra
-  `possibleAbility` poisonPoint || sniper
+  `possibleAbility` poisonPoint
 
 goldeen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 goldeen = Prev.goldeen
@@ -490,15 +491,15 @@ starmie = Prev.starmie
 
 mrMime :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 mrMime = Prev.mrMime
-  `possibleAbility` soundproof || filter
+  `possibleAbility` soundproof
 
 scyther :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 scyther = Prev.scyther
-  `possibleAbility` swarm || technician
+  `possibleAbility` swarm
 
 jynx :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 jynx = Prev.jynx
-  `possibleAbility` oblivious || forewarn
+  `possibleAbility` oblivious
 
 electabuzz :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 electabuzz = Prev.electabuzz
@@ -510,11 +511,11 @@ magmar = Prev.magmar
 
 pinsir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 pinsir = Prev.pinsir
-  `possibleAbility` hyperCutter || moldBreaker
+  `possibleAbility` hyperCutter
 
 tauros :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 tauros = Prev.tauros
-  `possibleAbility` intimidate || angerPoint
+  `possibleAbility` intimidate
 
 magikarp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 magikarp = Prev.magikarp
@@ -534,7 +535,7 @@ ditto = Prev.ditto
 
 eevee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 eevee = Prev.eevee
-  `possibleAbility` runAway || adaptability
+  `possibleAbility` runAway
 
 vaporeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 vaporeon = Prev.vaporeon
@@ -550,7 +551,7 @@ flareon = Prev.flareon
 
 porygon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 porygon = Prev.porygon
-  `possibleAbility` trace || download
+  `possibleAbility` trace
 
 omanyte :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 omanyte = Prev.omanyte
@@ -694,11 +695,11 @@ pichu = Prev.pichu
 
 cleffa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 cleffa = Prev.cleffa
-  `possibleAbility` cuteCharm || magicGuard
+  `possibleAbility` cuteCharm
 
 igglybuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 igglybuff = Prev.igglybuff
-  `possibleAbility` cuteCharm || competitive
+  `possibleAbility` cuteCharm
 
 togepi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 togepi = Prev.togepi
@@ -750,15 +751,15 @@ politoed = Prev.politoed
 
 hoppip :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 hoppip = Prev.hoppip
-  `possibleAbility` chlorophyll || leafGuard
+  `possibleAbility` chlorophyll
 
 skiploom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 skiploom = Prev.skiploom
-  `possibleAbility` chlorophyll || leafGuard
+  `possibleAbility` chlorophyll
 
 jumpluff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 jumpluff = Prev.jumpluff
-  `possibleAbility` chlorophyll || leafGuard
+  `possibleAbility` chlorophyll
 
 aipom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 aipom = Prev.aipom
@@ -766,11 +767,11 @@ aipom = Prev.aipom
 
 sunkern :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 sunkern = Prev.sunkern
-  `possibleAbility` chlorophyll || solarPower
+  `possibleAbility` chlorophyll
 
 sunflora :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 sunflora = Prev.sunflora
-  `possibleAbility` chlorophyll || solarPower
+  `possibleAbility` chlorophyll
 
 yanma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 yanma = Prev.yanma
@@ -794,7 +795,7 @@ umbreon = Prev.umbreon
 
 murkrow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 murkrow = Prev.murkrow
-  `possibleAbility` insomnia || superLuck
+  `possibleAbility` insomnia
 
 slowking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 slowking = Prev.slowking
@@ -838,7 +839,7 @@ snubbull = Prev.snubbull
 
 granbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 granbull = Prev.granbull
-  `possibleAbility` intimidate || quickFeet
+  `possibleAbility` intimidate
 
 qwilfish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 qwilfish = Prev.qwilfish
@@ -846,11 +847,11 @@ qwilfish = Prev.qwilfish
 
 scizor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 scizor = Prev.scizor
-  `possibleAbility` swarm || technician
+  `possibleAbility` swarm
 
 shuckle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 shuckle = Prev.shuckle
-  `possibleAbility` sturdy || gluttony
+  `possibleAbility` sturdy
 
 heracross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 heracross = Prev.heracross
@@ -862,11 +863,11 @@ sneasel = Prev.sneasel
 
 teddiursa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 teddiursa = Prev.teddiursa
-  `possibleAbility` pickup || quickFeet
+  `possibleAbility` pickup
 
 ursaring :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 ursaring = Prev.ursaring
-  `possibleAbility` guts || quickFeet
+  `possibleAbility` guts
 
 slugma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 slugma = Prev.slugma
@@ -878,11 +879,11 @@ magcargo = Prev.magcargo
 
 swinub :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 swinub = Prev.swinub
-  `possibleAbility` oblivious || snowCloak
+  `possibleAbility` oblivious
 
 piloswine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 piloswine = Prev.piloswine
-  `possibleAbility` oblivious || snowCloak
+  `possibleAbility` oblivious
 
 corsola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 corsola = Prev.corsola
@@ -890,11 +891,11 @@ corsola = Prev.corsola
 
 remoraid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 remoraid = Prev.remoraid
-  `possibleAbility` hustle || sniper
+  `possibleAbility` hustle
 
 octillery :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 octillery = Prev.octillery
-  `possibleAbility` suctionCups || sniper
+  `possibleAbility` suctionCups
 
 delibird :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 delibird = Prev.delibird
@@ -918,7 +919,7 @@ houndoom = Prev.houndoom
 
 kingdra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 kingdra = Prev.kingdra
-  `possibleAbility` swiftSwim || sniper
+  `possibleAbility` swiftSwim
 
 phanpy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 phanpy = Prev.phanpy
@@ -930,27 +931,27 @@ donphan = Prev.donphan
 
 porygon2 :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 porygon2 = Prev.porygon2
-  `possibleAbility` trace || download
+  `possibleAbility` trace
 
 stantler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 stantler = Prev.stantler
-  `possibleAbility` intimidate || frisk
+  `possibleAbility` intimidate
 
 smeargle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 smeargle = Prev.smeargle
-  `possibleAbility` ownTempo || technician
+  `possibleAbility` ownTempo
 
 tyrogue :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 tyrogue = Prev.tyrogue
-  `possibleAbility` guts || steadfast
+  `possibleAbility` guts
 
 hitmontop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 hitmontop = Prev.hitmontop
-  `possibleAbility` intimidate || technician
+  `possibleAbility` intimidate
 
 smoochum :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 smoochum = Prev.smoochum
-  `possibleAbility` oblivious || forewarn
+  `possibleAbility` oblivious
 
 elekid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 elekid = Prev.elekid
@@ -962,7 +963,7 @@ magby = Prev.magby
 
 miltank :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 miltank = Prev.miltank
-  `possibleAbility` thickFat || scrappy
+  `possibleAbility` thickFat
 
 blissey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 blissey = Prev.blissey
