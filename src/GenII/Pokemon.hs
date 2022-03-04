@@ -1,4 +1,7 @@
-module GenII.Pokemon where
+module GenII.Pokemon (
+  module GenII.Pokemon
+  ,module GenII.Updates
+                     ) where
 
 import GenII.Updates
 import GenII.Attribute
