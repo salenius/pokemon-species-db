@@ -538,10 +538,10 @@ sandslash =
   `captureRate` 90
   `baseExperience` 158
 
-nidoran-f :: (PokemonSYM p,TypeSYM p) => p Experience
-nidoran-f =
+nidoran_f :: (PokemonSYM p,TypeSYM p) => p Experience
+nidoran_f =
   pokemonNr 29 
-  `name` "Nidoran-f"
+  `name` "Nidoran (female)"
   `type1` poison
   `hp` 55
   `attack` 47
@@ -587,10 +587,10 @@ nidoqueen =
   `captureRate` 45
   `baseExperience` 253
 
-nidoran-m :: (PokemonSYM p,TypeSYM p) => p Experience
-nidoran-m =
+nidoran_m :: (PokemonSYM p,TypeSYM p) => p Experience
+nidoran_m =
   pokemonNr 32 
-  `name` "Nidoran-m"
+  `name` "Nidoran (male)"
   `type1` poison
   `hp` 46
   `attack` 57
@@ -640,7 +640,7 @@ clefairy :: (PokemonSYM p,TypeSYM p) => p Experience
 clefairy =
   pokemonNr 35 
   `name` "Clefairy"
-  `type1` fairy
+  `type1` normal
   `hp` 70
   `attack` 45
   `defence` 48
@@ -656,7 +656,7 @@ clefable :: (PokemonSYM p,TypeSYM p) => p Experience
 clefable =
   pokemonNr 36 
   `name` "Clefable"
-  `type1` fairy
+  `type1` normal
   `hp` 95
   `attack` 70
   `defence` 73
@@ -705,7 +705,6 @@ jigglypuff =
   pokemonNr 39 
   `name` "Jigglypuff"
   `type1` normal
-  `type2` fairy
   `hp` 115
   `attack` 45
   `defence` 20
@@ -722,7 +721,6 @@ wigglytuff =
   pokemonNr 40 
   `name` "Wigglytuff"
   `type1` normal
-  `type2` fairy
   `hp` 140
   `attack` 70
   `defence` 45
@@ -1399,7 +1397,6 @@ magnemite =
   pokemonNr 81 
   `name` "Magnemite"
   `type1` electric
-  `type2` steel
   `hp` 25
   `attack` 35
   `defence` 70
@@ -1416,7 +1413,6 @@ magneton =
   pokemonNr 82 
   `name` "Magneton"
   `type1` electric
-  `type2` steel
   `hp` 50
   `attack` 60
   `defence` 95
@@ -2066,12 +2062,11 @@ starmie =
   `captureRate` 60
   `baseExperience` 182
 
-mr-mime :: (PokemonSYM p,TypeSYM p) => p Experience
-mr-mime =
+mrMime :: (PokemonSYM p,TypeSYM p) => p Experience
+mrMime =
   pokemonNr 122 
-  `name` "Mr-mime"
+  `name` "Mr. Mime"
   `type1` psychic
-  `type2` fairy
   `hp` 40
   `attack` 45
   `defence` 65
@@ -2548,7 +2543,7 @@ mewtwo =
   `legendarity` legendaryPokemon
   `baseExperience` 340
 
-mew :: (PokemonSYM p,TypeSYM p,Legendary p) => p Experience
+mew :: (PokemonSYM p,TypeSYM p,LegendarySYM p) => p Experience
 mew =
   pokemonNr 151 
   `name` "Mew"

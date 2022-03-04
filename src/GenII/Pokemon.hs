@@ -1,13 +1,18 @@
+module GenII.Pokemon where
+
 import qualified GenI.Pokemon as Prev
 import GenI.Pokemon hiding (PokemonSYM(), TypeSYM())
 
 class Prev.PokemonSYM p => PokemonSYM p where
   baseHappiness :: p Experience -> Int -> p Happiness
   genderRatio :: p Happiness -> p GenderRatio -> p GenderOp
+
+infixl 5 `baseHappiness`
+infixl 5 `genderRatio`
   
 class Prev.TypeSYM p => TypeSYM p where
   dark :: p Type
-  steel p Type
+  steel :: p Type
   
 class GenderRatioSYM p where
   male100pct :: p GenderRatio
@@ -18,6 +23,10 @@ class GenderRatioSYM p where
   female88pct :: p GenderRatio
   female100pct :: p GenderRatio
   genderless :: p GenderRatio
+
+data GenderRatio = GenderRatio Double
+data Happiness = Happines Int
+data GenderOp = GenderOp
   
 chikorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 chikorita =
@@ -410,7 +419,7 @@ cleffa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 cleffa =
   pokemonNr 173 
   `name` "Cleffa"
-  `type1` fairy
+  `type1` normal
   `hp` 50
   `attack` 25
   `defence` 28
@@ -429,7 +438,6 @@ igglybuff =
   pokemonNr 174 
   `name` "Igglybuff"
   `type1` normal
-  `type2` fairy
   `hp` 90
   `attack` 30
   `defence` 15
@@ -447,7 +455,7 @@ togepi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 togepi =
   pokemonNr 175 
   `name` "Togepi"
-  `type1` fairy
+  `type1` normal
   `hp` 35
   `attack` 20
   `defence` 65
@@ -465,7 +473,7 @@ togetic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 togetic =
   pokemonNr 176 
   `name` "Togetic"
-  `type1` fairy
+  `type1` normal
   `type2` flying
   `hp` 55
   `attack` 40
@@ -595,7 +603,6 @@ marill =
   pokemonNr 183 
   `name` "Marill"
   `type1` water
-  `type2` fairy
   `hp` 70
   `attack` 20
   `defence` 50
@@ -614,7 +621,6 @@ azumarill =
   pokemonNr 184 
   `name` "Azumarill"
   `type1` water
-  `type2` fairy
   `hp` 100
   `attack` 50
   `defence` 80
@@ -1058,7 +1064,7 @@ snubbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 snubbull =
   pokemonNr 209 
   `name` "Snubbull"
-  `type1` fairy
+  `type1` normal
   `hp` 60
   `attack` 80
   `defence` 50
@@ -1076,7 +1082,7 @@ granbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 granbull =
   pokemonNr 210 
   `name` "Granbull"
-  `type1` fairy
+  `type1` normal
   `hp` 90
   `attack` 120
   `defence` 75
@@ -1682,7 +1688,7 @@ blissey =
   `baseHappiness` 140
   `genderRatio` female100pct
 
-raikou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+raikou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 raikou =
   pokemonNr 243 
   `name` "Raikou"
@@ -1701,7 +1707,7 @@ raikou =
   `baseHappiness` 35
   `genderRatio` genderless
 
-entei :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+entei :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 entei =
   pokemonNr 244 
   `name` "Entei"
@@ -1720,7 +1726,7 @@ entei =
   `baseHappiness` 35
   `genderRatio` genderless
 
-suicune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+suicune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 suicune =
   pokemonNr 245 
   `name` "Suicune"
@@ -1796,7 +1802,7 @@ tyranitar =
   `baseHappiness` 35
   `genderRatio` male50pct
 
-lugia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+lugia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 lugia =
   pokemonNr 249 
   `name` "Lugia"
@@ -1816,7 +1822,7 @@ lugia =
   `baseHappiness` 0
   `genderRatio` genderless
 
-hoOh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+hoOh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 hoOh =
   pokemonNr 250 
   `name` "Ho-Oh"
@@ -1836,7 +1842,7 @@ hoOh =
   `baseHappiness` 0
   `genderRatio` genderless
 
-celebi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
+celebi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,LegendarySYM p) => p GenderOp
 celebi =
   pokemonNr 251 
   `name` "Celebi"
