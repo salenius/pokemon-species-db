@@ -1,8 +1,7 @@
 module GenII.Pokemon where
 
-import qualified GenI.Pokemon as Prev
+import GenII.Updates
 import GenII.Attribute
-import GenI.Pokemon hiding (PokemonSYM(), TypeSYM())
   
 chikorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p) => p GenderOp
 chikorita =
