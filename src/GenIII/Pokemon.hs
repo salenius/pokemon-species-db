@@ -1,4 +1,6 @@
-module GenIII.Pokemon (module GenIII.Pokemon, module GenIII.Updates) where
+module GenIII.Pokemon (module GenIII.Pokemon
+                      , module GenIII.Updates
+                      ) where
 
 import GenIII.Attribute
 import GenIII.Ability
@@ -197,7 +199,7 @@ poochyena =
   `baseExperience` 56
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` runAway || quickFeet
+  `possibleAbility` runAway
 
 mightyena :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 mightyena =
@@ -216,7 +218,7 @@ mightyena =
   `baseExperience` 147
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` intimidate || quickFeet
+  `possibleAbility` intimidate
 
 zigzagoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 zigzagoon =
@@ -235,7 +237,7 @@ zigzagoon =
   `baseExperience` 56
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` pickup || gluttony
+  `possibleAbility` pickup
 
 linoone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 linoone =
@@ -254,7 +256,7 @@ linoone =
   `baseExperience` 147
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` pickup || gluttony
+  `possibleAbility` pickup
 
 wurmple :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 wurmple =
@@ -530,7 +532,7 @@ wingull =
   `baseExperience` 54
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` keenEye || hydration
+  `possibleAbility` keenEye
 
 pelipper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 pelipper =
@@ -557,7 +559,6 @@ ralts =
   pokemonNr 280 
   `name` "Ralts"
   `type1` psychic
-  `type2` fairy
   `hp` 28
   `attack` 25
   `defence` 25
@@ -577,7 +578,6 @@ kirlia =
   pokemonNr 281 
   `name` "Kirlia"
   `type1` psychic
-  `type2` fairy
   `hp` 38
   `attack` 35
   `defence` 35
@@ -597,7 +597,6 @@ gardevoir =
   pokemonNr 282 
   `name` "Gardevoir"
   `type1` psychic
-  `type2` fairy
   `hp` 68
   `attack` 65
   `defence` 65
@@ -669,7 +668,7 @@ shroomish =
   `baseExperience` 59
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` effectSpore || poisonHeal
+  `possibleAbility` effectSpore
 
 breloom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 breloom =
@@ -689,7 +688,7 @@ breloom =
   `baseExperience` 161
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` effectSpore || poisonHeal
+  `possibleAbility` effectSpore
 
 slakoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 slakoth =
@@ -908,7 +907,6 @@ azurill =
   pokemonNr 298 
   `name` "Azurill"
   `type1` normal
-  `type2` fairy
   `hp` 50
   `attack` 20
   `defence` 40
@@ -959,7 +957,7 @@ skitty =
   `baseExperience` 52
   `baseHappiness` 70
   `genderRatio` female75pct
-  `possibleAbility` cuteCharm || normalize
+  `possibleAbility` cuteCharm
 
 delcatty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 delcatty =
@@ -978,7 +976,7 @@ delcatty =
   `baseExperience` 140
   `baseHappiness` 70
   `genderRatio` female75pct
-  `possibleAbility` cuteCharm || normalize
+  `possibleAbility` cuteCharm
 
 sableye :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 sableye =
@@ -998,14 +996,13 @@ sableye =
   `baseExperience` 133
   `baseHappiness` 35
   `genderRatio` male50pct
-  `possibleAbility` keenEye || stall
+  `possibleAbility` keenEye
 
 mawile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 mawile =
   pokemonNr 303 
   `name` "Mawile"
   `type1` steel
-  `type2` fairy
   `hp` 50
   `attack` 85
   `defence` 85
@@ -1232,7 +1229,7 @@ illumise =
   `baseExperience` 151
   `baseHappiness` 70
   `genderRatio` female100pct
-  `possibleAbility` oblivious || tintedLens
+  `possibleAbility` oblivious
 
 roselia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 roselia =
@@ -1388,7 +1385,7 @@ numel =
   `baseExperience` 61
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` oblivious || simple
+  `possibleAbility` oblivious
 
 camerupt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 camerupt =
@@ -1408,7 +1405,7 @@ camerupt =
   `baseExperience` 161
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` magmaArmor || solidRock
+  `possibleAbility` magmaArmor
 
 torkoal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 torkoal =
@@ -1484,7 +1481,7 @@ spinda =
   `baseExperience` 126
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` ownTempo || tangledFeet
+  `possibleAbility` ownTempo 
 
 trapinch :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 trapinch =
@@ -1720,7 +1717,7 @@ barboach =
   `baseExperience` 58
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` oblivious || anticipation
+  `possibleAbility` oblivious
 
 whiscash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 whiscash =
@@ -1740,7 +1737,7 @@ whiscash =
   `baseExperience` 164
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` oblivious || anticipation
+  `possibleAbility` oblivious
 
 corphish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 corphish =
@@ -1937,7 +1934,7 @@ milotic =
   `baseExperience` 189
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` marvelScale || competitive
+  `possibleAbility` marvelScale
 
 castform :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 castform =
@@ -1994,7 +1991,7 @@ shuppet =
   `baseExperience` 59
   `baseHappiness` 35
   `genderRatio` male50pct
-  `possibleAbility` insomnia || frisk
+  `possibleAbility` insomnia
 
 banette :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 banette =
@@ -2013,7 +2010,7 @@ banette =
   `baseExperience` 159
   `baseHappiness` 35
   `genderRatio` male50pct
-  `possibleAbility` insomnia || frisk
+  `possibleAbility` insomnia
 
 duskull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 duskull =
@@ -2071,7 +2068,7 @@ tropius =
   `baseExperience` 161
   `baseHappiness` 70
   `genderRatio` male50pct
-  `possibleAbility` chlorophyll || solarPower
+  `possibleAbility` chlorophyll
 
 chimecho :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 chimecho =
@@ -2109,7 +2106,7 @@ absol =
   `baseExperience` 163
   `baseHappiness` 35
   `genderRatio` male50pct
-  `possibleAbility` pressure || superLuck
+  `possibleAbility` pressure
 
 wynaut :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 wynaut =
@@ -2147,7 +2144,7 @@ snorunt =
   `baseExperience` 60
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` innerFocus || iceBody
+  `possibleAbility` innerFocus
 
 glalie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 glalie =
@@ -2166,7 +2163,7 @@ glalie =
   `baseExperience` 168
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` innerFocus || iceBody
+  `possibleAbility` innerFocus
 
 spheal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 spheal =
@@ -2186,7 +2183,7 @@ spheal =
   `baseExperience` 58
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` thickFat || iceBody
+  `possibleAbility` thickFat
 
 sealeo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 sealeo =
@@ -2206,7 +2203,7 @@ sealeo =
   `baseExperience` 144
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` thickFat || iceBody
+  `possibleAbility` thickFat
 
 walrein :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 walrein =
@@ -2226,7 +2223,7 @@ walrein =
   `baseExperience` 265
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` thickFat || iceBody
+  `possibleAbility` thickFat
 
 clamperl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 clamperl =
