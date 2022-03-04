@@ -1,7 +1,12 @@
 module GenIII.Ability where
 
+import Prelude hiding (||)
+
 class AbilitySYM r where
   ability :: r Ability
+  (||) :: r Ability -> r Ability -> r Ability
+  
+infixl 7 ||
   
 newtype Ability = Ability String
 
