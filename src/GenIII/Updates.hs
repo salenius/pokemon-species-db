@@ -116,8 +116,8 @@ sandslash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p Ability
 sandslash = Prev.sandslash
   `possibleAbility` sandVeil
 
-nidoranF :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
-nidoranF = Prev.nidoranF
+nidoran_f :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
+nidoran_f = Prev.nidoran_f
   `possibleAbility` poisonPoint || rivalry
 
 nidorina :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
@@ -128,8 +128,8 @@ nidoqueen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p Ability
 nidoqueen = Prev.nidoqueen
   `possibleAbility` poisonPoint || rivalry
 
-nidoranM :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
-nidoranM = Prev.nidoranM
+nidoran_m :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
+nidoran_m = Prev.nidoran_m
   `possibleAbility` poisonPoint || rivalry
 
 nidorino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
