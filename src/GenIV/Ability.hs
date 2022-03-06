@@ -1,4 +1,4 @@
-module GenIV.Ability where
+module GenIV.Ability (module GenIV.Ability, module GenIII.Ability) where
 
 import GenIII.Ability
 
