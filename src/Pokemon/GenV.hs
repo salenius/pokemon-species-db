@@ -1,19 +1,30 @@
 module Pokemon.GenV where
 
 import qualified GenV.Pokemon as Pkmn
-import GenV.Attribute
+import GenV.Attribute hiding (psychic,sandstorm,hail)
+import qualified GenV.Ability as Ab
 import GenV.AvailableMoves
+import GenV.Ability hiding (AbilitySYM())
 import Prelude hiding (return,round)
 
 class Semigroup (r MoveLearn) => LearnSetSYM r where
   moveSet :: r Form -> r MoveLearn -> r Pokemon
   ableToLearn :: r Move -> r MoveLearn
   learnsAtLevel :: Int -> r Move -> r MoveLearn
+  differentForms :: r a -> r PkmnForm -> r Form
+  singleFormOnly :: r PkmnForm
   
 infixl 5 `moveSet`
 infixl 5 `differentForms`
 
-bulbasaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+data MoveLearn = MoveLearn
+data Pokemon = Pokemon String
+data Form = Form String
+data PkmnForm = PkmnForm String
+
+class (Ab.AbilitySYM r, HiddenAbilitySYM r) => AbilitySYM r
+
+bulbasaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bulbasaur = Pkmn.bulbasaur 
   `differentForms` singleFormOnly
   `moveSet`
@@ -77,7 +88,7 @@ bulbasaur = Pkmn.bulbasaur
   learnsAtLevel 33 synthesis <> 
   learnsAtLevel 37 seedBomb
 
-ivysaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ivysaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ivysaur = Pkmn.ivysaur 
   `differentForms` singleFormOnly
   `moveSet`
@@ -128,7 +139,7 @@ ivysaur = Pkmn.ivysaur
   learnsAtLevel 39 synthesis <> 
   learnsAtLevel 44 solarBeam
 
-venusaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+venusaur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 venusaur = Pkmn.venusaur 
   `differentForms` singleFormOnly
   `moveSet`
@@ -188,7 +199,7 @@ venusaur = Pkmn.venusaur
   learnsAtLevel 45 synthesis <> 
   learnsAtLevel 53 solarBeam
 
-charmander :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+charmander :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 charmander = Pkmn.charmander 
   `differentForms` singleFormOnly
   `moveSet`
@@ -257,7 +268,7 @@ charmander = Pkmn.charmander
   learnsAtLevel 43 fireSpin <> 
   learnsAtLevel 46 inferno
 
-charmeleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+charmeleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 charmeleon = Pkmn.charmeleon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -314,7 +325,7 @@ charmeleon = Pkmn.charmeleon
   learnsAtLevel 50 fireSpin <> 
   learnsAtLevel 54 inferno
 
-charizard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+charizard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 charizard = Pkmn.charizard 
   `differentForms` singleFormOnly
   `moveSet`
@@ -388,7 +399,7 @@ charizard = Pkmn.charizard
   learnsAtLevel 71 heatWave <> 
   learnsAtLevel 77 flareBlitz
 
-squirtle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+squirtle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 squirtle = Pkmn.squirtle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -453,7 +464,7 @@ squirtle = Pkmn.squirtle
   learnsAtLevel 37 rainDance <> 
   learnsAtLevel 40 hydroPump
 
-wartortle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wartortle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wartortle = Pkmn.wartortle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -504,7 +515,7 @@ wartortle = Pkmn.wartortle
   learnsAtLevel 44 rainDance <> 
   learnsAtLevel 48 hydroPump
 
-blastoise :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+blastoise :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 blastoise = Pkmn.blastoise 
   `differentForms` singleFormOnly
   `moveSet`
@@ -568,7 +579,7 @@ blastoise = Pkmn.blastoise
   learnsAtLevel 53 rainDance <> 
   learnsAtLevel 60 hydroPump
 
-caterpie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+caterpie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 caterpie = Pkmn.caterpie 
   `differentForms` singleFormOnly
   `moveSet`
@@ -578,7 +589,7 @@ caterpie = Pkmn.caterpie
   learnsAtLevel 1 stringShot <> 
   learnsAtLevel 15 bugBite
 
-metapod :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+metapod :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 metapod = Pkmn.metapod 
   `differentForms` singleFormOnly
   `moveSet`
@@ -587,7 +598,7 @@ metapod = Pkmn.metapod
   ableToLearn electroweb <> 
   learnsAtLevel 1 harden
 
-butterfree :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+butterfree :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 butterfree = Pkmn.butterfree 
   `differentForms` singleFormOnly
   `moveSet`
@@ -644,7 +655,7 @@ butterfree = Pkmn.butterfree
   learnsAtLevel 42 bugBuzz <> 
   learnsAtLevel 46 quiverDance
 
-weedle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+weedle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 weedle = Pkmn.weedle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -653,7 +664,7 @@ weedle = Pkmn.weedle
   learnsAtLevel 1 stringShot <> 
   learnsAtLevel 15 bugBite
 
-kakuna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kakuna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kakuna = Pkmn.kakuna 
   `differentForms` singleFormOnly
   `moveSet`
@@ -662,7 +673,7 @@ kakuna = Pkmn.kakuna
   ableToLearn electroweb <> 
   learnsAtLevel 1 harden
 
-beedrill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+beedrill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 beedrill = Pkmn.beedrill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -718,7 +729,7 @@ beedrill = Pkmn.beedrill
   learnsAtLevel 37 poisonJab <> 
   learnsAtLevel 40 endeavor
 
-pidgey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pidgey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pidgey = Pkmn.pidgey 
   `differentForms` singleFormOnly
   `moveSet`
@@ -768,7 +779,7 @@ pidgey = Pkmn.pidgey
   learnsAtLevel 49 airSlash <> 
   learnsAtLevel 53 hurricane
 
-pidgeotto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pidgeotto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pidgeotto = Pkmn.pidgeotto 
   `differentForms` singleFormOnly
   `moveSet`
@@ -811,7 +822,7 @@ pidgeotto = Pkmn.pidgeotto
   learnsAtLevel 57 airSlash <> 
   learnsAtLevel 62 hurricane
 
-pidgeot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pidgeot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pidgeot = Pkmn.pidgeot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -857,7 +868,7 @@ pidgeot = Pkmn.pidgeot
   learnsAtLevel 62 airSlash <> 
   learnsAtLevel 68 hurricane
 
-rattata :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rattata :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rattata = Pkmn.rattata 
   `differentForms` singleFormOnly
   `moveSet`
@@ -923,7 +934,7 @@ rattata = Pkmn.rattata
   learnsAtLevel 31 doubleEdge <> 
   learnsAtLevel 34 endeavor
 
-raticate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+raticate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 raticate = Pkmn.raticate 
   `differentForms` singleFormOnly
   `moveSet`
@@ -987,7 +998,7 @@ raticate = Pkmn.raticate
   learnsAtLevel 39 doubleEdge <> 
   learnsAtLevel 44 endeavor
 
-spearow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spearow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spearow = Pkmn.spearow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1040,7 +1051,7 @@ spearow = Pkmn.spearow
   learnsAtLevel 33 roost <> 
   learnsAtLevel 37 drillPeck
 
-fearow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+fearow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 fearow = Pkmn.fearow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1086,7 +1097,7 @@ fearow = Pkmn.fearow
   learnsAtLevel 47 drillPeck <> 
   learnsAtLevel 53 drillRun
 
-ekans :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ekans :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ekans = Pkmn.ekans 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1153,7 +1164,7 @@ ekans = Pkmn.ekans
   learnsAtLevel 44 coil <> 
   learnsAtLevel 49 gunkShot
 
-arbok :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+arbok :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 arbok = Pkmn.arbok 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1218,7 +1229,7 @@ arbok = Pkmn.arbok
   learnsAtLevel 56 coil <> 
   learnsAtLevel 63 gunkShot
 
-pikachu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pikachu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pikachu = Pkmn.pikachu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1269,7 +1280,7 @@ pikachu = Pkmn.pikachu
   learnsAtLevel 45 lightScreen <> 
   learnsAtLevel 50 thunder
 
-raichu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+raichu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 raichu = Pkmn.raichu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1318,7 +1329,7 @@ raichu = Pkmn.raichu
   learnsAtLevel 1 thunderShock <> 
   learnsAtLevel 1 tailWhip
 
-sandshrew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sandshrew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sandshrew = Pkmn.sandshrew 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1385,7 +1396,7 @@ sandshrew = Pkmn.sandshrew
   learnsAtLevel 33 gyroBall <> 
   learnsAtLevel 37 sandstorm
 
-sandslash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sandslash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sandslash = Pkmn.sandslash 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1448,8 +1459,8 @@ sandslash = Pkmn.sandslash
   learnsAtLevel 45 gyroBall <> 
   learnsAtLevel 52 sandstorm
 
-nidoranF :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
-nidoranF = Pkmn.nidoranF 
+nidoran_f :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidoran_f = Pkmn.nidoran_f
   `differentForms` singleFormOnly
   `moveSet`
   ableToLearn charm <> 
@@ -1511,7 +1522,7 @@ nidoranF = Pkmn.nidoranF
   learnsAtLevel 43 captivate <> 
   learnsAtLevel 45 poisonFang
 
-nidorina :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidorina :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nidorina = Pkmn.nidorina 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1563,7 +1574,7 @@ nidorina = Pkmn.nidorina
   learnsAtLevel 50 captivate <> 
   learnsAtLevel 58 poisonFang
 
-nidoqueen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidoqueen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nidoqueen = Pkmn.nidoqueen 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1643,8 +1654,8 @@ nidoqueen = Pkmn.nidoqueen
   learnsAtLevel 43 earthPower <> 
   learnsAtLevel 58 superpower
 
-nidoranM :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
-nidoranM = Pkmn.nidoranM 
+nidoran_m :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidoran_m = Pkmn.nidoran_m
   `differentForms` singleFormOnly
   `moveSet`
   ableToLearn cut <> 
@@ -1706,7 +1717,7 @@ nidoranM = Pkmn.nidoranM
   learnsAtLevel 43 captivate <> 
   learnsAtLevel 45 hornDrill
 
-nidorino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidorino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nidorino = Pkmn.nidorino 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1757,7 +1768,7 @@ nidorino = Pkmn.nidorino
   learnsAtLevel 50 captivate <> 
   learnsAtLevel 58 hornDrill
 
-nidoking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nidoking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nidoking = Pkmn.nidoking 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1838,7 +1849,7 @@ nidoking = Pkmn.nidoking
   learnsAtLevel 43 earthPower <> 
   learnsAtLevel 58 megahorn
 
-clefairy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+clefairy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 clefairy = Pkmn.clefairy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -1932,7 +1943,7 @@ clefairy = Pkmn.clefairy
   learnsAtLevel 52 afterYou <> 
   learnsAtLevel 55 meteorMash
 
-clefable :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+clefable :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 clefable = Pkmn.clefable 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2015,7 +2026,7 @@ clefable = Pkmn.clefable
   learnsAtLevel 1 minimize <> 
   learnsAtLevel 1 doubleSlap
 
-vulpix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vulpix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vulpix = Pkmn.vulpix 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2077,7 +2088,7 @@ vulpix = Pkmn.vulpix
   learnsAtLevel 51 extrasensory <> 
   learnsAtLevel 54 fireBlast
 
-ninetales :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ninetales :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ninetales = Pkmn.ninetales 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2128,7 +2139,7 @@ ninetales = Pkmn.ninetales
   learnsAtLevel 1 safeguard <> 
   learnsAtLevel 1 ember
 
-jigglypuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+jigglypuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 jigglypuff = Pkmn.jigglypuff 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2207,7 +2218,7 @@ jigglypuff = Pkmn.jigglypuff
   learnsAtLevel 49 hyperVoice <> 
   learnsAtLevel 53 doubleEdge
 
-wigglytuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wigglytuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wigglytuff = Pkmn.wigglytuff 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2284,7 +2295,7 @@ wigglytuff = Pkmn.wigglytuff
   learnsAtLevel 1 sing <> 
   learnsAtLevel 1 doubleSlap
 
-zubat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zubat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zubat = Pkmn.zubat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2348,7 +2359,7 @@ zubat = Pkmn.zubat
   learnsAtLevel 41 haze <> 
   learnsAtLevel 45 airSlash
 
-golbat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+golbat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 golbat = Pkmn.golbat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2404,7 +2415,7 @@ golbat = Pkmn.golbat
   learnsAtLevel 51 haze <> 
   learnsAtLevel 57 airSlash
 
-oddish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+oddish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 oddish = Pkmn.oddish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2457,7 +2468,7 @@ oddish = Pkmn.oddish
   learnsAtLevel 37 gigaDrain <> 
   learnsAtLevel 41 petalDance
 
-gloom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gloom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gloom = Pkmn.gloom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2504,7 +2515,7 @@ gloom = Pkmn.gloom
   learnsAtLevel 47 gigaDrain <> 
   learnsAtLevel 53 petalDance
 
-vileplume :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vileplume :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vileplume = Pkmn.vileplume 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2547,7 +2558,7 @@ vileplume = Pkmn.vileplume
   learnsAtLevel 53 petalDance <> 
   learnsAtLevel 65 solarBeam
 
-paras :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+paras :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 paras = Pkmn.paras 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2614,7 +2625,7 @@ paras = Pkmn.paras
   learnsAtLevel 49 ragePowder <> 
   learnsAtLevel 54 xScissor
 
-parasect :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+parasect :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 parasect = Pkmn.parasect 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2672,7 +2683,7 @@ parasect = Pkmn.parasect
   learnsAtLevel 59 ragePowder <> 
   learnsAtLevel 66 xScissor
 
-venonat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+venonat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 venonat = Pkmn.venonat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2722,7 +2733,7 @@ venonat = Pkmn.venonat
   learnsAtLevel 41 poisonFang <> 
   learnsAtLevel 47 psychic
 
-venomoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+venomoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 venomoth = Pkmn.venomoth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2777,7 +2788,7 @@ venomoth = Pkmn.venomoth
   learnsAtLevel 59 bugBuzz <> 
   learnsAtLevel 63 quiverDance
 
-diglett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+diglett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 diglett = Pkmn.diglett 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2834,7 +2845,7 @@ diglett = Pkmn.diglett
   learnsAtLevel 40 earthquake <> 
   learnsAtLevel 45 fissure
 
-dugtrio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dugtrio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dugtrio = Pkmn.dugtrio 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2888,7 +2899,7 @@ dugtrio = Pkmn.dugtrio
   learnsAtLevel 50 earthquake <> 
   learnsAtLevel 57 fissure
 
-meowth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+meowth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 meowth = Pkmn.meowth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -2963,7 +2974,7 @@ meowth = Pkmn.meowth
   learnsAtLevel 49 nightSlash <> 
   learnsAtLevel 54 feint
 
-persian :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+persian :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 persian = Pkmn.persian 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3036,7 +3047,7 @@ persian = Pkmn.persian
   learnsAtLevel 61 nightSlash <> 
   learnsAtLevel 68 feint
 
-psyduck :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+psyduck :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 psyduck = Pkmn.psyduck 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3111,7 +3122,7 @@ psyduck = Pkmn.psyduck
   learnsAtLevel 53 hydroPump <> 
   learnsAtLevel 57 wonderRoom
 
-golduck :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+golduck :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 golduck = Pkmn.golduck 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3180,7 +3191,7 @@ golduck = Pkmn.golduck
   learnsAtLevel 63 hydroPump <> 
   learnsAtLevel 69 wonderRoom
 
-mankey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mankey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mankey = Pkmn.mankey 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3263,7 +3274,7 @@ mankey = Pkmn.mankey
   learnsAtLevel 49 closeCombat <> 
   learnsAtLevel 53 finalGambit
 
-primeape :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+primeape :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 primeape = Pkmn.primeape 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3341,7 +3352,7 @@ primeape = Pkmn.primeape
   learnsAtLevel 59 closeCombat <> 
   learnsAtLevel 63 finalGambit
 
-growlithe :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+growlithe :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 growlithe = Pkmn.growlithe 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3402,7 +3413,7 @@ growlithe = Pkmn.growlithe
   learnsAtLevel 51 heatWave <> 
   learnsAtLevel 56 flareBlitz
 
-arcanine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+arcanine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 arcanine = Pkmn.arcanine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3454,7 +3465,7 @@ arcanine = Pkmn.arcanine
   learnsAtLevel 1 bite <> 
   learnsAtLevel 39 extremeSpeed
 
-poliwag :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+poliwag :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 poliwag = Pkmn.poliwag 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3508,7 +3519,7 @@ poliwag = Pkmn.poliwag
   learnsAtLevel 38 hydroPump <> 
   learnsAtLevel 41 mudBomb
 
-poliwhirl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+poliwhirl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 poliwhirl = Pkmn.poliwhirl 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3560,7 +3571,7 @@ poliwhirl = Pkmn.poliwhirl
   learnsAtLevel 48 hydroPump <> 
   learnsAtLevel 53 mudBomb
 
-poliwrath :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+poliwrath :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 poliwrath = Pkmn.poliwrath 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3617,7 +3628,7 @@ poliwrath = Pkmn.poliwrath
   learnsAtLevel 43 mindReader <> 
   learnsAtLevel 53 circleThrow
 
-abra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+abra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 abra = Pkmn.abra 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3684,7 +3695,7 @@ abra = Pkmn.abra
   ableToLearn foulPlay <> 
   learnsAtLevel 1 teleport
 
-kadabra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kadabra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kadabra = Pkmn.kadabra 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3754,7 +3765,7 @@ kadabra = Pkmn.kadabra
   learnsAtLevel 48 futureSight <> 
   learnsAtLevel 52 trick
 
-alakazam :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+alakazam :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 alakazam = Pkmn.alakazam 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3827,7 +3838,7 @@ alakazam = Pkmn.alakazam
   learnsAtLevel 48 futureSight <> 
   learnsAtLevel 52 trick
 
-machop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+machop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 machop = Pkmn.machop 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3901,7 +3912,7 @@ machop = Pkmn.machop
   learnsAtLevel 46 scaryFace <> 
   learnsAtLevel 49 dynamicPunch
 
-machoke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+machoke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 machoke = Pkmn.machoke 
   `differentForms` singleFormOnly
   `moveSet`
@@ -3965,7 +3976,7 @@ machoke = Pkmn.machoke
   learnsAtLevel 51 scaryFace <> 
   learnsAtLevel 55 dynamicPunch
 
-machamp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+machamp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 machamp = Pkmn.machamp 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4033,7 +4044,7 @@ machamp = Pkmn.machamp
   learnsAtLevel 51 scaryFace <> 
   learnsAtLevel 55 dynamicPunch
 
-bellsprout :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bellsprout :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bellsprout = Pkmn.bellsprout 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4091,7 +4102,7 @@ bellsprout = Pkmn.bellsprout
   learnsAtLevel 41 slam <> 
   learnsAtLevel 47 wringOut
 
-weepinbell :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+weepinbell :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 weepinbell = Pkmn.weepinbell 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4140,7 +4151,7 @@ weepinbell = Pkmn.weepinbell
   learnsAtLevel 41 slam <> 
   learnsAtLevel 47 wringOut
 
-victreebel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+victreebel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 victreebel = Pkmn.victreebel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4190,7 +4201,7 @@ victreebel = Pkmn.victreebel
   learnsAtLevel 47 leafStorm <> 
   learnsAtLevel 47 leafBlade
 
-tentacool :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tentacool :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tentacool = Pkmn.tentacool 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4255,7 +4266,7 @@ tentacool = Pkmn.tentacool
   learnsAtLevel 50 sludgeWave <> 
   learnsAtLevel 54 wringOut
 
-tentacruel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tentacruel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tentacruel = Pkmn.tentacruel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4312,7 +4323,7 @@ tentacruel = Pkmn.tentacruel
   learnsAtLevel 56 sludgeWave <> 
   learnsAtLevel 61 wringOut
 
-geodude :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+geodude :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 geodude = Pkmn.geodude 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4374,7 +4385,7 @@ geodude = Pkmn.geodude
   learnsAtLevel 46 doubleEdge <> 
   learnsAtLevel 50 stoneEdge
 
-graveler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+graveler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 graveler = Pkmn.graveler 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4428,7 +4439,7 @@ graveler = Pkmn.graveler
   learnsAtLevel 58 doubleEdge <> 
   learnsAtLevel 64 stoneEdge
 
-golem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+golem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 golem = Pkmn.golem 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4488,7 +4499,7 @@ golem = Pkmn.golem
   learnsAtLevel 64 stoneEdge <> 
   learnsAtLevel 69 heavySlam
 
-ponyta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ponyta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ponyta = Pkmn.ponyta 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4541,7 +4552,7 @@ ponyta = Pkmn.ponyta
   learnsAtLevel 45 bounce <> 
   learnsAtLevel 49 flareBlitz
 
-rapidash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rapidash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rapidash = Pkmn.rapidash 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4592,7 +4603,7 @@ rapidash = Pkmn.rapidash
   learnsAtLevel 45 bounce <> 
   learnsAtLevel 49 flareBlitz
 
-slowpoke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slowpoke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slowpoke = Pkmn.slowpoke 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4669,7 +4680,7 @@ slowpoke = Pkmn.slowpoke
   learnsAtLevel 54 psychUp <> 
   learnsAtLevel 58 healPulse
 
-slowbro :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slowbro :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slowbro = Pkmn.slowbro 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4753,7 +4764,7 @@ slowbro = Pkmn.slowbro
   learnsAtLevel 62 psychUp <> 
   learnsAtLevel 68 healPulse
 
-magnemite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magnemite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magnemite = Pkmn.magnemite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4806,7 +4817,7 @@ magnemite = Pkmn.magnemite
   learnsAtLevel 54 gyroBall <> 
   learnsAtLevel 59 zapCannon
 
-magneton :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magneton :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magneton = Pkmn.magneton 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4862,7 +4873,7 @@ magneton = Pkmn.magneton
   learnsAtLevel 60 gyroBall <> 
   learnsAtLevel 66 zapCannon
 
-farfetchd :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+farfetchd :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 farfetchd = Pkmn.farfetchd 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4929,7 +4940,7 @@ farfetchd = Pkmn.farfetchd
   learnsAtLevel 49 airSlash <> 
   learnsAtLevel 55 braveBird
 
-doduo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+doduo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 doduo = Pkmn.doduo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -4978,7 +4989,7 @@ doduo = Pkmn.doduo
   learnsAtLevel 46 endeavor <> 
   learnsAtLevel 50 thrash
 
-dodrio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dodrio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dodrio = Pkmn.dodrio 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5025,7 +5036,7 @@ dodrio = Pkmn.dodrio
   learnsAtLevel 54 endeavor <> 
   learnsAtLevel 60 thrash
 
-seel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seel = Pkmn.seel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5081,7 +5092,7 @@ seel = Pkmn.seel
   learnsAtLevel 51 safeguard <> 
   learnsAtLevel 53 hail
 
-dewgong :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dewgong :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dewgong = Pkmn.dewgong 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5129,7 +5140,7 @@ dewgong = Pkmn.dewgong
   learnsAtLevel 61 safeguard <> 
   learnsAtLevel 65 hail
 
-grimer :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+grimer :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 grimer = Pkmn.grimer 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5199,7 +5210,7 @@ grimer = Pkmn.grimer
   learnsAtLevel 49 gunkShot <> 
   learnsAtLevel 52 memento
 
-muk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+muk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 muk = Pkmn.muk 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5264,7 +5275,7 @@ muk = Pkmn.muk
   learnsAtLevel 58 gunkShot <> 
   learnsAtLevel 64 memento
 
-shellder :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shellder :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shellder = Pkmn.shellder 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5317,7 +5328,7 @@ shellder = Pkmn.shellder
   learnsAtLevel 56 shellSmash <> 
   learnsAtLevel 61 hydroPump
 
-cloyster :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cloyster :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cloyster = Pkmn.cloyster 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5359,7 +5370,7 @@ cloyster = Pkmn.cloyster
   learnsAtLevel 28 spikes <> 
   learnsAtLevel 52 icicleCrash
 
-gastly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gastly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gastly = Pkmn.gastly 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5431,7 +5442,7 @@ gastly = Pkmn.gastly
   learnsAtLevel 43 hex <> 
   learnsAtLevel 47 nightmare
 
-haunter :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+haunter :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 haunter = Pkmn.haunter 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5498,7 +5509,7 @@ haunter = Pkmn.haunter
   learnsAtLevel 55 hex <> 
   learnsAtLevel 61 nightmare
 
-gengar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gengar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gengar = Pkmn.gengar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5574,7 +5585,7 @@ gengar = Pkmn.gengar
   learnsAtLevel 55 hex <> 
   learnsAtLevel 61 nightmare
 
-onix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+onix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 onix = Pkmn.onix 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5638,7 +5649,7 @@ onix = Pkmn.onix
   learnsAtLevel 57 doubleEdge <> 
   learnsAtLevel 62 stoneEdge
 
-drowzee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+drowzee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 drowzee = Pkmn.drowzee 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5710,7 +5721,7 @@ drowzee = Pkmn.drowzee
   learnsAtLevel 57 psyshock <> 
   learnsAtLevel 61 futureSight
 
-hypno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hypno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hypno = Pkmn.hypno 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5781,7 +5792,7 @@ hypno = Pkmn.hypno
   learnsAtLevel 57 psyshock <> 
   learnsAtLevel 61 futureSight
 
-krabby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+krabby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 krabby = Pkmn.krabby 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5846,7 +5857,7 @@ krabby = Pkmn.krabby
   learnsAtLevel 41 crabhammer <> 
   learnsAtLevel 45 flail
 
-kingler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kingler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kingler = Pkmn.kingler 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5907,7 +5918,7 @@ kingler = Pkmn.kingler
   learnsAtLevel 56 crabhammer <> 
   learnsAtLevel 63 flail
 
-voltorb :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+voltorb :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 voltorb = Pkmn.voltorb 
   `differentForms` singleFormOnly
   `moveSet`
@@ -5953,7 +5964,7 @@ voltorb = Pkmn.voltorb
   learnsAtLevel 47 explosion <> 
   learnsAtLevel 50 mirrorCoat
 
-electrode :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+electrode :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 electrode = Pkmn.electrode 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6001,7 +6012,7 @@ electrode = Pkmn.electrode
   learnsAtLevel 57 explosion <> 
   learnsAtLevel 62 mirrorCoat
 
-exeggcute :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+exeggcute :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 exeggcute = Pkmn.exeggcute 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6064,7 +6075,7 @@ exeggcute = Pkmn.exeggcute
   learnsAtLevel 47 extrasensory <> 
   learnsAtLevel 53 bestow
 
-exeggutor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+exeggutor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 exeggutor = Pkmn.exeggutor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6119,7 +6130,7 @@ exeggutor = Pkmn.exeggutor
   learnsAtLevel 37 woodHammer <> 
   learnsAtLevel 47 leafStorm
 
-cubone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cubone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cubone = Pkmn.cubone 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6193,7 +6204,7 @@ cubone = Pkmn.cubone
   learnsAtLevel 43 doubleEdge <> 
   learnsAtLevel 47 retaliate
 
-marowak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+marowak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 marowak = Pkmn.marowak 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6263,7 +6274,7 @@ marowak = Pkmn.marowak
   learnsAtLevel 53 doubleEdge <> 
   learnsAtLevel 59 retaliate
 
-hitmonlee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hitmonlee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hitmonlee = Pkmn.hitmonlee 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6323,7 +6334,7 @@ hitmonlee = Pkmn.hitmonlee
   learnsAtLevel 57 closeCombat <> 
   learnsAtLevel 61 reversal
 
-hitmonchan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hitmonchan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hitmonchan = Pkmn.hitmonchan 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6382,7 +6393,7 @@ hitmonchan = Pkmn.hitmonchan
   learnsAtLevel 61 counter <> 
   learnsAtLevel 66 closeCombat
 
-lickitung :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lickitung :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lickitung = Pkmn.lickitung 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6464,7 +6475,7 @@ lickitung = Pkmn.lickitung
   learnsAtLevel 53 powerWhip <> 
   learnsAtLevel 57 wringOut
 
-koffing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+koffing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 koffing = Pkmn.koffing 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6524,7 +6535,7 @@ koffing = Pkmn.koffing
   learnsAtLevel 51 destinyBond <> 
   learnsAtLevel 55 memento
 
-weezing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+weezing :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 weezing = Pkmn.weezing 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6579,7 +6590,7 @@ weezing = Pkmn.weezing
   learnsAtLevel 59 destinyBond <> 
   learnsAtLevel 65 memento
 
-rhyhorn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rhyhorn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rhyhorn = Pkmn.rhyhorn 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6655,7 +6666,7 @@ rhyhorn = Pkmn.rhyhorn
   learnsAtLevel 63 hornDrill <> 
   learnsAtLevel 67 megahorn
 
-rhydon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rhydon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rhydon = Pkmn.rhydon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6735,7 +6746,7 @@ rhydon = Pkmn.rhydon
   learnsAtLevel 71 hornDrill <> 
   learnsAtLevel 77 megahorn
 
-chansey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chansey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chansey = Pkmn.chansey 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6831,7 +6842,7 @@ chansey = Pkmn.chansey
   learnsAtLevel 50 healingWish <> 
   learnsAtLevel 54 doubleEdge
 
-tangela :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tangela :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tangela = Pkmn.tangela 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6895,7 +6906,7 @@ tangela = Pkmn.tangela
   learnsAtLevel 50 wringOut <> 
   learnsAtLevel 54 powerWhip
 
-kangaskhan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kangaskhan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kangaskhan = Pkmn.kangaskhan 
   `differentForms` singleFormOnly
   `moveSet`
@@ -6987,7 +6998,7 @@ kangaskhan = Pkmn.kangaskhan
   learnsAtLevel 49 suckerPunch <> 
   learnsAtLevel 55 reversal
 
-horsea :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+horsea :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 horsea = Pkmn.horsea 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7042,7 +7053,7 @@ horsea = Pkmn.horsea
   learnsAtLevel 38 dragonDance <> 
   learnsAtLevel 42 dragonPulse
 
-seadra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seadra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seadra = Pkmn.seadra 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7088,7 +7099,7 @@ seadra = Pkmn.seadra
   learnsAtLevel 48 dragonDance <> 
   learnsAtLevel 57 dragonPulse
 
-goldeen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+goldeen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 goldeen = Pkmn.goldeen 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7143,7 +7154,7 @@ goldeen = Pkmn.goldeen
   learnsAtLevel 51 soak <> 
   learnsAtLevel 57 megahorn
 
-seaking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seaking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seaking = Pkmn.seaking 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7192,7 +7203,7 @@ seaking = Pkmn.seaking
   learnsAtLevel 63 soak <> 
   learnsAtLevel 72 megahorn
 
-staryu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+staryu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 staryu = Pkmn.staryu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7248,7 +7259,7 @@ staryu = Pkmn.staryu
   learnsAtLevel 55 cosmicPower <> 
   learnsAtLevel 60 hydroPump
 
-starmie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+starmie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 starmie = Pkmn.starmie 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7305,7 +7316,7 @@ starmie = Pkmn.starmie
   learnsAtLevel 1 rapidSpin <> 
   learnsAtLevel 28 confuseRay
 
-mrMime :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mrMime :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mrMime = Pkmn.mrMime 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7397,7 +7408,7 @@ mrMime = Pkmn.mrMime
   learnsAtLevel 46 batonPass <> 
   learnsAtLevel 50 safeguard
 
-scyther :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+scyther :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 scyther = Pkmn.scyther 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7458,7 +7469,7 @@ scyther = Pkmn.scyther
   learnsAtLevel 57 swordsDance <> 
   learnsAtLevel 61 feint
 
-jynx :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+jynx :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 jynx = Pkmn.jynx 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7533,7 +7544,7 @@ jynx = Pkmn.jynx
   learnsAtLevel 55 perishSong <> 
   learnsAtLevel 60 blizzard
 
-electabuzz :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+electabuzz :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 electabuzz = Pkmn.electabuzz 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7590,7 +7601,7 @@ electabuzz = Pkmn.electabuzz
   learnsAtLevel 56 screech <> 
   learnsAtLevel 62 thunder
 
-magmar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magmar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magmar = Pkmn.magmar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7644,7 +7655,7 @@ magmar = Pkmn.magmar
   learnsAtLevel 56 sunnyDay <> 
   learnsAtLevel 62 fireBlast
 
-pinsir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pinsir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pinsir = Pkmn.pinsir 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7709,7 +7720,7 @@ pinsir = Pkmn.pinsir
   learnsAtLevel 47 guillotine <> 
   learnsAtLevel 52 superpower
 
-tauros :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tauros :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tauros = Pkmn.tauros 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7771,7 +7782,7 @@ tauros = Pkmn.tauros
   learnsAtLevel 55 thrash <> 
   learnsAtLevel 63 gigaImpact
 
-magikarp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magikarp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magikarp = Pkmn.magikarp 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7780,7 +7791,7 @@ magikarp = Pkmn.magikarp
   learnsAtLevel 15 tackle <> 
   learnsAtLevel 30 flail
 
-gyarados :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gyarados :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gyarados = Pkmn.gyarados 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7844,7 +7855,7 @@ gyarados = Pkmn.gyarados
   learnsAtLevel 44 dragonDance <> 
   learnsAtLevel 47 hyperBeam
 
-lapras :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lapras :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lapras = Pkmn.lapras 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7918,13 +7929,13 @@ lapras = Pkmn.lapras
   learnsAtLevel 49 hydroPump <> 
   learnsAtLevel 55 sheerCold
 
-ditto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ditto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ditto = Pkmn.ditto 
   `differentForms` singleFormOnly
   `moveSet`
   learnsAtLevel 1 transform
 
-eevee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+eevee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 eevee = Pkmn.eevee 
   `differentForms` singleFormOnly
   `moveSet`
@@ -7978,7 +7989,7 @@ eevee = Pkmn.eevee
   learnsAtLevel 50 lastResort <> 
   learnsAtLevel 57 trumpCard
 
-vaporeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vaporeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vaporeon = Pkmn.vaporeon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8038,7 +8049,7 @@ vaporeon = Pkmn.vaporeon
   learnsAtLevel 71 hydroPump <> 
   learnsAtLevel 78 muddyWater
 
-jolteon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+jolteon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 jolteon = Pkmn.jolteon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8095,7 +8106,7 @@ jolteon = Pkmn.jolteon
   learnsAtLevel 71 thunder <> 
   learnsAtLevel 78 discharge
 
-flareon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+flareon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 flareon = Pkmn.flareon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8151,7 +8162,7 @@ flareon = Pkmn.flareon
   learnsAtLevel 71 fireBlast <> 
   learnsAtLevel 78 lavaPlume
 
-porygon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+porygon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 porygon = Pkmn.porygon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8214,7 +8225,7 @@ porygon = Pkmn.porygon
   learnsAtLevel 56 magicCoat <> 
   learnsAtLevel 62 zapCannon
 
-omanyte :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+omanyte :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 omanyte = Pkmn.omanyte 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8280,7 +8291,7 @@ omanyte = Pkmn.omanyte
   learnsAtLevel 52 shellSmash <> 
   learnsAtLevel 55 hydroPump
 
-omastar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+omastar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 omastar = Pkmn.omastar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8338,7 +8349,7 @@ omastar = Pkmn.omastar
   learnsAtLevel 67 shellSmash <> 
   learnsAtLevel 75 hydroPump
 
-kabuto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kabuto :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kabuto = Pkmn.kabuto 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8398,7 +8409,7 @@ kabuto = Pkmn.kabuto
   learnsAtLevel 46 ancientPower <> 
   learnsAtLevel 51 wringOut
 
-kabutops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kabutops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kabutops = Pkmn.kabutops 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8466,7 +8477,7 @@ kabutops = Pkmn.kabutops
   learnsAtLevel 63 wringOut <> 
   learnsAtLevel 72 nightSlash
 
-aerodactyl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+aerodactyl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 aerodactyl = Pkmn.aerodactyl 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8540,7 +8551,7 @@ aerodactyl = Pkmn.aerodactyl
   learnsAtLevel 73 rockSlide <> 
   learnsAtLevel 81 gigaImpact
 
-snorlax :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+snorlax :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 snorlax = Pkmn.snorlax 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8623,7 +8634,7 @@ snorlax = Pkmn.snorlax
   learnsAtLevel 52 heavySlam <> 
   learnsAtLevel 57 gigaImpact
 
-articuno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+articuno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 articuno = Pkmn.articuno 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8672,7 +8683,7 @@ articuno = Pkmn.articuno
   learnsAtLevel 85 hail <> 
   learnsAtLevel 92 hurricane
 
-zapdos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+zapdos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 zapdos = Pkmn.zapdos 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8724,7 +8735,7 @@ zapdos = Pkmn.zapdos
   learnsAtLevel 85 rainDance <> 
   learnsAtLevel 92 zapCannon
 
-moltres :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+moltres :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 moltres = Pkmn.moltres 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8774,7 +8785,7 @@ moltres = Pkmn.moltres
   learnsAtLevel 85 sunnyDay <> 
   learnsAtLevel 92 hurricane
 
-dratini :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dratini :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dratini = Pkmn.dratini 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8832,7 +8843,7 @@ dratini = Pkmn.dratini
   learnsAtLevel 55 outrage <> 
   learnsAtLevel 61 hyperBeam
 
-dragonair :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dragonair :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dragonair = Pkmn.dragonair 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8883,7 +8894,7 @@ dragonair = Pkmn.dragonair
   learnsAtLevel 67 outrage <> 
   learnsAtLevel 75 hyperBeam
 
-dragonite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dragonite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dragonite = Pkmn.dragonite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -8964,7 +8975,7 @@ dragonite = Pkmn.dragonite
   learnsAtLevel 75 hyperBeam <> 
   learnsAtLevel 81 hurricane
 
-mewtwo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+mewtwo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 mewtwo = Pkmn.mewtwo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9065,7 +9076,7 @@ mewtwo = Pkmn.mewtwo
   learnsAtLevel 93 auraSphere <> 
   learnsAtLevel 100 psystrike
 
-mew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+mew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 mew = Pkmn.mew 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9243,7 +9254,7 @@ mew = Pkmn.mew
   learnsAtLevel 90 nastyPlot <> 
   learnsAtLevel 100 auraSphere
 
-chikorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chikorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chikorita = Pkmn.chikorita 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9301,7 +9312,7 @@ chikorita = Pkmn.chikorita
   learnsAtLevel 42 aromatherapy <> 
   learnsAtLevel 45 solarBeam
 
-bayleef :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bayleef :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bayleef = Pkmn.bayleef 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9349,7 +9360,7 @@ bayleef = Pkmn.bayleef
   learnsAtLevel 50 aromatherapy <> 
   learnsAtLevel 54 solarBeam
 
-meganium :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+meganium :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 meganium = Pkmn.meganium 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9405,7 +9416,7 @@ meganium = Pkmn.meganium
   learnsAtLevel 60 aromatherapy <> 
   learnsAtLevel 66 solarBeam
 
-cyndaquil :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cyndaquil :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cyndaquil = Pkmn.cyndaquil 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9462,7 +9473,7 @@ cyndaquil = Pkmn.cyndaquil
   learnsAtLevel 55 doubleEdge <> 
   learnsAtLevel 58 eruption
 
-quilava :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+quilava :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 quilava = Pkmn.quilava 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9512,7 +9523,7 @@ quilava = Pkmn.quilava
   learnsAtLevel 64 doubleEdge <> 
   learnsAtLevel 68 eruption
 
-typhlosion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+typhlosion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 typhlosion = Pkmn.typhlosion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9577,7 +9588,7 @@ typhlosion = Pkmn.typhlosion
   learnsAtLevel 69 doubleEdge <> 
   learnsAtLevel 74 eruption
 
-totodile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+totodile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 totodile = Pkmn.totodile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9647,7 +9658,7 @@ totodile = Pkmn.totodile
   learnsAtLevel 48 superpower <> 
   learnsAtLevel 50 hydroPump
 
-croconaw :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+croconaw :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 croconaw = Pkmn.croconaw 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9712,7 +9723,7 @@ croconaw = Pkmn.croconaw
   learnsAtLevel 57 superpower <> 
   learnsAtLevel 60 hydroPump
 
-feraligatr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+feraligatr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 feraligatr = Pkmn.feraligatr 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9787,7 +9798,7 @@ feraligatr = Pkmn.feraligatr
   learnsAtLevel 71 superpower <> 
   learnsAtLevel 76 hydroPump
 
-sentret :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sentret :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sentret = Pkmn.sentret 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9859,7 +9870,7 @@ sentret = Pkmn.sentret
   learnsAtLevel 42 meFirst <> 
   learnsAtLevel 47 hyperVoice
 
-furret :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+furret :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 furret = Pkmn.furret 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9930,7 +9941,7 @@ furret = Pkmn.furret
   learnsAtLevel 50 meFirst <> 
   learnsAtLevel 56 hyperVoice
 
-hoothoot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hoothoot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hoothoot = Pkmn.hoothoot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -9990,7 +10001,7 @@ hoothoot = Pkmn.hoothoot
   learnsAtLevel 53 roost <> 
   learnsAtLevel 57 dreamEater
 
-noctowl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+noctowl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 noctowl = Pkmn.noctowl 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10043,7 +10054,7 @@ noctowl = Pkmn.noctowl
   learnsAtLevel 62 roost <> 
   learnsAtLevel 67 dreamEater
 
-ledyba :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ledyba :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ledyba = Pkmn.ledyba 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10102,7 +10113,7 @@ ledyba = Pkmn.ledyba
   learnsAtLevel 38 doubleEdge <> 
   learnsAtLevel 41 bugBuzz
 
-ledian :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ledian :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ledian = Pkmn.ledian 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10160,7 +10171,7 @@ ledian = Pkmn.ledian
   learnsAtLevel 48 doubleEdge <> 
   learnsAtLevel 53 bugBuzz
 
-spinarak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spinarak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spinarak = Pkmn.spinarak 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10218,7 +10229,7 @@ spinarak = Pkmn.spinarak
   learnsAtLevel 43 poisonJab <> 
   learnsAtLevel 47 crossPoison
 
-ariados :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ariados :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ariados = Pkmn.ariados 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10269,7 +10280,7 @@ ariados = Pkmn.ariados
   learnsAtLevel 50 poisonJab <> 
   learnsAtLevel 55 crossPoison
 
-crobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+crobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 crobat = Pkmn.crobat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10329,7 +10340,7 @@ crobat = Pkmn.crobat
   learnsAtLevel 51 haze <> 
   learnsAtLevel 57 airSlash
 
-chinchou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chinchou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chinchou = Pkmn.chinchou 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10389,7 +10400,7 @@ chinchou = Pkmn.chinchou
   learnsAtLevel 45 hydroPump <> 
   learnsAtLevel 50 charge
 
-lanturn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lanturn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lanturn = Pkmn.lanturn 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10446,7 +10457,7 @@ lanturn = Pkmn.lanturn
   learnsAtLevel 57 hydroPump <> 
   learnsAtLevel 64 charge
 
-pichu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pichu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pichu = Pkmn.pichu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10503,7 +10514,7 @@ pichu = Pkmn.pichu
   learnsAtLevel 13 sweetKiss <> 
   learnsAtLevel 18 nastyPlot
 
-cleffa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cleffa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cleffa = Pkmn.cleffa 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10579,7 +10590,7 @@ cleffa = Pkmn.cleffa
   learnsAtLevel 13 copycat <> 
   learnsAtLevel 16 magicalLeaf
 
-igglybuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+igglybuff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 igglybuff = Pkmn.igglybuff 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10646,7 +10657,7 @@ igglybuff = Pkmn.igglybuff
   learnsAtLevel 13 sweetKiss <> 
   learnsAtLevel 17 copycat
 
-togepi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+togepi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 togepi = Pkmn.togepi 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10722,7 +10733,7 @@ togepi = Pkmn.togepi
   learnsAtLevel 49 lastResort <> 
   learnsAtLevel 53 afterYou
 
-togetic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+togetic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 togetic = Pkmn.togetic 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10796,7 +10807,7 @@ togetic = Pkmn.togetic
   learnsAtLevel 49 lastResort <> 
   learnsAtLevel 53 afterYou
 
-natu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+natu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 natu = Pkmn.natu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10871,7 +10882,7 @@ natu = Pkmn.natu
   learnsAtLevel 47 powerSwap <> 
   learnsAtLevel 50 psychic
 
-xatu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+xatu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 xatu = Pkmn.xatu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10942,7 +10953,7 @@ xatu = Pkmn.xatu
   learnsAtLevel 59 guardSwap <> 
   learnsAtLevel 66 psychic
 
-mareep :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mareep :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mareep = Pkmn.mareep 
   `differentForms` singleFormOnly
   `moveSet`
@@ -10993,7 +11004,7 @@ mareep = Pkmn.mareep
   learnsAtLevel 50 powerGem <> 
   learnsAtLevel 55 thunder
 
-flaaffy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+flaaffy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 flaaffy = Pkmn.flaaffy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11045,7 +11056,7 @@ flaaffy = Pkmn.flaaffy
   learnsAtLevel 59 powerGem <> 
   learnsAtLevel 65 thunder
 
-ampharos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ampharos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ampharos = Pkmn.ampharos 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11102,7 +11113,7 @@ ampharos = Pkmn.ampharos
   learnsAtLevel 71 powerGem <> 
   learnsAtLevel 79 thunder
 
-bellossom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bellossom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bellossom = Pkmn.bellossom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11148,7 +11159,7 @@ bellossom = Pkmn.bellossom
   learnsAtLevel 23 magicalLeaf <> 
   learnsAtLevel 53 leafStorm
 
-marill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+marill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 marill = Pkmn.marill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11214,7 +11225,7 @@ marill = Pkmn.marill
   learnsAtLevel 37 aquaTail <> 
   learnsAtLevel 42 hydroPump
 
-azumarill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+azumarill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 azumarill = Pkmn.azumarill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11274,7 +11285,7 @@ azumarill = Pkmn.azumarill
   learnsAtLevel 47 aquaTail <> 
   learnsAtLevel 54 hydroPump
 
-sudowoodo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sudowoodo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sudowoodo = Pkmn.sudowoodo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11344,7 +11355,7 @@ sudowoodo = Pkmn.sudowoodo
   learnsAtLevel 46 doubleEdge <> 
   learnsAtLevel 49 hammerArm
 
-politoed :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+politoed :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 politoed = Pkmn.politoed 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11395,7 +11406,7 @@ politoed = Pkmn.politoed
   learnsAtLevel 37 bounce <> 
   learnsAtLevel 48 hyperVoice
 
-hoppip :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hoppip :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hoppip = Pkmn.hoppip 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11450,7 +11461,7 @@ hoppip = Pkmn.hoppip
   learnsAtLevel 46 bounce <> 
   learnsAtLevel 49 memento
 
-skiploom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+skiploom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 skiploom = Pkmn.skiploom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11498,7 +11509,7 @@ skiploom = Pkmn.skiploom
   learnsAtLevel 56 bounce <> 
   learnsAtLevel 60 memento
 
-jumpluff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+jumpluff :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 jumpluff = Pkmn.jumpluff 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11548,7 +11559,7 @@ jumpluff = Pkmn.jumpluff
   learnsAtLevel 64 bounce <> 
   learnsAtLevel 69 memento
 
-aipom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+aipom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 aipom = Pkmn.aipom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11629,7 +11640,7 @@ aipom = Pkmn.aipom
   learnsAtLevel 39 nastyPlot <> 
   learnsAtLevel 43 lastResort
 
-sunkern :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sunkern :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sunkern = Pkmn.sunkern 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11683,7 +11694,7 @@ sunkern = Pkmn.sunkern
   learnsAtLevel 41 gigaDrain <> 
   learnsAtLevel 45 seedBomb
 
-sunflora :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sunflora :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sunflora = Pkmn.sunflora 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11736,7 +11747,7 @@ sunflora = Pkmn.sunflora
   learnsAtLevel 41 solarBeam <> 
   learnsAtLevel 45 leafStorm
 
-yanma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+yanma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 yanma = Pkmn.yanma 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11791,7 +11802,7 @@ yanma = Pkmn.yanma
   learnsAtLevel 54 airSlash <> 
   learnsAtLevel 57 bugBuzz
 
-wooper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wooper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wooper = Pkmn.wooper 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11855,7 +11866,7 @@ wooper = Pkmn.wooper
   learnsAtLevel 43 haze <> 
   learnsAtLevel 47 muddyWater
 
-quagsire :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+quagsire :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 quagsire = Pkmn.quagsire 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11918,7 +11929,7 @@ quagsire = Pkmn.quagsire
   learnsAtLevel 48 mist <> 
   learnsAtLevel 53 muddyWater
 
-espeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+espeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 espeon = Pkmn.espeon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -11980,7 +11991,7 @@ espeon = Pkmn.espeon
   learnsAtLevel 71 morningSun <> 
   learnsAtLevel 78 powerSwap
 
-umbreon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+umbreon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 umbreon = Pkmn.umbreon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12040,7 +12051,7 @@ umbreon = Pkmn.umbreon
   learnsAtLevel 71 moonlight <> 
   learnsAtLevel 78 guardSwap
 
-murkrow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+murkrow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 murkrow = Pkmn.murkrow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12106,7 +12117,7 @@ murkrow = Pkmn.murkrow
   learnsAtLevel 61 torment <> 
   learnsAtLevel 65 quash
 
-slowking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slowking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slowking = Pkmn.slowking 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12191,7 +12202,7 @@ slowking = Pkmn.slowking
   learnsAtLevel 54 psychUp <> 
   learnsAtLevel 58 healPulse
 
-misdreavus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+misdreavus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 misdreavus = Pkmn.misdreavus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12265,7 +12276,7 @@ misdreavus = Pkmn.misdreavus
   learnsAtLevel 50 grudge <> 
   learnsAtLevel 55 powerGem
 
-wobbuffet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wobbuffet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wobbuffet = Pkmn.wobbuffet 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12274,7 +12285,7 @@ wobbuffet = Pkmn.wobbuffet
   learnsAtLevel 1 safeguard <> 
   learnsAtLevel 1 mirrorCoat
 
-girafarig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+girafarig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 girafarig = Pkmn.girafarig 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12356,7 +12367,7 @@ girafarig = Pkmn.girafarig
   learnsAtLevel 41 zenHeadbutt <> 
   learnsAtLevel 46 crunch
 
-pineco :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pineco :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pineco = Pkmn.pineco 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12416,7 +12427,7 @@ pineco = Pkmn.pineco
   learnsAtLevel 42 gyroBall <> 
   learnsAtLevel 45 doubleEdge
 
-forretress :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+forretress :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 forretress = Pkmn.forretress 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12480,7 +12491,7 @@ forretress = Pkmn.forretress
   learnsAtLevel 64 zapCannon <> 
   learnsAtLevel 70 heavySlam
 
-dunsparce :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dunsparce :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dunsparce = Pkmn.dunsparce 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12561,7 +12572,7 @@ dunsparce = Pkmn.dunsparce
   learnsAtLevel 58 endeavor <> 
   learnsAtLevel 63 flail
 
-gligar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gligar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gligar = Pkmn.gligar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12643,7 +12654,7 @@ gligar = Pkmn.gligar
   learnsAtLevel 45 skyUppercut <> 
   learnsAtLevel 49 guillotine
 
-steelix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+steelix :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 steelix = Pkmn.steelix 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12711,7 +12722,7 @@ steelix = Pkmn.steelix
   learnsAtLevel 57 doubleEdge <> 
   learnsAtLevel 62 stoneEdge
 
-snubbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+snubbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 snubbull = Pkmn.snubbull 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12791,7 +12802,7 @@ snubbull = Pkmn.snubbull
   learnsAtLevel 43 payback <> 
   learnsAtLevel 49 crunch
 
-granbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+granbull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 granbull = Pkmn.granbull 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12871,7 +12882,7 @@ granbull = Pkmn.granbull
   learnsAtLevel 59 crunch <> 
   learnsAtLevel 67 outrage
 
-qwilfish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+qwilfish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 qwilfish = Pkmn.qwilfish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12937,7 +12948,7 @@ qwilfish = Pkmn.qwilfish
   learnsAtLevel 53 destinyBond <> 
   learnsAtLevel 57 hydroPump
 
-scizor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+scizor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 scizor = Pkmn.scizor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -12998,7 +13009,7 @@ scizor = Pkmn.scizor
   learnsAtLevel 57 swordsDance <> 
   learnsAtLevel 61 feint
 
-shuckle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shuckle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shuckle = Pkmn.shuckle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13062,7 +13073,7 @@ shuckle = Pkmn.shuckle
   learnsAtLevel 55 guardSplit <> 
   learnsAtLevel 55 powerSplit
 
-heracross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+heracross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 heracross = Pkmn.heracross 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13134,7 +13145,7 @@ heracross = Pkmn.heracross
   learnsAtLevel 49 feint <> 
   learnsAtLevel 55 megahorn
 
-sneasel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sneasel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sneasel = Pkmn.sneasel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13216,7 +13227,7 @@ sneasel = Pkmn.sneasel
   learnsAtLevel 49 metalClaw <> 
   learnsAtLevel 51 iceShard
 
-teddiursa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+teddiursa :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 teddiursa = Pkmn.teddiursa 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13290,7 +13301,7 @@ teddiursa = Pkmn.teddiursa
   learnsAtLevel 50 thrash <> 
   learnsAtLevel 57 fling
 
-ursaring :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ursaring :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ursaring = Pkmn.ursaring 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13360,7 +13371,7 @@ ursaring = Pkmn.ursaring
   learnsAtLevel 58 thrash <> 
   learnsAtLevel 67 hammerArm
 
-slugma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slugma :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slugma = Pkmn.slugma 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13416,7 +13427,7 @@ slugma = Pkmn.slugma
   learnsAtLevel 50 flamethrower <> 
   learnsAtLevel 55 earthPower
 
-magcargo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magcargo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magcargo = Pkmn.magcargo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13477,7 +13488,7 @@ magcargo = Pkmn.magcargo
   learnsAtLevel 59 flamethrower <> 
   learnsAtLevel 67 earthPower
 
-swinub :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swinub :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swinub = Pkmn.swinub 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13538,7 +13549,7 @@ swinub = Pkmn.swinub
   learnsAtLevel 44 blizzard <> 
   learnsAtLevel 49 amnesia
 
-piloswine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+piloswine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 piloswine = Pkmn.piloswine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13594,7 +13605,7 @@ piloswine = Pkmn.piloswine
   learnsAtLevel 56 blizzard <> 
   learnsAtLevel 65 amnesia
 
-corsola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+corsola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 corsola = Pkmn.corsola 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13670,7 +13681,7 @@ corsola = Pkmn.corsola
   learnsAtLevel 52 flail <> 
   learnsAtLevel 53 earthPower
 
-remoraid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+remoraid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 remoraid = Pkmn.remoraid 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13731,7 +13742,7 @@ remoraid = Pkmn.remoraid
   learnsAtLevel 45 hyperBeam <> 
   learnsAtLevel 49 soak
 
-octillery :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+octillery :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 octillery = Pkmn.octillery 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13791,7 +13802,7 @@ octillery = Pkmn.octillery
   learnsAtLevel 55 hyperBeam <> 
   learnsAtLevel 61 soak
 
-delibird :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+delibird :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 delibird = Pkmn.delibird 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13838,7 +13849,7 @@ delibird = Pkmn.delibird
   ableToLearn gunkShot <> 
   learnsAtLevel 1 present
 
-mantine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mantine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mantine = Pkmn.mantine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13906,7 +13917,7 @@ mantine = Pkmn.mantine
   learnsAtLevel 46 aquaRing <> 
   learnsAtLevel 49 hydroPump
 
-skarmory :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+skarmory :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 skarmory = Pkmn.skarmory 
   `differentForms` singleFormOnly
   `moveSet`
@@ -13975,7 +13986,7 @@ skarmory = Pkmn.skarmory
   learnsAtLevel 45 slash <> 
   learnsAtLevel 50 nightSlash
 
-houndour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+houndour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 houndour = Pkmn.houndour 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14045,7 +14056,7 @@ houndour = Pkmn.houndour
   learnsAtLevel 52 nastyPlot <> 
   learnsAtLevel 56 inferno
 
-houndoom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+houndoom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 houndoom = Pkmn.houndoom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14110,7 +14121,7 @@ houndoom = Pkmn.houndoom
   learnsAtLevel 60 nastyPlot <> 
   learnsAtLevel 65 inferno
 
-kingdra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kingdra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kingdra = Pkmn.kingdra 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14160,7 +14171,7 @@ kingdra = Pkmn.kingdra
   learnsAtLevel 48 dragonDance <> 
   learnsAtLevel 57 dragonPulse
 
-phanpy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+phanpy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 phanpy = Pkmn.phanpy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14220,7 +14231,7 @@ phanpy = Pkmn.phanpy
   learnsAtLevel 37 lastResort <> 
   learnsAtLevel 42 doubleEdge
 
-donphan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+donphan :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 donphan = Pkmn.donphan 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14280,7 +14291,7 @@ donphan = Pkmn.donphan
   learnsAtLevel 46 earthquake <> 
   learnsAtLevel 54 gigaImpact
 
-porygon2 :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+porygon2 :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 porygon2 = Pkmn.porygon2 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14343,7 +14354,7 @@ porygon2 = Pkmn.porygon2
   learnsAtLevel 62 zapCannon <> 
   learnsAtLevel 67 hyperBeam
 
-stantler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+stantler :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 stantler = Pkmn.stantler 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14419,13 +14430,13 @@ stantler = Pkmn.stantler
   learnsAtLevel 53 captivate <> 
   learnsAtLevel 55 meFirst
 
-smeargle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+smeargle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 smeargle = Pkmn.smeargle 
   `differentForms` singleFormOnly
   `moveSet`
   learnsAtLevel 1 sketch
 
-tyrogue :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tyrogue :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tyrogue = Pkmn.tyrogue 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14475,7 +14486,7 @@ tyrogue = Pkmn.tyrogue
   learnsAtLevel 1 fakeOut <> 
   learnsAtLevel 1 tackle
 
-hitmontop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hitmontop :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hitmontop = Pkmn.hitmontop 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14532,7 +14543,7 @@ hitmontop = Pkmn.hitmontop
   learnsAtLevel 55 closeCombat <> 
   learnsAtLevel 60 endeavor
 
-smoochum :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+smoochum :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 smoochum = Pkmn.smoochum 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14605,7 +14616,7 @@ smoochum = Pkmn.smoochum
   learnsAtLevel 45 perishSong <> 
   learnsAtLevel 48 blizzard
 
-elekid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+elekid :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 elekid = Pkmn.elekid 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14666,7 +14677,7 @@ elekid = Pkmn.elekid
   learnsAtLevel 51 screech <> 
   learnsAtLevel 56 thunder
 
-magby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magby = Pkmn.magby 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14725,7 +14736,7 @@ magby = Pkmn.magby
   learnsAtLevel 46 sunnyDay <> 
   learnsAtLevel 49 fireBlast
 
-miltank :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+miltank :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 miltank = Pkmn.miltank 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14804,7 +14815,7 @@ miltank = Pkmn.miltank
   learnsAtLevel 48 healBell <> 
   learnsAtLevel 55 wakeUpSlap
 
-blissey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+blissey :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 blissey = Pkmn.blissey 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14895,7 +14906,7 @@ blissey = Pkmn.blissey
   learnsAtLevel 50 healingWish <> 
   learnsAtLevel 54 doubleEdge
 
-raikou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+raikou :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 raikou = Pkmn.raikou 
   `differentForms` singleFormOnly
   `moveSet`
@@ -14951,7 +14962,7 @@ raikou = Pkmn.raikou
   learnsAtLevel 78 calmMind <> 
   learnsAtLevel 85 thunder
 
-entei :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+entei :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 entei = Pkmn.entei 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15007,7 +15018,7 @@ entei = Pkmn.entei
   learnsAtLevel 78 calmMind <> 
   learnsAtLevel 85 eruption
 
-suicune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+suicune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 suicune = Pkmn.suicune 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15063,7 +15074,7 @@ suicune = Pkmn.suicune
   learnsAtLevel 78 calmMind <> 
   learnsAtLevel 85 blizzard
 
-larvitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+larvitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 larvitar = Pkmn.larvitar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15125,7 +15136,7 @@ larvitar = Pkmn.larvitar
   learnsAtLevel 50 stoneEdge <> 
   learnsAtLevel 55 hyperBeam
 
-pupitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pupitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pupitar = Pkmn.pupitar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15180,7 +15191,7 @@ pupitar = Pkmn.pupitar
   learnsAtLevel 60 stoneEdge <> 
   learnsAtLevel 67 hyperBeam
 
-tyranitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tyranitar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tyranitar = Pkmn.tyranitar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15266,7 +15277,7 @@ tyranitar = Pkmn.tyranitar
   learnsAtLevel 73 hyperBeam <> 
   learnsAtLevel 82 gigaImpact
 
-lugia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+lugia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 lugia = Pkmn.lugia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15348,7 +15359,7 @@ lugia = Pkmn.lugia
   learnsAtLevel 93 calmMind <> 
   learnsAtLevel 99 skyAttack
 
-hoOh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+hoOh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 hoOh = Pkmn.hoOh 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15422,7 +15433,7 @@ hoOh = Pkmn.hoOh
   learnsAtLevel 93 calmMind <> 
   learnsAtLevel 99 skyAttack
 
-celebi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+celebi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 celebi = Pkmn.celebi 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15495,7 +15506,7 @@ celebi = Pkmn.celebi
   learnsAtLevel 82 leafStorm <> 
   learnsAtLevel 91 perishSong
 
-treecko :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+treecko :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 treecko = Pkmn.treecko 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15563,7 +15574,7 @@ treecko = Pkmn.treecko
   learnsAtLevel 46 gigaDrain <> 
   learnsAtLevel 51 energyBall
 
-grovyle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+grovyle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 grovyle = Pkmn.grovyle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15624,7 +15635,7 @@ grovyle = Pkmn.grovyle
   learnsAtLevel 53 falseSwipe <> 
   learnsAtLevel 59 leafStorm
 
-sceptile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sceptile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sceptile = Pkmn.sceptile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15696,7 +15707,7 @@ sceptile = Pkmn.sceptile
   learnsAtLevel 59 falseSwipe <> 
   learnsAtLevel 67 leafStorm
 
-torchic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+torchic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 torchic = Pkmn.torchic 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15761,7 +15772,7 @@ torchic = Pkmn.torchic
   learnsAtLevel 37 mirrorMove <> 
   learnsAtLevel 43 flamethrower
 
-combusken :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+combusken :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 combusken = Pkmn.combusken 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15826,7 +15837,7 @@ combusken = Pkmn.combusken
   learnsAtLevel 50 skyUppercut <> 
   learnsAtLevel 54 flareBlitz
 
-blaziken :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+blaziken :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 blaziken = Pkmn.blaziken 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15905,7 +15916,7 @@ blaziken = Pkmn.blaziken
   learnsAtLevel 59 skyUppercut <> 
   learnsAtLevel 66 flareBlitz
 
-mudkip :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mudkip :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mudkip = Pkmn.mudkip 
   `differentForms` singleFormOnly
   `moveSet`
@@ -15972,7 +15983,7 @@ mudkip = Pkmn.mudkip
   learnsAtLevel 42 hydroPump <> 
   learnsAtLevel 46 endeavor
 
-marshtomp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+marshtomp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 marshtomp = Pkmn.marshtomp 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16030,7 +16041,7 @@ marshtomp = Pkmn.marshtomp
   learnsAtLevel 46 earthquake <> 
   learnsAtLevel 53 endeavor
 
-swampert :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swampert :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swampert = Pkmn.swampert 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16096,7 +16107,7 @@ swampert = Pkmn.swampert
   learnsAtLevel 61 endeavor <> 
   learnsAtLevel 69 hammerArm
 
-poochyena :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+poochyena :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 poochyena = Pkmn.poochyena 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16156,7 +16167,7 @@ poochyena = Pkmn.poochyena
   learnsAtLevel 49 suckerPunch <> 
   learnsAtLevel 53 crunch
 
-mightyena :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mightyena :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mightyena = Pkmn.mightyena 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16210,7 +16221,7 @@ mightyena = Pkmn.mightyena
   learnsAtLevel 57 thief <> 
   learnsAtLevel 62 suckerPunch
 
-zigzagoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zigzagoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zigzagoon = Pkmn.zigzagoon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16276,7 +16287,7 @@ zigzagoon = Pkmn.zigzagoon
   learnsAtLevel 45 bellyDrum <> 
   learnsAtLevel 49 fling
 
-linoone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+linoone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 linoone = Pkmn.linoone 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16342,7 +16353,7 @@ linoone = Pkmn.linoone
   learnsAtLevel 59 bellyDrum <> 
   learnsAtLevel 65 fling
 
-wurmple :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wurmple :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wurmple = Pkmn.wurmple 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16353,7 +16364,7 @@ wurmple = Pkmn.wurmple
   learnsAtLevel 5 poisonSting <> 
   learnsAtLevel 15 bugBite
 
-silcoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+silcoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 silcoon = Pkmn.silcoon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16362,7 +16373,7 @@ silcoon = Pkmn.silcoon
   ableToLearn electroweb <> 
   learnsAtLevel 1 harden
 
-beautifly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+beautifly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 beautifly = Pkmn.beautifly 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16411,7 +16422,7 @@ beautifly = Pkmn.beautifly
   learnsAtLevel 41 bugBuzz <> 
   learnsAtLevel 45 quiverDance
 
-cascoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cascoon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cascoon = Pkmn.cascoon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16420,7 +16431,7 @@ cascoon = Pkmn.cascoon
   ableToLearn electroweb <> 
   learnsAtLevel 1 harden
 
-dustox :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dustox :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dustox = Pkmn.dustox 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16469,7 +16480,7 @@ dustox = Pkmn.dustox
   learnsAtLevel 41 bugBuzz <> 
   learnsAtLevel 45 quiverDance
 
-lotad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lotad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lotad = Pkmn.lotad 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16524,7 +16535,7 @@ lotad = Pkmn.lotad
   learnsAtLevel 37 rainDance <> 
   learnsAtLevel 45 energyBall
 
-lombre :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lombre :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lombre = Pkmn.lombre 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16584,7 +16595,7 @@ lombre = Pkmn.lombre
   learnsAtLevel 37 uproar <> 
   learnsAtLevel 45 hydroPump
 
-ludicolo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ludicolo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ludicolo = Pkmn.ludicolo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16642,7 +16653,7 @@ ludicolo = Pkmn.ludicolo
   learnsAtLevel 1 naturePower <> 
   learnsAtLevel 1 growl
 
-seedot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seedot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seedot = Pkmn.seedot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16693,7 +16704,7 @@ seedot = Pkmn.seedot
   learnsAtLevel 31 sunnyDay <> 
   learnsAtLevel 43 explosion
 
-nuzleaf :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nuzleaf :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nuzleaf = Pkmn.nuzleaf 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16755,7 +16766,7 @@ nuzleaf = Pkmn.nuzleaf
   learnsAtLevel 43 swagger <> 
   learnsAtLevel 49 extrasensory
 
-shiftry :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shiftry :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shiftry = Pkmn.shiftry 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16822,7 +16833,7 @@ shiftry = Pkmn.shiftry
   learnsAtLevel 19 leafTornado <> 
   learnsAtLevel 49 leafStorm
 
-taillow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+taillow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 taillow = Pkmn.taillow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16871,7 +16882,7 @@ taillow = Pkmn.taillow
   learnsAtLevel 43 agility <> 
   learnsAtLevel 53 airSlash
 
-swellow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swellow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swellow = Pkmn.swellow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16913,7 +16924,7 @@ swellow = Pkmn.swellow
   learnsAtLevel 49 agility <> 
   learnsAtLevel 61 airSlash
 
-wingull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wingull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wingull = Pkmn.wingull 
   `differentForms` singleFormOnly
   `moveSet`
@@ -16965,7 +16976,7 @@ wingull = Pkmn.wingull
   learnsAtLevel 47 airSlash <> 
   learnsAtLevel 50 hurricane
 
-pelipper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pelipper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pelipper = Pkmn.pelipper 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17023,7 +17034,7 @@ pelipper = Pkmn.pelipper
   learnsAtLevel 57 hydroPump <> 
   learnsAtLevel 63 hurricane
 
-ralts :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ralts :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ralts = Pkmn.ralts 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17103,7 +17114,7 @@ ralts = Pkmn.ralts
   learnsAtLevel 50 dreamEater <> 
   learnsAtLevel 54 storedPower
 
-kirlia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kirlia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kirlia = Pkmn.kirlia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17174,7 +17185,7 @@ kirlia = Pkmn.kirlia
   learnsAtLevel 59 dreamEater <> 
   learnsAtLevel 64 storedPower
 
-gardevoir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gardevoir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gardevoir = Pkmn.gardevoir 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17251,7 +17262,7 @@ gardevoir = Pkmn.gardevoir
   learnsAtLevel 73 dreamEater <> 
   learnsAtLevel 80 storedPower
 
-surskit :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+surskit :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 surskit = Pkmn.surskit 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17301,7 +17312,7 @@ surskit = Pkmn.surskit
   learnsAtLevel 37 mist <> 
   learnsAtLevel 43 batonPass
 
-masquerain :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+masquerain :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 masquerain = Pkmn.masquerain 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17355,7 +17366,7 @@ masquerain = Pkmn.masquerain
   learnsAtLevel 61 bugBuzz <> 
   learnsAtLevel 68 quiverDance
 
-shroomish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shroomish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shroomish = Pkmn.shroomish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17406,7 +17417,7 @@ shroomish = Pkmn.shroomish
   learnsAtLevel 41 seedBomb <> 
   learnsAtLevel 45 spore
 
-breloom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+breloom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 breloom = Pkmn.breloom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17472,7 +17483,7 @@ breloom = Pkmn.breloom
   learnsAtLevel 41 seedBomb <> 
   learnsAtLevel 45 dynamicPunch
 
-slakoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slakoth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slakoth = Pkmn.slakoth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17539,7 +17550,7 @@ slakoth = Pkmn.slakoth
   learnsAtLevel 43 counter <> 
   learnsAtLevel 49 flail
 
-vigoroth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vigoroth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vigoroth = Pkmn.vigoroth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17606,7 +17617,7 @@ vigoroth = Pkmn.vigoroth
   learnsAtLevel 49 focusPunch <> 
   learnsAtLevel 55 reversal
 
-slaking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+slaking :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 slaking = Pkmn.slaking 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17679,7 +17690,7 @@ slaking = Pkmn.slaking
   learnsAtLevel 61 punishment <> 
   learnsAtLevel 67 hammerArm
 
-nincada :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nincada :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nincada = Pkmn.nincada 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17727,7 +17738,7 @@ nincada = Pkmn.nincada
   learnsAtLevel 38 metalClaw <> 
   learnsAtLevel 45 dig
 
-ninjask :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ninjask :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ninjask = Pkmn.ninjask 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17779,7 +17790,7 @@ ninjask = Pkmn.ninjask
   learnsAtLevel 45 batonPass <> 
   learnsAtLevel 52 xScissor
 
-shedinja :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shedinja :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shedinja = Pkmn.shedinja 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17830,7 +17841,7 @@ shedinja = Pkmn.shedinja
   learnsAtLevel 52 healBlock <> 
   learnsAtLevel 59 shadowBall
 
-whismur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+whismur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 whismur = Pkmn.whismur 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17885,7 +17896,7 @@ whismur = Pkmn.whismur
   learnsAtLevel 45 sleepTalk <> 
   learnsAtLevel 51 hyperVoice
 
-loudred :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+loudred :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 loudred = Pkmn.loudred 
   `differentForms` singleFormOnly
   `moveSet`
@@ -17946,7 +17957,7 @@ loudred = Pkmn.loudred
   learnsAtLevel 57 rest <> 
   learnsAtLevel 65 hyperVoice
 
-exploud :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+exploud :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 exploud = Pkmn.exploud 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18016,7 +18027,7 @@ exploud = Pkmn.exploud
   learnsAtLevel 71 hyperVoice <> 
   learnsAtLevel 79 hyperBeam
 
-makuhita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+makuhita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 makuhita = Pkmn.makuhita 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18090,7 +18101,7 @@ makuhita = Pkmn.makuhita
   learnsAtLevel 43 reversal <> 
   learnsAtLevel 46 heavySlam
 
-hariyama :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hariyama :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hariyama = Pkmn.hariyama 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18158,7 +18169,7 @@ hariyama = Pkmn.hariyama
   learnsAtLevel 57 reversal <> 
   learnsAtLevel 62 heavySlam
 
-azurill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+azurill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 azurill = Pkmn.azurill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18210,7 +18221,7 @@ azurill = Pkmn.azurill
   learnsAtLevel 18 waterGun <> 
   learnsAtLevel 23 bounce
 
-nosepass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+nosepass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 nosepass = Pkmn.nosepass 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18271,7 +18282,7 @@ nosepass = Pkmn.nosepass
   learnsAtLevel 73 lockOn <> 
   learnsAtLevel 79 earthPower
 
-skitty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+skitty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 skitty = Pkmn.skitty 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18342,7 +18353,7 @@ skitty = Pkmn.skitty
   learnsAtLevel 42 doubleEdge <> 
   learnsAtLevel 46 captivate
 
-delcatty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+delcatty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 delcatty = Pkmn.delcatty 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18399,7 +18410,7 @@ delcatty = Pkmn.delcatty
   learnsAtLevel 1 sing <> 
   learnsAtLevel 1 doubleSlap
 
-sableye :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sableye :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sableye = Pkmn.sableye 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18486,7 +18497,7 @@ sableye = Pkmn.sableye
   learnsAtLevel 57 shadowBall <> 
   learnsAtLevel 60 meanLook
 
-mawile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mawile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mawile = Pkmn.mawile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18572,7 +18583,7 @@ mawile = Pkmn.mawile
   learnsAtLevel 51 swallow <> 
   learnsAtLevel 56 ironHead
 
-aron :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+aron :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 aron = Pkmn.aron 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18635,7 +18646,7 @@ aron = Pkmn.aron
   learnsAtLevel 50 doubleEdge <> 
   learnsAtLevel 53 metalBurst
 
-lairon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lairon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lairon = Pkmn.lairon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18692,7 +18703,7 @@ lairon = Pkmn.lairon
   learnsAtLevel 62 doubleEdge <> 
   learnsAtLevel 67 metalBurst
 
-aggron :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+aggron :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 aggron = Pkmn.aggron 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18780,7 +18791,7 @@ aggron = Pkmn.aggron
   learnsAtLevel 74 doubleEdge <> 
   learnsAtLevel 82 metalBurst
 
-meditite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+meditite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 meditite = Pkmn.meditite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18859,7 +18870,7 @@ meditite = Pkmn.meditite
   learnsAtLevel 46 reversal <> 
   learnsAtLevel 50 recover
 
-medicham :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+medicham :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 medicham = Pkmn.medicham 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18932,7 +18943,7 @@ medicham = Pkmn.medicham
   learnsAtLevel 55 reversal <> 
   learnsAtLevel 62 recover
 
-electrike :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+electrike :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 electrike = Pkmn.electrike 
   `differentForms` singleFormOnly
   `moveSet`
@@ -18989,7 +19000,7 @@ electrike = Pkmn.electrike
   learnsAtLevel 49 wildCharge <> 
   learnsAtLevel 52 thunder
 
-manectric :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+manectric :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 manectric = Pkmn.manectric 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19040,7 +19051,7 @@ manectric = Pkmn.manectric
   learnsAtLevel 61 wildCharge <> 
   learnsAtLevel 66 thunder
 
-plusle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+plusle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 plusle = Pkmn.plusle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19096,7 +19107,7 @@ plusle = Pkmn.plusle
   learnsAtLevel 56 nastyPlot <> 
   learnsAtLevel 63 entrainment
 
-minun :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+minun :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 minun = Pkmn.minun 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19154,7 +19165,7 @@ minun = Pkmn.minun
   learnsAtLevel 56 nastyPlot <> 
   learnsAtLevel 63 entrainment
 
-volbeat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+volbeat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 volbeat = Pkmn.volbeat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19213,7 +19224,7 @@ volbeat = Pkmn.volbeat
   learnsAtLevel 41 bugBuzz <> 
   learnsAtLevel 45 doubleEdge
 
-illumise :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+illumise :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 illumise = Pkmn.illumise 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19274,7 +19285,7 @@ illumise = Pkmn.illumise
   learnsAtLevel 41 bugBuzz <> 
   learnsAtLevel 45 covet
 
-roselia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+roselia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 roselia = Pkmn.roselia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19332,7 +19343,7 @@ roselia = Pkmn.roselia
   learnsAtLevel 43 aromatherapy <> 
   learnsAtLevel 46 synthesis
 
-gulpin :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gulpin :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gulpin = Pkmn.gulpin 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19388,7 +19399,7 @@ gulpin = Pkmn.gulpin
   learnsAtLevel 54 wringOut <> 
   learnsAtLevel 59 gunkShot
 
-swalot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swalot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swalot = Pkmn.swalot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19445,7 +19456,7 @@ swalot = Pkmn.swalot
   learnsAtLevel 66 wringOut <> 
   learnsAtLevel 73 gunkShot
 
-carvanha :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+carvanha :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 carvanha = Pkmn.carvanha 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19503,7 +19514,7 @@ carvanha = Pkmn.carvanha
   learnsAtLevel 36 agility <> 
   learnsAtLevel 38 takeDown
 
-sharpedo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sharpedo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sharpedo = Pkmn.sharpedo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19567,7 +19578,7 @@ sharpedo = Pkmn.sharpedo
   learnsAtLevel 50 skullBash <> 
   learnsAtLevel 56 nightSlash
 
-wailmer :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wailmer :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wailmer = Pkmn.wailmer 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19627,7 +19638,7 @@ wailmer = Pkmn.wailmer
   learnsAtLevel 47 hydroPump <> 
   learnsAtLevel 50 heavySlam
 
-wailord :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wailord :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wailord = Pkmn.wailord 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19682,7 +19693,7 @@ wailord = Pkmn.wailord
   learnsAtLevel 62 hydroPump <> 
   learnsAtLevel 70 heavySlam
 
-numel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+numel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 numel = Pkmn.numel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19746,7 +19757,7 @@ numel = Pkmn.numel
   learnsAtLevel 51 flamethrower <> 
   learnsAtLevel 55 doubleEdge
 
-camerupt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+camerupt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 camerupt = Pkmn.camerupt 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19807,7 +19818,7 @@ camerupt = Pkmn.camerupt
   learnsAtLevel 67 eruption <> 
   learnsAtLevel 75 fissure
 
-torkoal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+torkoal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 torkoal = Pkmn.torkoal 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19872,7 +19883,7 @@ torkoal = Pkmn.torkoal
   learnsAtLevel 60 inferno <> 
   learnsAtLevel 65 shellSmash
 
-spoink :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spoink :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spoink = Pkmn.spoink 
   `differentForms` singleFormOnly
   `moveSet`
@@ -19937,7 +19948,7 @@ spoink = Pkmn.spoink
   learnsAtLevel 48 powerGem <> 
   learnsAtLevel 53 bounce
 
-grumpig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+grumpig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 grumpig = Pkmn.grumpig 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20006,7 +20017,7 @@ grumpig = Pkmn.grumpig
   learnsAtLevel 60 powerGem <> 
   learnsAtLevel 68 bounce
 
-spinda :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spinda :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spinda = Pkmn.spinda 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20085,7 +20096,7 @@ spinda = Pkmn.spinda
   learnsAtLevel 50 flail <> 
   learnsAtLevel 55 thrash
 
-trapinch :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+trapinch :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 trapinch = Pkmn.trapinch 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20137,7 +20148,7 @@ trapinch = Pkmn.trapinch
   learnsAtLevel 81 feint <> 
   learnsAtLevel 89 fissure
 
-vibrava :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vibrava :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vibrava = Pkmn.vibrava 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20190,7 +20201,7 @@ vibrava = Pkmn.vibrava
   learnsAtLevel 49 sandstorm <> 
   learnsAtLevel 57 hyperBeam
 
-flygon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+flygon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 flygon = Pkmn.flygon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20255,7 +20266,7 @@ flygon = Pkmn.flygon
   learnsAtLevel 57 hyperBeam <> 
   learnsAtLevel 65 dragonTail
 
-cacnea :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cacnea :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cacnea = Pkmn.cacnea 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20322,7 +20333,7 @@ cacnea = Pkmn.cacnea
   learnsAtLevel 53 sandstorm <> 
   learnsAtLevel 57 destinyBond
 
-cacturne :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cacturne :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cacturne = Pkmn.cacturne 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20388,7 +20399,7 @@ cacturne = Pkmn.cacturne
   learnsAtLevel 65 sandstorm <> 
   learnsAtLevel 71 destinyBond
 
-swablu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swablu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swablu = Pkmn.swablu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20447,7 +20458,7 @@ swablu = Pkmn.swablu
   learnsAtLevel 50 dragonPulse <> 
   learnsAtLevel 55 perishSong
 
-altaria :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+altaria :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 altaria = Pkmn.altaria 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20514,7 +20525,7 @@ altaria = Pkmn.altaria
   learnsAtLevel 70 perishSong <> 
   learnsAtLevel 77 skyAttack
 
-zangoose :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zangoose :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zangoose = Pkmn.zangoose 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20598,7 +20609,7 @@ zangoose = Pkmn.zangoose
   learnsAtLevel 48 xScissor <> 
   learnsAtLevel 53 closeCombat
 
-seviper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seviper :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seviper = Pkmn.seviper 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20664,7 +20675,7 @@ seviper = Pkmn.seviper
   learnsAtLevel 61 wringOut <> 
   learnsAtLevel 64 coil
 
-lunatone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lunatone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lunatone = Pkmn.lunatone 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20735,7 +20746,7 @@ lunatone = Pkmn.lunatone
   learnsAtLevel 56 explosion <> 
   learnsAtLevel 64 magicRoom
 
-solrock :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+solrock :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 solrock = Pkmn.solrock 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20810,7 +20821,7 @@ solrock = Pkmn.solrock
   learnsAtLevel 56 explosion <> 
   learnsAtLevel 64 wonderRoom
 
-barboach :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+barboach :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 barboach = Pkmn.barboach 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20864,7 +20875,7 @@ barboach = Pkmn.barboach
   learnsAtLevel 43 futureSight <> 
   learnsAtLevel 47 fissure
 
-whiscash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+whiscash :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 whiscash = Pkmn.whiscash 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20917,7 +20928,7 @@ whiscash = Pkmn.whiscash
   learnsAtLevel 51 futureSight <> 
   learnsAtLevel 57 fissure
 
-corphish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+corphish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 corphish = Pkmn.corphish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -20982,7 +20993,7 @@ corphish = Pkmn.corphish
   learnsAtLevel 47 crunch <> 
   learnsAtLevel 53 guillotine
 
-crawdaunt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+crawdaunt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 crawdaunt = Pkmn.crawdaunt 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21047,7 +21058,7 @@ crawdaunt = Pkmn.crawdaunt
   learnsAtLevel 57 crunch <> 
   learnsAtLevel 65 guillotine
 
-baltoy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+baltoy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 baltoy = Pkmn.baltoy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21118,7 +21129,7 @@ baltoy = Pkmn.baltoy
   learnsAtLevel 54 healBlock <> 
   learnsAtLevel 60 explosion
 
-claydol :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+claydol :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 claydol = Pkmn.claydol 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21195,7 +21206,7 @@ claydol = Pkmn.claydol
   learnsAtLevel 64 healBlock <> 
   learnsAtLevel 72 explosion
 
-lileep :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lileep :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lileep = Pkmn.lileep 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21253,7 +21264,7 @@ lileep = Pkmn.lileep
   learnsAtLevel 57 stockpile <> 
   learnsAtLevel 64 wringOut
 
-cradily :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cradily :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cradily = Pkmn.cradily 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21313,7 +21324,7 @@ cradily = Pkmn.cradily
   learnsAtLevel 66 spitUp <> 
   learnsAtLevel 76 wringOut
 
-anorith :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+anorith :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 anorith = Pkmn.anorith 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21369,7 +21380,7 @@ anorith = Pkmn.anorith
   learnsAtLevel 55 crushClaw <> 
   learnsAtLevel 61 xScissor
 
-armaldo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+armaldo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 armaldo = Pkmn.armaldo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21431,7 +21442,7 @@ armaldo = Pkmn.armaldo
   learnsAtLevel 67 crushClaw <> 
   learnsAtLevel 73 xScissor
 
-feebas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+feebas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 feebas = Pkmn.feebas 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21475,7 +21486,7 @@ feebas = Pkmn.feebas
   learnsAtLevel 15 tackle <> 
   learnsAtLevel 30 flail
 
-milotic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+milotic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 milotic = Pkmn.milotic 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21526,7 +21537,7 @@ milotic = Pkmn.milotic
   learnsAtLevel 45 safeguard <> 
   learnsAtLevel 49 aquaRing
 
-castform :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+castform :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 castform = Pkmn.castform 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21583,7 +21594,7 @@ castform = Pkmn.castform
   learnsAtLevel 50 hydroPump <> 
   learnsAtLevel 50 fireBlast
 
-kecleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kecleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kecleon = Pkmn.kecleon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21673,7 +21684,7 @@ kecleon = Pkmn.kecleon
   learnsAtLevel 55 ancientPower <> 
   learnsAtLevel 58 synchronoise
 
-shuppet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shuppet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shuppet = Pkmn.shuppet 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21740,7 +21751,7 @@ shuppet = Pkmn.shuppet
   learnsAtLevel 50 grudge <> 
   learnsAtLevel 55 trick
 
-banette :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+banette :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 banette = Pkmn.banette 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21802,7 +21813,7 @@ banette = Pkmn.banette
   learnsAtLevel 66 grudge <> 
   learnsAtLevel 75 trick
 
-duskull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+duskull :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 duskull = Pkmn.duskull 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21868,7 +21879,7 @@ duskull = Pkmn.duskull
   learnsAtLevel 46 payback <> 
   learnsAtLevel 49 futureSight
 
-dusclops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dusclops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dusclops = Pkmn.dusclops 
   `differentForms` singleFormOnly
   `moveSet`
@@ -21942,7 +21953,7 @@ dusclops = Pkmn.dusclops
   learnsAtLevel 58 payback <> 
   learnsAtLevel 61 futureSight
 
-tropius :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tropius :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tropius = Pkmn.tropius 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22009,7 +22020,7 @@ tropius = Pkmn.tropius
   learnsAtLevel 67 naturalGift <> 
   learnsAtLevel 71 leafStorm
 
-chimecho :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chimecho :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chimecho = Pkmn.chimecho 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22083,7 +22094,7 @@ chimecho = Pkmn.chimecho
   learnsAtLevel 54 synchronoise <> 
   learnsAtLevel 57 healingWish
 
-absol :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+absol :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 absol = Pkmn.absol 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22178,7 +22189,7 @@ absol = Pkmn.absol
   learnsAtLevel 60 psychoCut <> 
   learnsAtLevel 65 perishSong
 
-wynaut :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wynaut :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wynaut = Pkmn.wynaut 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22190,7 +22201,7 @@ wynaut = Pkmn.wynaut
   learnsAtLevel 15 safeguard <> 
   learnsAtLevel 15 mirrorCoat
 
-snorunt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+snorunt :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 snorunt = Pkmn.snorunt 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22236,7 +22247,7 @@ snorunt = Pkmn.snorunt
   learnsAtLevel 40 hail <> 
   learnsAtLevel 46 blizzard
 
-glalie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+glalie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 glalie = Pkmn.glalie 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22287,7 +22298,7 @@ glalie = Pkmn.glalie
   learnsAtLevel 51 blizzard <> 
   learnsAtLevel 59 sheerCold
 
-spheal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spheal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spheal = Pkmn.spheal 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22345,7 +22356,7 @@ spheal = Pkmn.spheal
   learnsAtLevel 43 blizzard <> 
   learnsAtLevel 49 sheerCold
 
-sealeo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sealeo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sealeo = Pkmn.sealeo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22393,7 +22404,7 @@ sealeo = Pkmn.sealeo
   learnsAtLevel 47 blizzard <> 
   learnsAtLevel 55 sheerCold
 
-walrein :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+walrein :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 walrein = Pkmn.walrein 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22447,7 +22458,7 @@ walrein = Pkmn.walrein
   learnsAtLevel 52 blizzard <> 
   learnsAtLevel 65 sheerCold
 
-clamperl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+clamperl :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 clamperl = Pkmn.clamperl 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22491,7 +22502,7 @@ clamperl = Pkmn.clamperl
   learnsAtLevel 1 waterGun <> 
   learnsAtLevel 51 shellSmash
 
-huntail :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+huntail :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 huntail = Pkmn.huntail 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22537,7 +22548,7 @@ huntail = Pkmn.huntail
   learnsAtLevel 46 aquaTail <> 
   learnsAtLevel 51 hydroPump
 
-gorebyss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gorebyss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gorebyss = Pkmn.gorebyss 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22584,7 +22595,7 @@ gorebyss = Pkmn.gorebyss
   learnsAtLevel 46 aquaTail <> 
   learnsAtLevel 51 hydroPump
 
-relicanth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+relicanth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 relicanth = Pkmn.relicanth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22649,7 +22660,7 @@ relicanth = Pkmn.relicanth
   learnsAtLevel 71 hydroPump <> 
   learnsAtLevel 78 headSmash
 
-luvdisc :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+luvdisc :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 luvdisc = Pkmn.luvdisc 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22699,7 +22710,7 @@ luvdisc = Pkmn.luvdisc
   learnsAtLevel 51 captivate <> 
   learnsAtLevel 55 safeguard
 
-bagon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bagon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bagon = Pkmn.bagon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22758,7 +22769,7 @@ bagon = Pkmn.bagon
   learnsAtLevel 50 dragonClaw <> 
   learnsAtLevel 55 doubleEdge
 
-shelgon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shelgon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shelgon = Pkmn.shelgon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22809,7 +22820,7 @@ shelgon = Pkmn.shelgon
   learnsAtLevel 55 dragonClaw <> 
   learnsAtLevel 61 doubleEdge
 
-salamence :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+salamence :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 salamence = Pkmn.salamence 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22873,7 +22884,7 @@ salamence = Pkmn.salamence
   learnsAtLevel 70 doubleEdge <> 
   learnsAtLevel 80 dragonTail
 
-beldum :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+beldum :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 beldum = Pkmn.beldum 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22882,7 +22893,7 @@ beldum = Pkmn.beldum
   ableToLearn ironHead <> 
   learnsAtLevel 1 takeDown
 
-metang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+metang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 metang = Pkmn.metang 
   `differentForms` singleFormOnly
   `moveSet`
@@ -22948,7 +22959,7 @@ metang = Pkmn.metang
   learnsAtLevel 52 zenHeadbutt <> 
   learnsAtLevel 56 hyperBeam
 
-metagross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+metagross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 metagross = Pkmn.metagross 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23017,7 +23028,7 @@ metagross = Pkmn.metagross
   learnsAtLevel 62 zenHeadbutt <> 
   learnsAtLevel 71 hyperBeam
 
-regirock :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+regirock :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 regirock = Pkmn.regirock 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23077,7 +23088,7 @@ regirock = Pkmn.regirock
   learnsAtLevel 81 hammerArm <> 
   learnsAtLevel 89 hyperBeam
 
-regice :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+regice :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 regice = Pkmn.regice 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23135,7 +23146,7 @@ regice = Pkmn.regice
   learnsAtLevel 81 hammerArm <> 
   learnsAtLevel 89 hyperBeam
 
-registeel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+registeel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 registeel = Pkmn.registeel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23196,7 +23207,7 @@ registeel = Pkmn.registeel
   learnsAtLevel 81 hammerArm <> 
   learnsAtLevel 89 hyperBeam
 
-latias :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+latias :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 latias = Pkmn.latias 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23279,7 +23290,7 @@ latias = Pkmn.latias
   learnsAtLevel 80 dragonPulse <> 
   learnsAtLevel 85 healingWish
 
-latios :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+latios :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 latios = Pkmn.latios 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23358,7 +23369,7 @@ latios = Pkmn.latios
   learnsAtLevel 80 dragonPulse <> 
   learnsAtLevel 85 memento
 
-kyogre :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+kyogre :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 kyogre = Pkmn.kyogre 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23416,7 +23427,7 @@ kyogre = Pkmn.kyogre
   learnsAtLevel 80 doubleEdge <> 
   learnsAtLevel 90 hydroPump
 
-groudon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+groudon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 groudon = Pkmn.groudon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23486,7 +23497,7 @@ groudon = Pkmn.groudon
   learnsAtLevel 80 solarBeam <> 
   learnsAtLevel 90 fireBlast
 
-rayquaza :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+rayquaza :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 rayquaza = Pkmn.rayquaza 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23565,7 +23576,7 @@ rayquaza = Pkmn.rayquaza
   learnsAtLevel 80 hyperBeam <> 
   learnsAtLevel 90 dragonPulse
 
-jirachi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+jirachi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 jirachi = Pkmn.jirachi 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23638,7 +23649,7 @@ jirachi = Pkmn.jirachi
   learnsAtLevel 65 lastResort <> 
   learnsAtLevel 70 doomDesire
 
-deoxysNormal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+deoxysNormal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 deoxysNormal = Pkmn.deoxysNormal 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23723,7 +23734,7 @@ deoxysNormal = Pkmn.deoxysNormal
   learnsAtLevel 89 psychoBoost <> 
   learnsAtLevel 97 hyperBeam
 
-turtwig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+turtwig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 turtwig = Pkmn.turtwig 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23784,7 +23795,7 @@ turtwig = Pkmn.turtwig
   learnsAtLevel 41 gigaDrain <> 
   learnsAtLevel 45 leafStorm
 
-grotle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+grotle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 grotle = Pkmn.grotle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23834,7 +23845,7 @@ grotle = Pkmn.grotle
   learnsAtLevel 47 gigaDrain <> 
   learnsAtLevel 52 leafStorm
 
-torterra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+torterra :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 torterra = Pkmn.torterra 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23899,7 +23910,7 @@ torterra = Pkmn.torterra
   learnsAtLevel 51 gigaDrain <> 
   learnsAtLevel 57 leafStorm
 
-chimchar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chimchar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chimchar = Pkmn.chimchar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -23973,7 +23984,7 @@ chimchar = Pkmn.chimchar
   learnsAtLevel 41 slackOff <> 
   learnsAtLevel 47 flamethrower
 
-monferno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+monferno :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 monferno = Pkmn.monferno 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24046,7 +24057,7 @@ monferno = Pkmn.monferno
   learnsAtLevel 49 slackOff <> 
   learnsAtLevel 56 flareBlitz
 
-infernape :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+infernape :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 infernape = Pkmn.infernape 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24128,7 +24139,7 @@ infernape = Pkmn.infernape
   learnsAtLevel 58 calmMind <> 
   learnsAtLevel 68 flareBlitz
 
-piplup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+piplup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 piplup = Pkmn.piplup 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24192,7 +24203,7 @@ piplup = Pkmn.piplup
   learnsAtLevel 39 drillPeck <> 
   learnsAtLevel 43 hydroPump
 
-prinplup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+prinplup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 prinplup = Pkmn.prinplup 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24252,7 +24263,7 @@ prinplup = Pkmn.prinplup
   learnsAtLevel 46 drillPeck <> 
   learnsAtLevel 51 hydroPump
 
-empoleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+empoleon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 empoleon = Pkmn.empoleon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24322,7 +24333,7 @@ empoleon = Pkmn.empoleon
   learnsAtLevel 52 drillPeck <> 
   learnsAtLevel 59 hydroPump
 
-starly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+starly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 starly = Pkmn.starly 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24374,7 +24385,7 @@ starly = Pkmn.starly
   learnsAtLevel 37 braveBird <> 
   learnsAtLevel 41 finalGambit
 
-staravia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+staravia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 staravia = Pkmn.staravia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24416,7 +24427,7 @@ staravia = Pkmn.staravia
   learnsAtLevel 43 braveBird <> 
   learnsAtLevel 48 finalGambit
 
-staraptor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+staraptor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 staraptor = Pkmn.staraptor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24462,7 +24473,7 @@ staraptor = Pkmn.staraptor
   learnsAtLevel 49 braveBird <> 
   learnsAtLevel 57 finalGambit
 
-bidoof :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bidoof :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bidoof = Pkmn.bidoof 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24526,7 +24537,7 @@ bidoof = Pkmn.bidoof
   learnsAtLevel 41 superpower <> 
   learnsAtLevel 45 curse
 
-bibarel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bibarel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bibarel = Pkmn.bibarel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24592,7 +24603,7 @@ bibarel = Pkmn.bibarel
   learnsAtLevel 48 superpower <> 
   learnsAtLevel 53 curse
 
-kricketot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kricketot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kricketot = Pkmn.kricketot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24604,7 +24615,7 @@ kricketot = Pkmn.kricketot
   learnsAtLevel 6 struggleBug <> 
   learnsAtLevel 16 bugBite
 
-kricketune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+kricketune :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 kricketune = Pkmn.kricketune 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24657,7 +24668,7 @@ kricketune = Pkmn.kricketune
   learnsAtLevel 46 bugBuzz <> 
   learnsAtLevel 50 perishSong
 
-shinx :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shinx :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shinx = Pkmn.shinx 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24711,7 +24722,7 @@ shinx = Pkmn.shinx
   learnsAtLevel 41 discharge <> 
   learnsAtLevel 45 wildCharge
 
-luxio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+luxio :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 luxio = Pkmn.luxio 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24755,7 +24766,7 @@ luxio = Pkmn.luxio
   learnsAtLevel 48 discharge <> 
   learnsAtLevel 53 wildCharge
 
-luxray :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+luxray :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 luxray = Pkmn.luxray 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24802,7 +24813,7 @@ luxray = Pkmn.luxray
   learnsAtLevel 56 discharge <> 
   learnsAtLevel 63 wildCharge
 
-budew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+budew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 budew = Pkmn.budew 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24854,7 +24865,7 @@ budew = Pkmn.budew
   learnsAtLevel 13 megaDrain <> 
   learnsAtLevel 16 worrySeed
 
-roserade :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+roserade :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 roserade = Pkmn.roserade 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24898,7 +24909,7 @@ roserade = Pkmn.roserade
   learnsAtLevel 1 megaDrain <> 
   learnsAtLevel 1 poisonSting
 
-cranidos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cranidos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cranidos = Pkmn.cranidos 
   `differentForms` singleFormOnly
   `moveSet`
@@ -24973,7 +24984,7 @@ cranidos = Pkmn.cranidos
   learnsAtLevel 42 screech <> 
   learnsAtLevel 46 headSmash
 
-rampardos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rampardos :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rampardos = Pkmn.rampardos 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25049,7 +25060,7 @@ rampardos = Pkmn.rampardos
   learnsAtLevel 51 screech <> 
   learnsAtLevel 58 headSmash
 
-shieldon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shieldon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shieldon = Pkmn.shieldon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25116,7 +25127,7 @@ shieldon = Pkmn.shieldon
   learnsAtLevel 42 ironHead <> 
   learnsAtLevel 46 heavySlam
 
-bastiodon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bastiodon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bastiodon = Pkmn.bastiodon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25177,7 +25188,7 @@ bastiodon = Pkmn.bastiodon
   learnsAtLevel 51 ironHead <> 
   learnsAtLevel 58 heavySlam
 
-wormadamPlant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+wormadamPlant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 wormadamPlant = Pkmn.wormadamPlant 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25230,7 +25241,7 @@ wormadamPlant = Pkmn.wormadamPlant
   learnsAtLevel 44 psychic <> 
   learnsAtLevel 47 leafStorm
 
-combee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+combee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 combee = Pkmn.combee 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25242,7 +25253,7 @@ combee = Pkmn.combee
   learnsAtLevel 13 bugBite <> 
   learnsAtLevel 29 bugBuzz
 
-vespiquen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vespiquen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vespiquen = Pkmn.vespiquen 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25298,7 +25309,7 @@ vespiquen = Pkmn.vespiquen
   learnsAtLevel 39 swagger <> 
   learnsAtLevel 43 destinyBond
 
-pachirisu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pachirisu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pachirisu = Pkmn.pachirisu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25362,7 +25373,7 @@ pachirisu = Pkmn.pachirisu
   learnsAtLevel 45 lastResort <> 
   learnsAtLevel 49 hyperFang
 
-buizel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+buizel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 buizel = Pkmn.buizel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25425,7 +25436,7 @@ buizel = Pkmn.buizel
   learnsAtLevel 45 razorWind <> 
   learnsAtLevel 55 aquaTail
 
-floatzel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+floatzel :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 floatzel = Pkmn.floatzel 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25486,7 +25497,7 @@ floatzel = Pkmn.floatzel
   learnsAtLevel 57 hydroPump <> 
   learnsAtLevel 62 aquaTail
 
-cherubi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cherubi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cherubi = Pkmn.cherubi 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25536,7 +25547,7 @@ cherubi = Pkmn.cherubi
   learnsAtLevel 37 solarBeam <> 
   learnsAtLevel 40 luckyChant
 
-ambipom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ambipom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ambipom = Pkmn.ambipom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25611,7 +25622,7 @@ ambipom = Pkmn.ambipom
   learnsAtLevel 39 nastyPlot <> 
   learnsAtLevel 43 lastResort
 
-drifloon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+drifloon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 drifloon = Pkmn.drifloon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25682,7 +25693,7 @@ drifloon = Pkmn.drifloon
   learnsAtLevel 43 shadowBall <> 
   learnsAtLevel 46 explosion
 
-drifblim :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+drifblim :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 drifblim = Pkmn.drifblim 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25747,7 +25758,7 @@ drifblim = Pkmn.drifblim
   learnsAtLevel 51 shadowBall <> 
   learnsAtLevel 56 explosion
 
-buneary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+buneary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 buneary = Pkmn.buneary 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25821,7 +25832,7 @@ buneary = Pkmn.buneary
   learnsAtLevel 56 bounce <> 
   learnsAtLevel 63 healingWish
 
-lopunny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lopunny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lopunny = Pkmn.lopunny 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25892,7 +25903,7 @@ lopunny = Pkmn.lopunny
   learnsAtLevel 56 bounce <> 
   learnsAtLevel 63 healingWish
 
-mismagius :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mismagius :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mismagius = Pkmn.mismagius 
   `differentForms` singleFormOnly
   `moveSet`
@@ -25955,7 +25966,7 @@ mismagius = Pkmn.mismagius
   learnsAtLevel 1 psywave <> 
   learnsAtLevel 1 growl
 
-honchkrow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+honchkrow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 honchkrow = Pkmn.honchkrow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26012,7 +26023,7 @@ honchkrow = Pkmn.honchkrow
   learnsAtLevel 65 quash <> 
   learnsAtLevel 75 darkPulse
 
-glameow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+glameow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 glameow = Pkmn.glameow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26079,7 +26090,7 @@ glameow = Pkmn.glameow
   learnsAtLevel 44 attract <> 
   learnsAtLevel 48 honeClaws
 
-purugly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+purugly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 purugly = Pkmn.purugly 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26142,7 +26153,7 @@ purugly = Pkmn.purugly
   learnsAtLevel 52 attract <> 
   learnsAtLevel 60 honeClaws
 
-chingling :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chingling :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chingling = Pkmn.chingling 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26209,7 +26220,7 @@ chingling = Pkmn.chingling
   learnsAtLevel 22 lastResort <> 
   learnsAtLevel 25 entrainment
 
-stunky :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+stunky :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 stunky = Pkmn.stunky 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26273,7 +26284,7 @@ stunky = Pkmn.stunky
   learnsAtLevel 43 memento <> 
   learnsAtLevel 49 explosion
 
-skuntank :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+skuntank :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 skuntank = Pkmn.skuntank 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26331,7 +26342,7 @@ skuntank = Pkmn.skuntank
   learnsAtLevel 51 memento <> 
   learnsAtLevel 61 explosion
 
-bronzor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bronzor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bronzor = Pkmn.bronzor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26395,7 +26406,7 @@ bronzor = Pkmn.bronzor
   learnsAtLevel 52 healBlock <> 
   learnsAtLevel 54 heavySlam
 
-bronzong :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bronzong :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bronzong = Pkmn.bronzong 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26467,7 +26478,7 @@ bronzong = Pkmn.bronzong
   learnsAtLevel 67 healBlock <> 
   learnsAtLevel 72 heavySlam
 
-bonsly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bonsly :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bonsly = Pkmn.bonsly 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26525,7 +26536,7 @@ bonsly = Pkmn.bonsly
   learnsAtLevel 41 suckerPunch <> 
   learnsAtLevel 46 doubleEdge
 
-mimeJr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mimeJr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mimeJr = Pkmn.mimeJr 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26603,7 +26614,7 @@ mimeJr = Pkmn.mimeJr
   learnsAtLevel 46 batonPass <> 
   learnsAtLevel 50 safeguard
 
-happiny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+happiny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 happiny = Pkmn.happiny 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26665,7 +26676,7 @@ happiny = Pkmn.happiny
   learnsAtLevel 9 refresh <> 
   learnsAtLevel 12 sweetKiss
 
-chatot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chatot :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chatot = Pkmn.chatot 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26719,7 +26730,7 @@ chatot = Pkmn.chatot
   learnsAtLevel 53 featherDance <> 
   learnsAtLevel 57 hyperVoice
 
-spiritomb :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+spiritomb :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 spiritomb = Pkmn.spiritomb 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26783,7 +26794,7 @@ spiritomb = Pkmn.spiritomb
   learnsAtLevel 43 memento <> 
   learnsAtLevel 49 darkPulse
 
-gible :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gible :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gible = Pkmn.gible 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26845,7 +26856,7 @@ gible = Pkmn.gible
   learnsAtLevel 31 dig <> 
   learnsAtLevel 37 dragonRush
 
-gabite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gabite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gabite = Pkmn.gabite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26899,7 +26910,7 @@ gabite = Pkmn.gabite
   learnsAtLevel 40 dig <> 
   learnsAtLevel 49 dragonRush
 
-garchomp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+garchomp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 garchomp = Pkmn.garchomp 
   `differentForms` singleFormOnly
   `moveSet`
@@ -26965,7 +26976,7 @@ garchomp = Pkmn.garchomp
   learnsAtLevel 48 crunch <> 
   learnsAtLevel 55 dragonRush
 
-munchlax :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+munchlax :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 munchlax = Pkmn.munchlax 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27043,7 +27054,7 @@ munchlax = Pkmn.munchlax
   learnsAtLevel 52 snatch <> 
   learnsAtLevel 57 lastResort
 
-riolu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+riolu :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 riolu = Pkmn.riolu 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27118,7 +27129,7 @@ riolu = Pkmn.riolu
   learnsAtLevel 47 nastyPlot <> 
   learnsAtLevel 55 finalGambit
 
-lucario :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lucario :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lucario = Pkmn.lucario 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27194,7 +27205,7 @@ lucario = Pkmn.lucario
   learnsAtLevel 60 dragonPulse <> 
   learnsAtLevel 65 extremeSpeed
 
-hippopotas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hippopotas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hippopotas = Pkmn.hippopotas 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27244,7 +27255,7 @@ hippopotas = Pkmn.hippopotas
   learnsAtLevel 44 doubleEdge <> 
   learnsAtLevel 50 fissure
 
-hippowdon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hippowdon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hippowdon = Pkmn.hippowdon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27293,7 +27304,7 @@ hippowdon = Pkmn.hippowdon
   learnsAtLevel 50 doubleEdge <> 
   learnsAtLevel 60 fissure
 
-skorupi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+skorupi :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 skorupi = Pkmn.skorupi 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27362,7 +27373,7 @@ skorupi = Pkmn.skorupi
   learnsAtLevel 56 crunch <> 
   learnsAtLevel 61 crossPoison
 
-drapion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+drapion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 drapion = Pkmn.drapion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27433,7 +27444,7 @@ drapion = Pkmn.drapion
   learnsAtLevel 65 crunch <> 
   learnsAtLevel 73 crossPoison
 
-croagunk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+croagunk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 croagunk = Pkmn.croagunk 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27518,7 +27529,7 @@ croagunk = Pkmn.croagunk
   learnsAtLevel 45 sludgeBomb <> 
   learnsAtLevel 50 flatter
 
-toxicroak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+toxicroak :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 toxicroak = Pkmn.toxicroak 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27595,7 +27606,7 @@ toxicroak = Pkmn.toxicroak
   learnsAtLevel 54 sludgeBomb <> 
   learnsAtLevel 62 flatter
 
-carnivine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+carnivine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 carnivine = Pkmn.carnivine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27656,7 +27667,7 @@ carnivine = Pkmn.carnivine
   learnsAtLevel 47 wringOut <> 
   learnsAtLevel 51 powerWhip
 
-finneon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+finneon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 finneon = Pkmn.finneon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27711,7 +27722,7 @@ finneon = Pkmn.finneon
   learnsAtLevel 49 silverWind <> 
   learnsAtLevel 54 soak
 
-lumineon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lumineon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lumineon = Pkmn.lumineon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27759,7 +27770,7 @@ lumineon = Pkmn.lumineon
   learnsAtLevel 59 silverWind <> 
   learnsAtLevel 66 soak
 
-mantyke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mantyke :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mantyke = Pkmn.mantyke 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27817,7 +27828,7 @@ mantyke = Pkmn.mantyke
   learnsAtLevel 46 aquaRing <> 
   learnsAtLevel 49 hydroPump
 
-snover :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+snover :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 snover = Pkmn.snover 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27875,7 +27886,7 @@ snover = Pkmn.snover
   learnsAtLevel 41 blizzard <> 
   learnsAtLevel 46 sheerCold
 
-abomasnow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+abomasnow :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 abomasnow = Pkmn.abomasnow 
   `differentForms` singleFormOnly
   `moveSet`
@@ -27937,7 +27948,7 @@ abomasnow = Pkmn.abomasnow
   learnsAtLevel 47 blizzard <> 
   learnsAtLevel 58 sheerCold
 
-weavile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+weavile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 weavile = Pkmn.weavile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28012,7 +28023,7 @@ weavile = Pkmn.weavile
   learnsAtLevel 49 metalClaw <> 
   learnsAtLevel 51 darkPulse
 
-magnezone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magnezone :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magnezone = Pkmn.magnezone 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28070,7 +28081,7 @@ magnezone = Pkmn.magnezone
   learnsAtLevel 60 gyroBall <> 
   learnsAtLevel 66 zapCannon
 
-lickilicky :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lickilicky :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lickilicky = Pkmn.lickilicky 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28148,7 +28159,7 @@ lickilicky = Pkmn.lickilicky
   learnsAtLevel 57 wringOut <> 
   learnsAtLevel 61 gyroBall
 
-rhyperior :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rhyperior :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rhyperior = Pkmn.rhyperior 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28231,7 +28242,7 @@ rhyperior = Pkmn.rhyperior
   learnsAtLevel 77 megahorn <> 
   learnsAtLevel 86 rockWrecker
 
-tangrowth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tangrowth :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tangrowth = Pkmn.tangrowth 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28299,7 +28310,7 @@ tangrowth = Pkmn.tangrowth
   learnsAtLevel 54 powerWhip <> 
   learnsAtLevel 57 block
 
-electivire :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+electivire :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 electivire = Pkmn.electivire 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28364,7 +28375,7 @@ electivire = Pkmn.electivire
   learnsAtLevel 62 thunder <> 
   learnsAtLevel 68 gigaImpact
 
-magmortar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+magmortar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 magmortar = Pkmn.magmortar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28426,7 +28437,7 @@ magmortar = Pkmn.magmortar
   learnsAtLevel 62 fireBlast <> 
   learnsAtLevel 68 hyperBeam
 
-togekiss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+togekiss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 togekiss = Pkmn.togekiss 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28491,7 +28502,7 @@ togekiss = Pkmn.togekiss
   learnsAtLevel 1 auraSphere <> 
   learnsAtLevel 1 extremeSpeed
 
-yanmega :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+yanmega :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 yanmega = Pkmn.yanmega 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28543,7 +28554,7 @@ yanmega = Pkmn.yanmega
   learnsAtLevel 54 airSlash <> 
   learnsAtLevel 57 bugBuzz
 
-leafeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+leafeon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 leafeon = Pkmn.leafeon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28600,7 +28611,7 @@ leafeon = Pkmn.leafeon
   learnsAtLevel 71 leafBlade <> 
   learnsAtLevel 78 swordsDance
 
-glaceon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+glaceon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 glaceon = Pkmn.glaceon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28653,7 +28664,7 @@ glaceon = Pkmn.glaceon
   learnsAtLevel 71 blizzard <> 
   learnsAtLevel 78 barrier
 
-gliscor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gliscor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gliscor = Pkmn.gliscor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28726,7 +28737,7 @@ gliscor = Pkmn.gliscor
   learnsAtLevel 45 skyUppercut <> 
   learnsAtLevel 49 guillotine
 
-mamoswine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mamoswine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mamoswine = Pkmn.mamoswine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28785,7 +28796,7 @@ mamoswine = Pkmn.mamoswine
   learnsAtLevel 56 blizzard <> 
   learnsAtLevel 65 scaryFace
 
-porygonZ :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+porygonZ :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 porygonZ = Pkmn.porygonZ 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28851,7 +28862,7 @@ porygonZ = Pkmn.porygonZ
   learnsAtLevel 62 zapCannon <> 
   learnsAtLevel 67 hyperBeam
 
-gallade :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gallade :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gallade = Pkmn.gallade 
   `differentForms` singleFormOnly
   `moveSet`
@@ -28947,7 +28958,7 @@ gallade = Pkmn.gallade
   learnsAtLevel 59 closeCombat <> 
   learnsAtLevel 64 storedPower
 
-probopass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+probopass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 probopass = Pkmn.probopass 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29007,7 +29018,7 @@ probopass = Pkmn.probopass
   learnsAtLevel 73 lockOn <> 
   learnsAtLevel 79 earthPower
 
-dusknoir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dusknoir :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dusknoir = Pkmn.dusknoir 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29081,7 +29092,7 @@ dusknoir = Pkmn.dusknoir
   learnsAtLevel 58 payback <> 
   learnsAtLevel 61 futureSight
 
-froslass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+froslass :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 froslass = Pkmn.froslass 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29140,7 +29151,7 @@ froslass = Pkmn.froslass
   learnsAtLevel 51 blizzard <> 
   learnsAtLevel 59 destinyBond
 
-rotom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rotom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rotom = Pkmn.rotom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29191,7 +29202,7 @@ rotom = Pkmn.rotom
   learnsAtLevel 57 charge <> 
   learnsAtLevel 64 discharge
 
-uxie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+uxie :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 uxie = Pkmn.uxie 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29266,7 +29277,7 @@ uxie = Pkmn.uxie
   learnsAtLevel 66 naturalGift <> 
   learnsAtLevel 76 memento
 
-mesprit :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+mesprit :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 mesprit = Pkmn.mesprit 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29338,7 +29349,7 @@ mesprit = Pkmn.mesprit
   learnsAtLevel 66 naturalGift <> 
   learnsAtLevel 76 healingWish
 
-azelf :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+azelf :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 azelf = Pkmn.azelf 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29415,7 +29426,7 @@ azelf = Pkmn.azelf
   learnsAtLevel 66 naturalGift <> 
   learnsAtLevel 76 explosion
 
-dialga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+dialga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 dialga = Pkmn.dialga 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29489,7 +29500,7 @@ dialga = Pkmn.dialga
   learnsAtLevel 46 roarOfTime <> 
   learnsAtLevel 50 flashCannon
 
-palkia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+palkia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 palkia = Pkmn.palkia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29561,7 +29572,7 @@ palkia = Pkmn.palkia
   learnsAtLevel 46 spacialRend <> 
   learnsAtLevel 50 hydroPump
 
-heatran :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+heatran :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 heatran = Pkmn.heatran 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29622,7 +29633,7 @@ heatran = Pkmn.heatran
   learnsAtLevel 88 stoneEdge <> 
   learnsAtLevel 96 magmaStorm
 
-regigigas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+regigigas :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 regigigas = Pkmn.regigigas 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29681,7 +29692,7 @@ regigigas = Pkmn.regigigas
   learnsAtLevel 90 heavySlam <> 
   learnsAtLevel 100 gigaImpact
 
-giratinaAltered :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+giratinaAltered :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 giratinaAltered = Pkmn.giratinaAltered 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29754,7 +29765,7 @@ giratinaAltered = Pkmn.giratinaAltered
   learnsAtLevel 46 shadowForce <> 
   learnsAtLevel 50 hex
 
-cresselia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+cresselia :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 cresselia = Pkmn.cresselia 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29814,7 +29825,7 @@ cresselia = Pkmn.cresselia
   learnsAtLevel 84 lunarDance <> 
   learnsAtLevel 93 psychic
 
-phione :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+phione :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 phione = Pkmn.phione 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29863,7 +29874,7 @@ phione = Pkmn.phione
   learnsAtLevel 61 dive <> 
   learnsAtLevel 69 rainDance
 
-manaphy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+manaphy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 manaphy = Pkmn.manaphy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -29924,7 +29935,7 @@ manaphy = Pkmn.manaphy
   learnsAtLevel 69 rainDance <> 
   learnsAtLevel 76 heartSwap
 
-darkrai :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+darkrai :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 darkrai = Pkmn.darkrai 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30000,7 +30011,7 @@ darkrai = Pkmn.darkrai
   learnsAtLevel 84 dreamEater <> 
   learnsAtLevel 93 darkPulse
 
-shayminLand :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+shayminLand :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 shayminLand = Pkmn.shayminLand 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30047,7 +30058,7 @@ shayminLand = Pkmn.shayminLand
   learnsAtLevel 91 healingWish <> 
   learnsAtLevel 100 seedFlare
 
-victini :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+victini :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 victini = Pkmn.victini 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30125,7 +30136,7 @@ victini = Pkmn.victini
   learnsAtLevel 89 storedPower <> 
   learnsAtLevel 97 overheat
 
-snivy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+snivy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 snivy = Pkmn.snivy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30191,7 +30202,7 @@ snivy = Pkmn.snivy
   learnsAtLevel 40 gastroAcid <> 
   learnsAtLevel 43 leafStorm
 
-servine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+servine :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 servine = Pkmn.servine 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30248,7 +30259,7 @@ servine = Pkmn.servine
   learnsAtLevel 48 gastroAcid <> 
   learnsAtLevel 52 leafStorm
 
-serperior :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+serperior :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 serperior = Pkmn.serperior 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30313,7 +30324,7 @@ serperior = Pkmn.serperior
   learnsAtLevel 56 gastroAcid <> 
   learnsAtLevel 62 leafStorm
 
-tepig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tepig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tepig = Pkmn.tepig 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30374,7 +30385,7 @@ tepig = Pkmn.tepig
   learnsAtLevel 39 roar <> 
   learnsAtLevel 43 flareBlitz
 
-pignite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pignite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pignite = Pkmn.pignite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30442,7 +30453,7 @@ pignite = Pkmn.pignite
   learnsAtLevel 47 roar <> 
   learnsAtLevel 52 flareBlitz
 
-emboar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+emboar :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 emboar = Pkmn.emboar 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30520,7 +30531,7 @@ emboar = Pkmn.emboar
   learnsAtLevel 55 roar <> 
   learnsAtLevel 62 flareBlitz
 
-oshawott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+oshawott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 oshawott = Pkmn.oshawott 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30584,7 +30595,7 @@ oshawott = Pkmn.oshawott
   learnsAtLevel 41 swordsDance <> 
   learnsAtLevel 43 hydroPump
 
-dewott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dewott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dewott = Pkmn.dewott 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30640,7 +30651,7 @@ dewott = Pkmn.dewott
   learnsAtLevel 49 swordsDance <> 
   learnsAtLevel 52 hydroPump
 
-samurott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+samurott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 samurott = Pkmn.samurott 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30706,7 +30717,7 @@ samurott = Pkmn.samurott
   learnsAtLevel 57 swordsDance <> 
   learnsAtLevel 62 hydroPump
 
-patrat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+patrat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 patrat = Pkmn.patrat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30766,7 +30777,7 @@ patrat = Pkmn.patrat
   learnsAtLevel 33 batonPass <> 
   learnsAtLevel 36 slam
 
-watchog :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+watchog :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 watchog = Pkmn.watchog 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30838,7 +30849,7 @@ watchog = Pkmn.watchog
   learnsAtLevel 39 batonPass <> 
   learnsAtLevel 43 slam
 
-lillipup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lillipup :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lillipup = Pkmn.lillipup 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30895,7 +30906,7 @@ lillipup = Pkmn.lillipup
   learnsAtLevel 36 lastResort <> 
   learnsAtLevel 40 gigaImpact
 
-herdier :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+herdier :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 herdier = Pkmn.herdier 
   `differentForms` singleFormOnly
   `moveSet`
@@ -30944,7 +30955,7 @@ herdier = Pkmn.herdier
   learnsAtLevel 42 lastResort <> 
   learnsAtLevel 47 gigaImpact
 
-stoutland :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+stoutland :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 stoutland = Pkmn.stoutland 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31000,7 +31011,7 @@ stoutland = Pkmn.stoutland
   learnsAtLevel 51 lastResort <> 
   learnsAtLevel 59 gigaImpact
 
-purrloin :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+purrloin :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 purrloin = Pkmn.purrloin 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31069,7 +31080,7 @@ purrloin = Pkmn.purrloin
   learnsAtLevel 42 nastyPlot <> 
   learnsAtLevel 46 suckerPunch
 
-liepard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+liepard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 liepard = Pkmn.liepard 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31134,7 +31145,7 @@ liepard = Pkmn.liepard
   learnsAtLevel 50 nastyPlot <> 
   learnsAtLevel 55 suckerPunch
 
-pansage :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pansage :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pansage = Pkmn.pansage 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31202,7 +31213,7 @@ pansage = Pkmn.pansage
   learnsAtLevel 40 naturalGift <> 
   learnsAtLevel 43 crunch
 
-simisage :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+simisage :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 simisage = Pkmn.simisage 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31263,7 +31274,7 @@ simisage = Pkmn.simisage
   learnsAtLevel 1 seedBomb <> 
   learnsAtLevel 1 leer
 
-pansear :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pansear :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pansear = Pkmn.pansear 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31331,7 +31342,7 @@ pansear = Pkmn.pansear
   learnsAtLevel 40 naturalGift <> 
   learnsAtLevel 43 crunch
 
-simisear :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+simisear :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 simisear = Pkmn.simisear 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31395,7 +31406,7 @@ simisear = Pkmn.simisear
   learnsAtLevel 1 lick <> 
   learnsAtLevel 1 leer
 
-panpour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+panpour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 panpour = Pkmn.panpour 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31466,7 +31477,7 @@ panpour = Pkmn.panpour
   learnsAtLevel 40 naturalGift <> 
   learnsAtLevel 43 crunch
 
-simipour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+simipour :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 simipour = Pkmn.simipour 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31530,7 +31541,7 @@ simipour = Pkmn.simipour
   learnsAtLevel 1 lick <> 
   learnsAtLevel 1 leer
 
-munna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+munna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 munna = Pkmn.munna 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31599,7 +31610,7 @@ munna = Pkmn.munna
   learnsAtLevel 43 telekinesis <> 
   learnsAtLevel 47 storedPower
 
-musharna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+musharna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 musharna = Pkmn.musharna 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31656,7 +31667,7 @@ musharna = Pkmn.musharna
   learnsAtLevel 1 luckyChant <> 
   learnsAtLevel 1 psybeam
 
-pidove :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pidove :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pidove = Pkmn.pidove 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31704,7 +31715,7 @@ pidove = Pkmn.pidove
   learnsAtLevel 46 tailwind <> 
   learnsAtLevel 50 skyAttack
 
-tranquill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tranquill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tranquill = Pkmn.tranquill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31746,7 +31757,7 @@ tranquill = Pkmn.tranquill
   learnsAtLevel 54 tailwind <> 
   learnsAtLevel 59 skyAttack
 
-unfezant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+unfezant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 unfezant = Pkmn.unfezant 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31791,7 +31802,7 @@ unfezant = Pkmn.unfezant
   learnsAtLevel 60 tailwind <> 
   learnsAtLevel 66 skyAttack
 
-blitzle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+blitzle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 blitzle = Pkmn.blitzle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31841,7 +31852,7 @@ blitzle = Pkmn.blitzle
   learnsAtLevel 39 wildCharge <> 
   learnsAtLevel 43 thrash
 
-zebstrika :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zebstrika :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zebstrika = Pkmn.zebstrika 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31887,7 +31898,7 @@ zebstrika = Pkmn.zebstrika
   learnsAtLevel 47 wildCharge <> 
   learnsAtLevel 53 thrash
 
-roggenrola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+roggenrola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 roggenrola = Pkmn.roggenrola 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31935,7 +31946,7 @@ roggenrola = Pkmn.roggenrola
   learnsAtLevel 36 stoneEdge <> 
   learnsAtLevel 40 explosion
 
-boldore :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+boldore :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 boldore = Pkmn.boldore 
   `differentForms` singleFormOnly
   `moveSet`
@@ -31978,7 +31989,7 @@ boldore = Pkmn.boldore
   learnsAtLevel 48 stoneEdge <> 
   learnsAtLevel 55 explosion
 
-gigalith :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gigalith :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gigalith = Pkmn.gigalith 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32026,7 +32037,7 @@ gigalith = Pkmn.gigalith
   learnsAtLevel 48 stoneEdge <> 
   learnsAtLevel 55 explosion
 
-woobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+woobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 woobat = Pkmn.woobat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32102,7 +32113,7 @@ woobat = Pkmn.woobat
   learnsAtLevel 41 psychic <> 
   learnsAtLevel 47 endeavor
 
-swoobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swoobat :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swoobat = Pkmn.swoobat 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32175,7 +32186,7 @@ swoobat = Pkmn.swoobat
   learnsAtLevel 41 psychic <> 
   learnsAtLevel 47 endeavor
 
-drilbur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+drilbur :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 drilbur = Pkmn.drilbur 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32229,7 +32240,7 @@ drilbur = Pkmn.drilbur
   learnsAtLevel 43 drillRun <> 
   learnsAtLevel 47 fissure
 
-excadrill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+excadrill :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 excadrill = Pkmn.excadrill 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32284,7 +32295,7 @@ excadrill = Pkmn.excadrill
   learnsAtLevel 55 drillRun <> 
   learnsAtLevel 62 fissure
 
-audino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+audino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 audino = Pkmn.audino 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32377,7 +32388,7 @@ audino = Pkmn.audino
   learnsAtLevel 50 doubleEdge <> 
   learnsAtLevel 55 lastResort
 
-timburr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+timburr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 timburr = Pkmn.timburr 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32446,7 +32457,7 @@ timburr = Pkmn.timburr
   learnsAtLevel 46 focusPunch <> 
   learnsAtLevel 49 superpower
 
-gurdurr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gurdurr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gurdurr = Pkmn.gurdurr 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32505,7 +32516,7 @@ gurdurr = Pkmn.gurdurr
   learnsAtLevel 53 focusPunch <> 
   learnsAtLevel 57 superpower
 
-conkeldurr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+conkeldurr :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 conkeldurr = Pkmn.conkeldurr 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32568,7 +32579,7 @@ conkeldurr = Pkmn.conkeldurr
   learnsAtLevel 53 focusPunch <> 
   learnsAtLevel 57 superpower
 
-tympole :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tympole :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tympole = Pkmn.tympole 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32614,7 +32625,7 @@ tympole = Pkmn.tympole
   learnsAtLevel 42 hydroPump <> 
   learnsAtLevel 45 hyperVoice
 
-palpitoad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+palpitoad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 palpitoad = Pkmn.palpitoad 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32659,7 +32670,7 @@ palpitoad = Pkmn.palpitoad
   learnsAtLevel 47 hydroPump <> 
   learnsAtLevel 51 hyperVoice
 
-seismitoad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+seismitoad :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 seismitoad = Pkmn.seismitoad 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32723,7 +32734,7 @@ seismitoad = Pkmn.seismitoad
   learnsAtLevel 53 hydroPump <> 
   learnsAtLevel 59 hyperVoice
 
-throh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+throh :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 throh = Pkmn.throh 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32786,7 +32797,7 @@ throh = Pkmn.throh
   learnsAtLevel 49 superpower <> 
   learnsAtLevel 53 reversal
 
-sawk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sawk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sawk = Pkmn.sawk 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32847,7 +32858,7 @@ sawk = Pkmn.sawk
   learnsAtLevel 49 closeCombat <> 
   learnsAtLevel 53 reversal
 
-sewaddle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sewaddle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sewaddle = Pkmn.sewaddle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32902,7 +32913,7 @@ sewaddle = Pkmn.sewaddle
   learnsAtLevel 36 bugBuzz <> 
   learnsAtLevel 43 flail
 
-swadloon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swadloon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swadloon = Pkmn.swadloon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -32946,7 +32957,7 @@ swadloon = Pkmn.swadloon
   learnsAtLevel 1 bugBite <> 
   learnsAtLevel 20 protect
 
-leavanny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+leavanny :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 leavanny = Pkmn.leavanny 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33007,7 +33018,7 @@ leavanny = Pkmn.leavanny
   learnsAtLevel 46 swordsDance <> 
   learnsAtLevel 50 leafStorm
 
-venipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+venipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 venipede = Pkmn.venipede 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33053,7 +33064,7 @@ venipede = Pkmn.venipede
   learnsAtLevel 40 rockClimb <> 
   learnsAtLevel 43 doubleEdge
 
-whirlipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+whirlipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 whirlipede = Pkmn.whirlipede 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33094,7 +33105,7 @@ whirlipede = Pkmn.whirlipede
   learnsAtLevel 46 rockClimb <> 
   learnsAtLevel 50 doubleEdge
 
-scolipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+scolipede :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 scolipede = Pkmn.scolipede 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33152,7 +33163,7 @@ scolipede = Pkmn.scolipede
   learnsAtLevel 50 rockClimb <> 
   learnsAtLevel 55 doubleEdge
 
-cottonee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cottonee :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cottonee = Pkmn.cottonee 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33205,7 +33216,7 @@ cottonee = Pkmn.cottonee
   learnsAtLevel 44 endeavor <> 
   learnsAtLevel 46 solarBeam
 
-whimsicott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+whimsicott :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 whimsicott = Pkmn.whimsicott 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33255,7 +33266,7 @@ whimsicott = Pkmn.whimsicott
   learnsAtLevel 28 tailwind <> 
   learnsAtLevel 46 hurricane
 
-petilil :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+petilil :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 petilil = Pkmn.petilil 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33308,7 +33319,7 @@ petilil = Pkmn.petilil
   learnsAtLevel 44 afterYou <> 
   learnsAtLevel 46 leafStorm
 
-lilligant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lilligant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lilligant = Pkmn.lilligant 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33354,7 +33365,7 @@ lilligant = Pkmn.lilligant
   learnsAtLevel 28 quiverDance <> 
   learnsAtLevel 46 petalDance
 
-basculinRedStriped :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+basculinRedStriped :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 basculinRedStriped = Pkmn.basculinRedStriped 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33412,7 +33423,7 @@ basculinRedStriped = Pkmn.basculinRedStriped
   learnsAtLevel 51 finalGambit <> 
   learnsAtLevel 56 thrash
 
-sandile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sandile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sandile = Pkmn.sandile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33478,7 +33489,7 @@ sandile = Pkmn.sandile
   learnsAtLevel 43 earthquake <> 
   learnsAtLevel 46 thrash
 
-krokorok :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+krokorok :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 krokorok = Pkmn.krokorok 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33544,7 +33555,7 @@ krokorok = Pkmn.krokorok
   learnsAtLevel 48 earthquake <> 
   learnsAtLevel 52 thrash
 
-krookodile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+krookodile :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 krookodile = Pkmn.krookodile 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33621,7 +33632,7 @@ krookodile = Pkmn.krookodile
   learnsAtLevel 54 earthquake <> 
   learnsAtLevel 60 outrage
 
-darumaka :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+darumaka :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 darumaka = Pkmn.darumaka 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33684,7 +33695,7 @@ darumaka = Pkmn.darumaka
   learnsAtLevel 39 superpower <> 
   learnsAtLevel 42 overheat
 
-darmanitanStandard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+darmanitanStandard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 darmanitanStandard = Pkmn.darmanitanStandard 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33751,7 +33762,7 @@ darmanitanStandard = Pkmn.darmanitanStandard
   learnsAtLevel 47 superpower <> 
   learnsAtLevel 54 overheat
 
-maractus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+maractus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 maractus = Pkmn.maractus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33807,7 +33818,7 @@ maractus = Pkmn.maractus
   learnsAtLevel 55 cottonGuard <> 
   learnsAtLevel 57 afterYou
 
-dwebble :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+dwebble :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 dwebble = Pkmn.dwebble 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33866,7 +33877,7 @@ dwebble = Pkmn.dwebble
   learnsAtLevel 41 flail <> 
   learnsAtLevel 43 rockWrecker
 
-crustle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+crustle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 crustle = Pkmn.crustle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33920,7 +33931,7 @@ crustle = Pkmn.crustle
   learnsAtLevel 50 flail <> 
   learnsAtLevel 55 rockWrecker
 
-scraggy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+scraggy :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 scraggy = Pkmn.scraggy 
   `differentForms` singleFormOnly
   `moveSet`
@@ -33999,7 +34010,7 @@ scraggy = Pkmn.scraggy
   learnsAtLevel 49 focusPunch <> 
   learnsAtLevel 53 headSmash
 
-scrafty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+scrafty :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 scrafty = Pkmn.scrafty 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34077,7 +34088,7 @@ scrafty = Pkmn.scrafty
   learnsAtLevel 58 focusPunch <> 
   learnsAtLevel 65 headSmash
 
-sigilyph :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+sigilyph :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 sigilyph = Pkmn.sigilyph 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34149,7 +34160,7 @@ sigilyph = Pkmn.sigilyph
   learnsAtLevel 48 cosmicPower <> 
   learnsAtLevel 51 skyAttack
 
-yamask :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+yamask :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 yamask = Pkmn.yamask 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34215,7 +34226,7 @@ yamask = Pkmn.yamask
   learnsAtLevel 45 meanLook <> 
   learnsAtLevel 49 destinyBond
 
-cofagrigus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cofagrigus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cofagrigus = Pkmn.cofagrigus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34278,7 +34289,7 @@ cofagrigus = Pkmn.cofagrigus
   learnsAtLevel 51 meanLook <> 
   learnsAtLevel 57 destinyBond
 
-tirtouga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tirtouga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tirtouga = Pkmn.tirtouga 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34342,7 +34353,7 @@ tirtouga = Pkmn.tirtouga
   learnsAtLevel 48 rainDance <> 
   learnsAtLevel 51 hydroPump
 
-carracosta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+carracosta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 carracosta = Pkmn.carracosta 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34405,7 +34416,7 @@ carracosta = Pkmn.carracosta
   learnsAtLevel 56 rainDance <> 
   learnsAtLevel 61 hydroPump
 
-archen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+archen :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 archen = Pkmn.archen 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34473,7 +34484,7 @@ archen = Pkmn.archen
   learnsAtLevel 48 dragonClaw <> 
   learnsAtLevel 51 thrash
 
-archeops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+archeops :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 archeops = Pkmn.archeops 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34543,7 +34554,7 @@ archeops = Pkmn.archeops
   learnsAtLevel 56 dragonClaw <> 
   learnsAtLevel 61 thrash
 
-trubbish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+trubbish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 trubbish = Pkmn.trubbish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34597,7 +34608,7 @@ trubbish = Pkmn.trubbish
   learnsAtLevel 45 gunkShot <> 
   learnsAtLevel 47 explosion
 
-garbodor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+garbodor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 garbodor = Pkmn.garbodor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34652,7 +34663,7 @@ garbodor = Pkmn.garbodor
   learnsAtLevel 54 gunkShot <> 
   learnsAtLevel 59 explosion
 
-zorua :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zorua :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zorua = Pkmn.zorua 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34721,7 +34732,7 @@ zorua = Pkmn.zorua
   learnsAtLevel 53 imprison <> 
   learnsAtLevel 57 nightDaze
 
-zoroark :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zoroark :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zoroark = Pkmn.zoroark 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34792,7 +34803,7 @@ zoroark = Pkmn.zoroark
   learnsAtLevel 59 imprison <> 
   learnsAtLevel 64 nightDaze
 
-minccino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+minccino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 minccino = Pkmn.minccino 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34853,7 +34864,7 @@ minccino = Pkmn.minccino
   learnsAtLevel 45 lastResort <> 
   learnsAtLevel 49 afterYou
 
-cinccino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cinccino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cinccino = Pkmn.cinccino 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34907,7 +34918,7 @@ cinccino = Pkmn.cinccino
   learnsAtLevel 1 tickle <> 
   learnsAtLevel 1 sing
 
-gothita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gothita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gothita = Pkmn.gothita 
   `differentForms` singleFormOnly
   `moveSet`
@@ -34983,7 +34994,7 @@ gothita = Pkmn.gothita
   learnsAtLevel 46 charm <> 
   learnsAtLevel 48 magicRoom
 
-gothorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gothorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gothorita = Pkmn.gothorita 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35054,7 +35065,7 @@ gothorita = Pkmn.gothorita
   learnsAtLevel 50 charm <> 
   learnsAtLevel 53 magicRoom
 
-gothitelle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+gothitelle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 gothitelle = Pkmn.gothitelle 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35129,7 +35140,7 @@ gothitelle = Pkmn.gothitelle
   learnsAtLevel 54 charm <> 
   learnsAtLevel 59 magicRoom
 
-solosis :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+solosis :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 solosis = Pkmn.solosis 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35194,7 +35205,7 @@ solosis = Pkmn.solosis
   learnsAtLevel 46 healBlock <> 
   learnsAtLevel 48 wonderRoom
 
-duosion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+duosion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 duosion = Pkmn.duosion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35253,7 +35264,7 @@ duosion = Pkmn.duosion
   learnsAtLevel 50 healBlock <> 
   learnsAtLevel 53 wonderRoom
 
-reuniclus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+reuniclus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 reuniclus = Pkmn.reuniclus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35327,7 +35338,7 @@ reuniclus = Pkmn.reuniclus
   learnsAtLevel 54 healBlock <> 
   learnsAtLevel 59 wonderRoom
 
-ducklett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ducklett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ducklett = Pkmn.ducklett 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35378,7 +35389,7 @@ ducklett = Pkmn.ducklett
   learnsAtLevel 41 braveBird <> 
   learnsAtLevel 46 hurricane
 
-swanna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+swanna :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 swanna = Pkmn.swanna 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35425,7 +35436,7 @@ swanna = Pkmn.swanna
   learnsAtLevel 47 braveBird <> 
   learnsAtLevel 55 hurricane
 
-vanillite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vanillite :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vanillite = Pkmn.vanillite 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35474,7 +35485,7 @@ vanillite = Pkmn.vanillite
   learnsAtLevel 49 blizzard <> 
   learnsAtLevel 53 sheerCold
 
-vanillish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vanillish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vanillish = Pkmn.vanillish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35517,7 +35528,7 @@ vanillish = Pkmn.vanillish
   learnsAtLevel 53 blizzard <> 
   learnsAtLevel 58 sheerCold
 
-vanilluxe :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vanilluxe :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vanilluxe = Pkmn.vanilluxe 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35563,7 +35574,7 @@ vanilluxe = Pkmn.vanilluxe
   learnsAtLevel 59 blizzard <> 
   learnsAtLevel 67 sheerCold
 
-emolga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+emolga :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 emolga = Pkmn.emolga 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35621,7 +35632,7 @@ emolga = Pkmn.emolga
   learnsAtLevel 46 agility <> 
   learnsAtLevel 50 discharge
 
-karrablast :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+karrablast :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 karrablast = Pkmn.karrablast 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35671,7 +35682,7 @@ karrablast = Pkmn.karrablast
   learnsAtLevel 52 swordsDance <> 
   learnsAtLevel 56 doubleEdge
 
-escavalier :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+escavalier :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 escavalier = Pkmn.escavalier 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35717,7 +35728,7 @@ escavalier = Pkmn.escavalier
   learnsAtLevel 52 swordsDance <> 
   learnsAtLevel 56 gigaImpact
 
-foongus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+foongus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 foongus = Pkmn.foongus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35769,7 +35780,7 @@ foongus = Pkmn.foongus
   learnsAtLevel 45 ragePowder <> 
   learnsAtLevel 50 spore
 
-amoonguss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+amoonguss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 amoonguss = Pkmn.amoonguss 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35817,7 +35828,7 @@ amoonguss = Pkmn.amoonguss
   learnsAtLevel 54 ragePowder <> 
   learnsAtLevel 62 spore
 
-frillish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+frillish :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 frillish = Pkmn.frillish 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35881,7 +35892,7 @@ frillish = Pkmn.frillish
   learnsAtLevel 55 wringOut <> 
   learnsAtLevel 61 waterSpout
 
-jellicent :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+jellicent :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 jellicent = Pkmn.jellicent 
   `differentForms` singleFormOnly
   `moveSet`
@@ -35943,7 +35954,7 @@ jellicent = Pkmn.jellicent
   learnsAtLevel 61 wringOut <> 
   learnsAtLevel 69 waterSpout
 
-alomomola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+alomomola :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 alomomola = Pkmn.alomomola 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36001,7 +36012,7 @@ alomomola = Pkmn.alomomola
   learnsAtLevel 57 healingWish <> 
   learnsAtLevel 61 hydroPump
 
-joltik :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+joltik :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 joltik = Pkmn.joltik 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36059,7 +36070,7 @@ joltik = Pkmn.joltik
   learnsAtLevel 45 discharge <> 
   learnsAtLevel 48 bugBuzz
 
-galvantula :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+galvantula :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 galvantula = Pkmn.galvantula 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36113,7 +36124,7 @@ galvantula = Pkmn.galvantula
   learnsAtLevel 54 discharge <> 
   learnsAtLevel 60 bugBuzz
 
-ferroseed :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ferroseed :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ferroseed = Pkmn.ferroseed 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36167,7 +36178,7 @@ ferroseed = Pkmn.ferroseed
   learnsAtLevel 52 flashCannon <> 
   learnsAtLevel 55 explosion
 
-ferrothorn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+ferrothorn :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 ferrothorn = Pkmn.ferrothorn 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36231,7 +36242,7 @@ ferrothorn = Pkmn.ferrothorn
   learnsAtLevel 61 flashCannon <> 
   learnsAtLevel 67 explosion
 
-klink :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+klink :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 klink = Pkmn.klink 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36279,7 +36290,7 @@ klink = Pkmn.klink
   learnsAtLevel 54 zapCannon <> 
   learnsAtLevel 57 hyperBeam
 
-klang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+klang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 klang = Pkmn.klang 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36327,7 +36338,7 @@ klang = Pkmn.klang
   learnsAtLevel 60 zapCannon <> 
   learnsAtLevel 64 hyperBeam
 
-klinklang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+klinklang :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 klinklang = Pkmn.klinklang 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36378,7 +36389,7 @@ klinklang = Pkmn.klinklang
   learnsAtLevel 66 zapCannon <> 
   learnsAtLevel 72 hyperBeam
 
-tynamo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+tynamo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 tynamo = Pkmn.tynamo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36388,7 +36399,7 @@ tynamo = Pkmn.tynamo
   learnsAtLevel 1 spark <> 
   learnsAtLevel 1 chargeBeam
 
-eelektrik :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+eelektrik :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 eelektrik = Pkmn.eelektrik 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36438,7 +36449,7 @@ eelektrik = Pkmn.eelektrik
   learnsAtLevel 69 zapCannon <> 
   learnsAtLevel 74 thrash
 
-eelektross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+eelektross :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 eelektross = Pkmn.eelektross 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36502,7 +36513,7 @@ eelektross = Pkmn.eelektross
   learnsAtLevel 1 acid <> 
   learnsAtLevel 1 headbutt
 
-elgyem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+elgyem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 elgyem = Pkmn.elgyem 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36577,7 +36588,7 @@ elgyem = Pkmn.elgyem
   learnsAtLevel 53 synchronoise <> 
   learnsAtLevel 56 wonderRoom
 
-beheeyem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+beheeyem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 beheeyem = Pkmn.beheeyem 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36647,7 +36658,7 @@ beheeyem = Pkmn.beheeyem
   learnsAtLevel 63 synchronoise <> 
   learnsAtLevel 68 wonderRoom
 
-litwick :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+litwick :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 litwick = Pkmn.litwick 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36712,7 +36723,7 @@ litwick = Pkmn.litwick
   learnsAtLevel 55 painSplit <> 
   learnsAtLevel 61 overheat
 
-lampent :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+lampent :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 lampent = Pkmn.lampent 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36771,7 +36782,7 @@ lampent = Pkmn.lampent
   learnsAtLevel 61 painSplit <> 
   learnsAtLevel 69 overheat
 
-chandelure :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+chandelure :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 chandelure = Pkmn.chandelure 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36823,7 +36834,7 @@ chandelure = Pkmn.chandelure
   learnsAtLevel 1 hex <> 
   learnsAtLevel 1 confuseRay
 
-axew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+axew :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 axew = Pkmn.axew 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36885,7 +36896,7 @@ axew = Pkmn.axew
   learnsAtLevel 56 outrage <> 
   learnsAtLevel 61 gigaImpact
 
-fraxure :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+fraxure :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 fraxure = Pkmn.fraxure 
   `differentForms` singleFormOnly
   `moveSet`
@@ -36943,7 +36954,7 @@ fraxure = Pkmn.fraxure
   learnsAtLevel 60 outrage <> 
   learnsAtLevel 66 gigaImpact
 
-haxorus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+haxorus :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 haxorus = Pkmn.haxorus 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37009,7 +37020,7 @@ haxorus = Pkmn.haxorus
   learnsAtLevel 66 outrage <> 
   learnsAtLevel 74 gigaImpact
 
-cubchoo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cubchoo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cubchoo = Pkmn.cubchoo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37067,7 +37078,7 @@ cubchoo = Pkmn.cubchoo
   learnsAtLevel 53 thrash <> 
   learnsAtLevel 57 sheerCold
 
-beartic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+beartic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 beartic = Pkmn.beartic 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37132,7 +37143,7 @@ beartic = Pkmn.beartic
   learnsAtLevel 59 thrash <> 
   learnsAtLevel 66 sheerCold
 
-cryogonal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+cryogonal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 cryogonal = Pkmn.cryogonal 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37182,7 +37193,7 @@ cryogonal = Pkmn.cryogonal
   learnsAtLevel 57 nightSlash <> 
   learnsAtLevel 61 sheerCold
 
-shelmet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+shelmet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 shelmet = Pkmn.shelmet 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37232,7 +37243,7 @@ shelmet = Pkmn.shelmet
   learnsAtLevel 52 guardSwap <> 
   learnsAtLevel 56 finalGambit
 
-accelgor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+accelgor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 accelgor = Pkmn.accelgor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37277,7 +37288,7 @@ accelgor = Pkmn.accelgor
   learnsAtLevel 52 powerSwap <> 
   learnsAtLevel 56 finalGambit
 
-stunfisk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+stunfisk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 stunfisk = Pkmn.stunfisk 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37342,7 +37353,7 @@ stunfisk = Pkmn.stunfisk
   learnsAtLevel 55 flail <> 
   learnsAtLevel 61 fissure
 
-mienfoo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mienfoo :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mienfoo = Pkmn.mienfoo 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37412,7 +37423,7 @@ mienfoo = Pkmn.mienfoo
   learnsAtLevel 57 reversal <> 
   learnsAtLevel 61 auraSphere
 
-mienshao :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mienshao :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mienshao = Pkmn.mienshao 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37478,7 +37489,7 @@ mienshao = Pkmn.mienshao
   learnsAtLevel 63 reversal <> 
   learnsAtLevel 70 auraSphere
 
-druddigon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+druddigon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 druddigon = Pkmn.druddigon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37563,7 +37574,7 @@ druddigon = Pkmn.druddigon
   learnsAtLevel 55 superpower <> 
   learnsAtLevel 62 outrage
 
-golett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+golett :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 golett = Pkmn.golett 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37629,7 +37640,7 @@ golett = Pkmn.golett
   learnsAtLevel 50 hammerArm <> 
   learnsAtLevel 55 focusPunch
 
-golurk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+golurk :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 golurk = Pkmn.golurk 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37705,7 +37716,7 @@ golurk = Pkmn.golurk
   learnsAtLevel 60 hammerArm <> 
   learnsAtLevel 70 focusPunch
 
-pawniard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+pawniard :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 pawniard = Pkmn.pawniard 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37779,7 +37790,7 @@ pawniard = Pkmn.pawniard
   learnsAtLevel 57 swordsDance <> 
   learnsAtLevel 62 guillotine
 
-bisharp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bisharp :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bisharp = Pkmn.bisharp 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37852,7 +37863,7 @@ bisharp = Pkmn.bisharp
   learnsAtLevel 63 swordsDance <> 
   learnsAtLevel 71 guillotine
 
-bouffalant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+bouffalant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 bouffalant = Pkmn.bouffalant 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37916,7 +37927,7 @@ bouffalant = Pkmn.bouffalant
   learnsAtLevel 56 swordsDance <> 
   learnsAtLevel 61 gigaImpact
 
-rufflet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+rufflet :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 rufflet = Pkmn.rufflet 
   `differentForms` singleFormOnly
   `moveSet`
@@ -37968,7 +37979,7 @@ rufflet = Pkmn.rufflet
   learnsAtLevel 59 braveBird <> 
   learnsAtLevel 64 thrash
 
-braviary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+braviary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 braviary = Pkmn.braviary 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38023,7 +38034,7 @@ braviary = Pkmn.braviary
   learnsAtLevel 63 braveBird <> 
   learnsAtLevel 70 thrash
 
-vullaby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+vullaby :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 vullaby = Pkmn.vullaby 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38086,7 +38097,7 @@ vullaby = Pkmn.vullaby
   learnsAtLevel 59 braveBird <> 
   learnsAtLevel 64 mirrorMove
 
-mandibuzz :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+mandibuzz :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 mandibuzz = Pkmn.mandibuzz 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38149,7 +38160,7 @@ mandibuzz = Pkmn.mandibuzz
   learnsAtLevel 63 braveBird <> 
   learnsAtLevel 70 mirrorMove
 
-heatmor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+heatmor :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 heatmor = Pkmn.heatmor 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38218,7 +38229,7 @@ heatmor = Pkmn.heatmor
   learnsAtLevel 56 stockpile <> 
   learnsAtLevel 61 inferno
 
-durant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+durant :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 durant = Pkmn.durant 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38277,7 +38288,7 @@ durant = Pkmn.durant
   learnsAtLevel 61 guillotine <> 
   learnsAtLevel 66 metalSound
 
-deino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+deino :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 deino = Pkmn.deino 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38339,7 +38350,7 @@ deino = Pkmn.deino
   learnsAtLevel 58 hyperVoice <> 
   learnsAtLevel 62 outrage
 
-zweilous :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+zweilous :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 zweilous = Pkmn.zweilous 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38393,7 +38404,7 @@ zweilous = Pkmn.zweilous
   learnsAtLevel 64 hyperVoice <> 
   learnsAtLevel 71 outrage
 
-hydreigon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+hydreigon :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 hydreigon = Pkmn.hydreigon 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38471,7 +38482,7 @@ hydreigon = Pkmn.hydreigon
   learnsAtLevel 68 hyperVoice <> 
   learnsAtLevel 79 outrage
 
-larvesta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+larvesta :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 larvesta = Pkmn.larvesta 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38525,7 +38536,7 @@ larvesta = Pkmn.larvesta
   learnsAtLevel 90 thrash <> 
   learnsAtLevel 100 flareBlitz
 
-volcarona :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p) => p Pokemon
+volcarona :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p) => p Pokemon
 volcarona = Pkmn.volcarona 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38584,7 +38595,7 @@ volcarona = Pkmn.volcarona
   learnsAtLevel 90 hurricane <> 
   learnsAtLevel 100 fieryDance
 
-cobalion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+cobalion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 cobalion = Pkmn.cobalion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38646,7 +38657,7 @@ cobalion = Pkmn.cobalion
   learnsAtLevel 67 metalBurst <> 
   learnsAtLevel 73 closeCombat
 
-terrakion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+terrakion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 terrakion = Pkmn.terrakion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38705,7 +38716,7 @@ terrakion = Pkmn.terrakion
   learnsAtLevel 67 stoneEdge <> 
   learnsAtLevel 73 closeCombat
 
-virizion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+virizion :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 virizion = Pkmn.virizion 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38766,7 +38777,7 @@ virizion = Pkmn.virizion
   learnsAtLevel 67 leafBlade <> 
   learnsAtLevel 73 closeCombat
 
-tornadusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+tornadusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 tornadusIncarnate = Pkmn.tornadusIncarnate 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38832,7 +38843,7 @@ tornadusIncarnate = Pkmn.tornadusIncarnate
   learnsAtLevel 79 hammerArm <> 
   learnsAtLevel 85 thrash
 
-thundurusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+thundurusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 thundurusIncarnate = Pkmn.thundurusIncarnate 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38902,7 +38913,7 @@ thundurusIncarnate = Pkmn.thundurusIncarnate
   learnsAtLevel 79 hammerArm <> 
   learnsAtLevel 85 thrash
 
-reshiram :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+reshiram :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 reshiram = Pkmn.reshiram 
   `differentForms` singleFormOnly
   `moveSet`
@@ -38969,7 +38980,7 @@ reshiram = Pkmn.reshiram
   learnsAtLevel 92 hyperVoice <> 
   learnsAtLevel 100 blueFlare
 
-zekrom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+zekrom :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 zekrom = Pkmn.zekrom 
   `differentForms` singleFormOnly
   `moveSet`
@@ -39038,7 +39049,7 @@ zekrom = Pkmn.zekrom
   learnsAtLevel 92 hyperVoice <> 
   learnsAtLevel 100 boltStrike
 
-landorusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+landorusIncarnate :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 landorusIncarnate = Pkmn.landorusIncarnate 
   `differentForms` singleFormOnly
   `moveSet`
@@ -39100,7 +39111,7 @@ landorusIncarnate = Pkmn.landorusIncarnate
   learnsAtLevel 79 hammerArm <> 
   learnsAtLevel 85 outrage
 
-kyurem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+kyurem :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 kyurem = Pkmn.kyurem 
   `differentForms` singleFormOnly
   `moveSet`
@@ -39164,7 +39175,7 @@ kyurem = Pkmn.kyurem
   learnsAtLevel 85 outrage <> 
   learnsAtLevel 92 hyperVoice
 
-keldeoOrdinary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+keldeoOrdinary :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 keldeoOrdinary = Pkmn.keldeoOrdinary 
   `differentForms` singleFormOnly
   `moveSet`
@@ -39224,7 +39235,7 @@ keldeoOrdinary = Pkmn.keldeoOrdinary
   learnsAtLevel 67 hydroPump <> 
   learnsAtLevel 73 closeCombat
 
-meloettaAria :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+meloettaAria :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 meloettaAria = Pkmn.meloettaAria 
   `differentForms` singleFormOnly
   `moveSet`
@@ -39312,7 +39323,7 @@ meloettaAria = Pkmn.meloettaAria
   learnsAtLevel 78 closeCombat <> 
   learnsAtLevel 85 perishSong
 
-genesect :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilityOp p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
+genesect :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,MoveSYM p,LearnSetSYM p,LegendarySYM p) => p Pokemon
 genesect = Pkmn.genesect 
   `differentForms` singleFormOnly
   `moveSet`
