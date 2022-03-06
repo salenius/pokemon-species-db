@@ -1,7 +1,8 @@
-module GenIV.Pokemon where
+module GenIV.Pokemon (module GenIV.Pokemon, module GenIII.Pokemon) where
 
 import GenIV.Ability
 import GenIII.Attribute
+import GenIII.Pokemon
 import Prelude hiding ((||), filter)
 
 turtwig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
