@@ -1,6 +1,6 @@
-module GenV.Attribute (module GenV.Attribute, module GenIV.Attribute) where
+module GenV.Attribute (module GenV.Attribute, module GenIII.Attribute) where
 
-import GenIV.Attribute
+import GenIII.Attribute
 import GenV.Ability
 
 class HiddenAbilitySYM repr where
