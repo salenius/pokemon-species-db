@@ -2,6 +2,8 @@ module GenV.Pokemon (module GenV.Pokemon, module GenIV.Pokemon) where
 
 import GenIV.Pokemon
 import GenV.Attribute
+import GenV.Ability
+import Prelude hiding ((||), filter)
 
 victini :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,LegendarySYM p) => p AbilityOp
 victini =
@@ -1065,7 +1067,6 @@ cottonee =
   pokemonNr 546 
   `name` "Cottonee"
   `type1` grass
-  `type2` fairy
   `hp` 40
   `attack` 27
   `defence` 60
@@ -1086,7 +1087,6 @@ whimsicott =
   pokemonNr 547 
   `name` "Whimsicott"
   `type1` grass
-  `type2` fairy
   `hp` 60
   `attack` 67
   `defence` 85
@@ -1645,7 +1645,7 @@ gothita =
   `baseExperience` 58
   `baseHappiness` 50
   `genderRatio` female75pct
-  `possibleAbility` frisk || competitive
+  `possibleAbility` frisk
   `hiddenAbility` shadowTag
 
 gothorita :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,HiddenAbilitySYM p) => p AbilityOp
@@ -1665,7 +1665,7 @@ gothorita =
   `baseExperience` 137
   `baseHappiness` 50
   `genderRatio` female75pct
-  `possibleAbility` frisk || competitive
+  `possibleAbility` frisk
   `hiddenAbility` shadowTag
 
 gothitelle :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,HiddenAbilitySYM p) => p AbilityOp
@@ -1685,7 +1685,7 @@ gothitelle =
   `baseExperience` 245
   `baseHappiness` 50
   `genderRatio` female75pct
-  `possibleAbility` frisk || competitive
+  `possibleAbility` frisk
   `hiddenAbility` shadowTag
 
 solosis :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,HiddenAbilitySYM p) => p AbilityOp
@@ -2396,7 +2396,7 @@ cubchoo =
   `baseExperience` 61
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` snowCloak || slushRush
+  `possibleAbility` snowCloak
   `hiddenAbility` rattled
 
 beartic :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p,HiddenAbilitySYM p) => p AbilityOp
@@ -2416,7 +2416,7 @@ beartic =
   `baseExperience` 177
   `baseHappiness` 50
   `genderRatio` male50pct
-  `possibleAbility` snowCloak || slushRush
+  `possibleAbility` snowCloak
   `hiddenAbility` swiftSwim
 
 cryogonal :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
