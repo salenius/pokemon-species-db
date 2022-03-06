@@ -2,6 +2,7 @@ module GenIV.Pokemon where
 
 import GenIV.Ability
 import GenIII.Attribute
+import Prelude hiding ((||), filter)
 
 turtwig :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityOp
 turtwig =
@@ -923,7 +924,6 @@ mimeJr =
   pokemonNr 439 
   `name` "Mime-jr"
   `type1` psychic
-  `type2` fairy
   `hp` 20
   `attack` 25
   `defence` 45
@@ -1490,7 +1490,7 @@ togekiss :: (PokemonSYM p,TypeSYM p,GenderRatioSYM p,AbilitySYM p) => p AbilityO
 togekiss =
   pokemonNr 468 
   `name` "Togekiss"
-  `type1` fairy
+  `type1` normal
   `type2` flying
   `hp` 85
   `attack` 50
